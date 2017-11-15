@@ -1,0 +1,28 @@
+.barbox {
+    position: relative;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(#999, 0.3);
+    background-color: #fff;
+}
+
+.toolbtn {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+
+    &:hover {
+        background-color: #999;
+    }
+
+    &.active {
+        color: #1e88e5;
+    }
+}

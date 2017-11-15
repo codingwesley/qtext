@@ -12,7 +12,13 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <QText />
+        <div
+          style={{
+            margin: "20px 100px"
+          }}
+        >
+          <QText />
+        </div>
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
