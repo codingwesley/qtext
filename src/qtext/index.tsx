@@ -19,12 +19,23 @@ interface QTextState {
 }
 
 function getBlockStyle(block: ContentBlock) {
-  switch (block.getType()) {
+  const type: string = block.getType();
+
+  switch (type) {
     case "blockquote":
       return styles.blockquote;
+
+    case "center":
+    case "right":
+      return styles[type];
     default:
       return "";
   }
+}
+
+function getBlockRender(block: ContentBlock) {
+  const type: string = block.getType();
+  return type;
 }
 
 // https://www.froala.com/wysiwyg-editor
@@ -35,7 +46,6 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   onChange: (editorState: EditorState) => void = editorState => {
-    // console.log(convertToRaw(editorState.getCurrentContent()));
     this.setState({ editorState }, () => {
       if (this.props.onChange) {
         this.props.onChange(editorState);
@@ -80,6 +90,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
         )}
         <div className={styles.content}>
           <Editor
+            blockRendererFn={getBlockRender}
             blockStyleFn={getBlockStyle}
             placeholder={placeholder}
             readOnly={readOnly}

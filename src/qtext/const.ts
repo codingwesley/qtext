@@ -35,6 +35,27 @@ export const STYLE_LIST: TStyleItem[] = [
     icon: "list-ol"
   },
   {
+    label: "left",
+    style: "left",
+    desc: "向左对齐",
+    isBlock: true,
+    icon: "align-left"
+  },
+  {
+    label: "center",
+    style: "center",
+    desc: "居中对齐",
+    isBlock: true,
+    icon: "align-center"
+  },
+  {
+    label: "right",
+    style: "right",
+    desc: "向右对齐",
+    isBlock: true,
+    icon: "align-right"
+  },
+  {
     label: "Code Block",
     style: "code-block",
     desc: "代码块",

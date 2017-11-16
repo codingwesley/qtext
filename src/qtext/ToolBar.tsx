@@ -64,14 +64,16 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
             .getCurrentContent()
             .getBlockForKey(selection.getStartKey())
             .getType();
-          const style = item.isBlock ? blockType : currentStyle;
+          const active = item.isBlock
+            ? blockType === item.style
+            : currentStyle.has(item.style);
 
           return (
             <ToolBtn
               key={item.style}
               item={item}
               onToggle={this.onToggle}
-              active={style === item.style}
+              active={active}
             />
           );
         })}
@@ -79,47 +81,57 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
     );
   }
 
-  _renderUndoBtn() {
-    const { editorState, changeEditState } = this.props;
-
+  renderActionBtn(
+    label: string,
+    icon: string,
+    desc: string,
+    style: string,
+    disabled: boolean,
+    onToggle: () => void,
+    isBlock: boolean = false
+  ) {
     return (
       <ToolBtn
-        key="undo"
+        key={label}
         item={{
-          icon: "undo",
-          label: "撤销",
-          desc: "撤销",
-          isBlock: false,
-          style: "undo"
+          icon,
+          label,
+          desc,
+          isBlock,
+          style
         }}
-        disabled={editorState.getUndoStack().isEmpty()}
+        disabled={disabled}
         active={false}
-        onToggle={function() {
-          changeEditState(EditorState.undo(editorState));
-        }}
+        onToggle={onToggle}
       />
+    );
+  }
+
+  _renderUndoBtn() {
+    const { editorState, changeEditState } = this.props;
+    return this.renderActionBtn(
+      "撤销",
+      "undo",
+      "撤销",
+      "undo",
+      editorState.getUndoStack().isEmpty(),
+      function() {
+        changeEditState(EditorState.undo(editorState));
+      }
     );
   }
 
   _renderRedoBtn() {
     const { editorState, changeEditState } = this.props;
-
-    return (
-      <ToolBtn
-        key="redo"
-        item={{
-          icon: "repeat",
-          label: "重做",
-          desc: "重做",
-          isBlock: false,
-          style: "redo"
-        }}
-        disabled={editorState.getRedoStack().isEmpty()}
-        active={false}
-        onToggle={function() {
-          changeEditState(EditorState.redo(editorState));
-        }}
-      />
+    return this.renderActionBtn(
+      "重做",
+      "repeat",
+      "重做",
+      "undo",
+      editorState.getRedoStack().isEmpty(),
+      function() {
+        changeEditState(EditorState.redo(editorState));
+      }
     );
   }
 }
