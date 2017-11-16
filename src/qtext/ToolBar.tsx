@@ -54,6 +54,9 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
     const { editorState } = this.props;
     return (
       <div className={styles.barbox}>
+        {this._renderUndoBtn()}
+        {this._renderRedoBtn()}
+
         {STYLE_LIST.map(item => {
           const currentStyle = editorState.getCurrentInlineStyle();
           const selection = editorState.getSelection();
@@ -72,9 +75,6 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
             />
           );
         })}
-
-        {this._renderUndoBtn()}
-        {this._renderRedoBtn()}
       </div>
     );
   }

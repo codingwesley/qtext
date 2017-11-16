@@ -11,7 +11,7 @@
   border: 0;
   outline: none;
   box-shadow: none;
-  background-color: none;
+  background-color: #fff;
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -23,8 +23,12 @@
   }
 
   &:disabled {
-      opacity: 0.5;
-      color: #999;
+    opacity: 0.5;
+    color: #999;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #fff;
+    }
   }
 
   &.active {
@@ -38,7 +42,8 @@
     width: 20px;
     height: 20px;
     vertical-align: middle;
-    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVEhL7ZRLSgNREEVbHYmgq3As/hBRQcRtiAPRDbgDB0b8i4jgNgTFsQMHrsG9eE/Xa3l5VJIKdHDSBw651C0IVLpTdXT8J6fJQdylz2FEdvqYll9JsseHnLXoQsfOWOzImyTZ416uWHShY2csHuVGkuxxIg8sutCxE6Y581Ry0Lm3ZM+iCx07YXbllcUaMrOSBflq0YWOnTBPct1iDZmZx2f6BK6SXybvRjIjOW0JM7qSdzlnsTpLAjO6MHvywmIfzOhKbuWabJ6L5nlgRhfmWfLS8zTmMqMrOZKHclvyRUhmRheCU37L8ksb6cpzb8pL+SCb14/MjC7Evjy36ELHTs68fJOcOH/9mNGFeJHLFl3o2Cn5kdcWa8jMwnCiUXg7vOdLFmvI+f9Axx+rcthvW9La/mIySmv7PPbhR1+0tt+c4njCuaNjklTVL25rQCmDzf0eAAAAAElFTkSuQmCC") no-repeat center;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVEhL7ZRLSgNREEVbHYmgq3As/hBRQcRtiAPRDbgDB0b8i4jgNgTFsQMHrsG9eE/Xa3l5VJIKdHDSBw651C0IVLpTdXT8J6fJQdylz2FEdvqYll9JsseHnLXoQsfOWOzImyTZ416uWHShY2csHuVGkuxxIg8sutCxE6Y581Ry0Lm3ZM+iCx07YXbllcUaMrOSBflq0YWOnTBPct1iDZmZx2f6BK6SXybvRjIjOW0JM7qSdzlnsTpLAjO6MHvywmIfzOhKbuWabJ6L5nlgRhfmWfLS8zTmMqMrOZKHclvyRUhmRheCU37L8ksb6cpzb8pL+SCb14/MjC7Evjy36ELHTs68fJOcOH/9mNGFeJHLFl3o2Cn5kdcWa8jMwnCiUXg7vOdLFmvI+f9Axx+rcthvW9La/mIySmv7PPbhR1+0tt+c4njCuaNjklTVL25rQCmDzf0eAAAAAElFTkSuQmCC")
+      no-repeat center;
     background-size: 100% auto;
   }
 }
