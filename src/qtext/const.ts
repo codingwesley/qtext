@@ -76,13 +76,6 @@ export const STYLE_LIST: TStyleItem[] = [
     desc: "下划线",
     isBlock: false,
     icon: "underline"
-  },
-  {
-    label: "Monospace",
-    style: "CODE",
-    desc: "等宽字文本",
-    isBlock: false,
-    icon: "fw"
   }
 ];
 
@@ -131,11 +124,50 @@ export const fontSizeStyleMap = (() => {
 })();
 
 export const fontFamilyStyleMap = {
+  "Roboto-Regular": {
+    fontFamily: "Roboto-Regular"
+  },
+  "Roboto-Light": {
+    fontFamily: "Roboto-Light"
+  },
+  "Roboto-LightItalic": {
+    fontFamily: "Roboto-LightItalic"
+  },
+  "Roboto-Bold": {
+    fontFamily: "Roboto-Bold"
+  },
+  "Roboto-BoldItalic": {
+    fontFamily: "Roboto-BoldItalic"
+  },
+  "Roboto-Medium": {
+    fontFamily: "Roboto-Medium"
+  },
+  "Roboto-MediumItalic": {
+    fontFamily: "Roboto-MediumItalic"
+  },
+  "Roboto-Thin": {
+    fontFamily: "Roboto-Thin"
+  },
+  "Roboto-ThinItalic": {
+    fontFamily: "Roboto-ThinItalic"
+  },
+  "Roboto-Black": {
+    fontFamily: "Roboto-Black"
+  },
+  "Roboto-BlackItalic": {
+    fontFamily: "Roboto-BlackItalic"
+  },
+  "Roboto-Italic": {
+    fontFamily: "Roboto-Italic"
+  },
   Arial: {
     fontFamily: "Arial,Helvetica,sans-serif"
   },
   Georgia: {
     fontFamily: "Georgia"
+  },
+  Monospace: {
+    fontFamily: "monospace"
   },
   Impact: {
     fontFamily: "Impact,Charcoal,sans-serif"
@@ -143,7 +175,7 @@ export const fontFamilyStyleMap = {
   Tahoma: {
     fontFamily: "Tahoma,Geneva,sans-serif"
   },
-  "TimesNewRoman": {
+  TimesNewRoman: {
     fontFamily: "Times New Roman,Times,serif,-webkit-standard"
   },
   Verdana: {

@@ -203,7 +203,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
         data={fontFamilyStyleMap}
         icon="font"
         label="字体设置"
-        width={140}
+        width={160}
         onToggle={function(style: string) {
           togglePrp(fontFamilyStyleMap, style);
         }}

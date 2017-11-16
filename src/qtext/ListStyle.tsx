@@ -80,32 +80,32 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
         >
           {icon ? <i className={`fa fa-${icon}`} /> : <span>{label}</span>}
         </button>
-        <div
-          style={{
-            width
-          }}
-          className={classnames(styles.listModal, {
-            [styles.activeList]: this.state.visible
-          })}
-        >
-          {Object.keys(data).map(prp => {
-            const style = data[prp];
+        {!this.state.visible ? null : (
+          <div
+            style={{
+              width
+            }}
+            className={classnames(styles.listModal, styles.activeList)}
+          >
+            {Object.keys(data).map(prp => {
+              const style = data[prp];
 
-            return (
-              <div
-                key={prp}
-                onClick={() => {
-                  this.onToggle(prp);
-                  this.modalShow();
-                }}
-                style={style}
-                className={styles.item}
-              >
-                {prp}
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div
+                  key={prp}
+                  onClick={() => {
+                    this.onToggle(prp);
+                    this.modalShow();
+                  }}
+                  style={style}
+                  className={styles.item}
+                >
+                  {prp}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
