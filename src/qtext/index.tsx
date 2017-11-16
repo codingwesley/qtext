@@ -4,6 +4,7 @@ import { fontCssUrl } from "./config";
 import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
+import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
 import { Editor, EditorState, RichUtils, ContentBlock } from "draft-js";
 
 const styles = require("./scss/index.scss");
@@ -90,6 +91,11 @@ export class QText extends React.Component<QTextProps, QTextState> {
         )}
         <div className={styles.content}>
           <Editor
+            customStyleMap={{
+              ...colorStyleMap,
+              ...fontFamilyStyleMap,
+              ...fontSizeStyleMap
+            }}
             blockRendererFn={getBlockRender}
             blockStyleFn={getBlockStyle}
             placeholder={placeholder}

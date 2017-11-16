@@ -143,7 +143,7 @@ export const fontFamilyStyleMap = {
   Tahoma: {
     fontFamily: "Tahoma,Geneva,sans-serif"
   },
-  "Times New Roman": {
+  "TimesNewRoman": {
     fontFamily: "Times New Roman,Times,serif,-webkit-standard"
   },
   Verdana: {

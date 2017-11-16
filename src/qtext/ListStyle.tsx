@@ -1,4 +1,6 @@
 import * as React from "react";
+import { findDOMNode } from "react-dom";
+import contains from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 import { CSSProperties } from "react/index";
 
@@ -6,6 +8,7 @@ interface ListStyleProps {
   data: { [key: string]: CSSProperties };
   icon: string;
   label: string;
+  value?: string;
   width: number;
   onToggle: (style: string) => void;
 }
@@ -24,6 +27,16 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
       visible: false
     };
   }
+
+  documentCancelFunc: (e: any) => void = e => {
+    const root = findDOMNode(this);
+    if (!contains(root, e.target)) {
+      this.setState({
+        visible: false
+      });
+    }
+  };
+
   onToggle = (style: string) => {
     this.props.onToggle(style);
   };
@@ -34,6 +47,26 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
       visible: flag
     });
   };
+
+  initClickEvents() {
+    document.addEventListener("click", this.documentCancelFunc);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.documentCancelFunc);
+  }
+
+  componentWillReceiveProps(nextProps: ListStyleProps) {
+    if (nextProps.value && this.state.value !== nextProps.value) {
+      this.setState({
+        value: nextProps.value
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.initClickEvents();
+  }
 
   render(): JSX.Element {
     const { icon, label, width, data } = this.props;

@@ -1,6 +1,7 @@
 import * as React from "react";
-import { EditorState } from "draft-js";
+import { EditorState, Modifier, RichUtils } from "draft-js";
 import * as classnames from "classnames";
+import { CSSProperties } from "react/index";
 import { ListStyle } from "./ListStyle";
 import {
   STYLE_LIST,
@@ -145,37 +146,82 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
     );
   }
 
+  togglePrp = (data: { [key: string]: CSSProperties }, style: string) => {
+    const { editorState, changeEditState } = this.props;
+    const selection = editorState.getSelection();
+
+    // Let's just allow one color at a time. Turn off all active colors.
+    const nextContentState = Object.keys(data).reduce((contentState, type) => {
+      return Modifier.removeInlineStyle(contentState, selection, type);
+    }, editorState.getCurrentContent());
+
+    let nextEditorState: EditorState = EditorState.push(
+      editorState,
+      nextContentState,
+      "change-inline-style"
+    );
+
+    const currentStyle = editorState.getCurrentInlineStyle();
+
+    // Unset style override for current color.
+    if (selection.isCollapsed()) {
+      nextEditorState = currentStyle.reduce((state, color) => {
+        if (!state || !color) {
+          return EditorState.createEmpty();
+        }
+        return RichUtils.toggleInlineStyle(state, color);
+      }, nextEditorState);
+    }
+
+    // If the color is being toggled on, apply it.
+    if (!currentStyle.has(style)) {
+      nextEditorState = RichUtils.toggleInlineStyle(nextEditorState, style);
+    }
+
+    changeEditState(nextEditorState);
+  };
+
   _renderColors() {
+    const { togglePrp } = this;
+
     return (
       <ListStyle
         data={colorStyleMap}
         icon="eyedropper"
         label="颜色设置"
         width={100}
-        onToggle={function(style: string) {}}
+        onToggle={function(style: string) {
+          togglePrp(colorStyleMap, style);
+        }}
       />
     );
   }
   _renderFamily() {
+    const { togglePrp } = this;
     return (
       <ListStyle
         data={fontFamilyStyleMap}
         icon="font"
         label="字体设置"
         width={140}
-        onToggle={function(style: string) {}}
+        onToggle={function(style: string) {
+          togglePrp(fontFamilyStyleMap, style);
+        }}
       />
     );
   }
 
   _renderFontSize() {
+    const { togglePrp } = this;
     return (
       <ListStyle
         data={fontSizeStyleMap}
         icon="text-height"
         label="字体大小设置"
         width={100}
-        onToggle={function(style: string) {}}
+        onToggle={function(style: string) {
+          togglePrp(fontSizeStyleMap, style);
+        }}
       />
     );
   }

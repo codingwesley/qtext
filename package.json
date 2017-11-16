@@ -22,6 +22,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
+    "rc-util": "^4.3.0",
     "react": "^16.1.1",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.1.1",
