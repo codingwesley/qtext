@@ -9,6 +9,7 @@ interface ToolBtnProps {
   onToggle: (isBlock: boolean, style: string) => void;
   item: TStyleItem;
   active: boolean;
+  disabled?: boolean;
 }
 
 interface ToolBtnState {}
@@ -21,8 +22,10 @@ export class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
 
   public render(): JSX.Element {
     const { label, icon } = this.props.item;
+    const { disabled } = this.props;
     return (
       <button
+        disabled={disabled !== undefined ? disabled : false}
         onMouseDown={this.onToggle}
         className={classnames(styles.toolbtn, {
           [styles.active]: this.props.active
@@ -36,6 +39,7 @@ export class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
 
 interface ToolBarProps {
   editorState: EditorState;
+  changeEditState: (editorState: EditorState) => void;
   onToggle: (isBlock: boolean, style: string) => void;
 }
 
@@ -68,7 +72,54 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
             />
           );
         })}
+
+        {this._renderUndoBtn()}
+        {this._renderRedoBtn()}
       </div>
+    );
+  }
+
+  _renderUndoBtn() {
+    const { editorState, changeEditState } = this.props;
+
+    return (
+      <ToolBtn
+        key="undo"
+        item={{
+          icon: "undo",
+          label: "撤销",
+          desc: "撤销",
+          isBlock: false,
+          style: "undo"
+        }}
+        disabled={editorState.getUndoStack().isEmpty()}
+        active={false}
+        onToggle={function() {
+          changeEditState(EditorState.undo(editorState));
+        }}
+      />
+    );
+  }
+
+  _renderRedoBtn() {
+    const { editorState, changeEditState } = this.props;
+
+    return (
+      <ToolBtn
+        key="redo"
+        item={{
+          icon: "repeat",
+          label: "重做",
+          desc: "重做",
+          isBlock: false,
+          style: "redo"
+        }}
+        disabled={editorState.getRedoStack().isEmpty()}
+        active={false}
+        onToggle={function() {
+          changeEditState(EditorState.redo(editorState));
+        }}
+      />
     );
   }
 }

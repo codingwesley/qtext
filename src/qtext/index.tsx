@@ -42,6 +42,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
       }
     });
   };
+
   constructor(props: QTextProps) {
     super(props);
     this.state = { editorState: EditorState.createEmpty() };
@@ -67,6 +68,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
         {readOnly ? null : (
           <ToolBar
             editorState={editorState}
+            changeEditState={this.onChange}
             onToggle={(isBlock, style) => {
               if (isBlock) {
                 this._toggleBlockType(style);
