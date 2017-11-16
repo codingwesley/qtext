@@ -77,5 +77,76 @@ export const STYLE_LIST: TStyleItem[] = [
     isBlock: false,
     icon: "underline"
   },
-  { label: "Monospace", style: "CODE", desc: "等宽字文本", isBlock: false, icon: "fw" }
+  {
+    label: "Monospace",
+    style: "CODE",
+    desc: "等宽字文本",
+    isBlock: false,
+    icon: "fw"
+  }
 ];
+
+export const colorStyleMap = {
+  black: {
+    color: "#000"
+  },
+  red: {
+    color: "rgba(255, 0, 0, 1.0)"
+  },
+  orange: {
+    color: "rgba(255, 127, 0, 1.0)"
+  },
+  yellow: {
+    color: "rgba(180, 180, 0, 1.0)"
+  },
+  green: {
+    color: "rgba(0, 180, 0, 1.0)"
+  },
+  blue: {
+    color: "rgba(0, 0, 255, 1.0)"
+  },
+  indigo: {
+    color: "rgba(75, 0, 130, 1.0)"
+  },
+  violet: {
+    color: "rgba(127, 0, 255, 1.0)"
+  }
+};
+
+interface TSize {
+  fontSize: number;
+}
+
+export const fontSizeStyleMap = (() => {
+  const list = [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72];
+  const r: { [key: string]: TSize } = {};
+  list.forEach(num => {
+    const key = `${num}`;
+    r[key] = {
+      fontSize: num
+    };
+  });
+
+  return r;
+})();
+
+export const fontFamilyStyleMap = {
+  Arial: {
+    fontFamily: "Arial,Helvetica,sans-serif"
+  },
+  Georgia: {
+    fontFamily: "Georgia"
+  },
+  Impact: {
+    fontFamily: "Impact,Charcoal,sans-serif"
+  },
+  Tahoma: {
+    fontFamily: "Tahoma,Geneva,sans-serif"
+  },
+  "Times New Roman": {
+    fontFamily: "Times New Roman,Times,serif,-webkit-standard"
+  },
+  Verdana: {
+    fontFamily: "Verdana,Geneva,sans-serif"
+  }
+};

@@ -1,7 +1,14 @@
 import * as React from "react";
 import { EditorState } from "draft-js";
 import * as classnames from "classnames";
-import { STYLE_LIST, TStyleItem } from "./const";
+import { ListStyle } from "./ListStyle";
+import {
+  STYLE_LIST,
+  TStyleItem,
+  fontFamilyStyleMap,
+  fontSizeStyleMap,
+  colorStyleMap
+} from "./const";
 
 const styles = require("./scss/ToolBar.scss");
 
@@ -56,6 +63,9 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
       <div className={styles.barbox}>
         {this._renderUndoBtn()}
         {this._renderRedoBtn()}
+        {this._renderFamily()}
+        {this._renderFontSize()}
+        {this._renderColors()}
 
         {STYLE_LIST.map(item => {
           const currentStyle = editorState.getCurrentInlineStyle();
@@ -132,6 +142,41 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
       function() {
         changeEditState(EditorState.redo(editorState));
       }
+    );
+  }
+
+  _renderColors() {
+    return (
+      <ListStyle
+        data={colorStyleMap}
+        icon="eyedropper"
+        label="颜色设置"
+        width={100}
+        onToggle={function(style: string) {}}
+      />
+    );
+  }
+  _renderFamily() {
+    return (
+      <ListStyle
+        data={fontFamilyStyleMap}
+        icon="font"
+        label="字体设置"
+        width={140}
+        onToggle={function(style: string) {}}
+      />
+    );
+  }
+
+  _renderFontSize() {
+    return (
+      <ListStyle
+        data={fontSizeStyleMap}
+        icon="text-height"
+        label="字体大小设置"
+        width={100}
+        onToggle={function(style: string) {}}
+      />
     );
   }
 }
