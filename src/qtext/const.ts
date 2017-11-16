@@ -56,5 +56,5 @@ export const STYLE_LIST: TStyleItem[] = [
     isBlock: false,
     icon: "underline"
   },
-  { label: "Monospace", style: "CODE", desc: "等宽字文本", isBlock: false }
+  { label: "Monospace", style: "CODE", desc: "等宽字文本", isBlock: false, icon: "fw" }
 ];

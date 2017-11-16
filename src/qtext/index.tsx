@@ -11,6 +11,7 @@ const styles = require("./scss/index.scss");
 interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
+  onChange?: (editorState: EditorState) => void;
 }
 
 interface QTextState {
@@ -34,7 +35,12 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   onChange: (editorState: EditorState) => void = editorState => {
-    this.setState({ editorState });
+    // console.log(convertToRaw(editorState.getCurrentContent()));
+    this.setState({ editorState }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(editorState);
+      }
+    });
   };
   constructor(props: QTextProps) {
     super(props);

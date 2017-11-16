@@ -19,9 +19,7 @@ class App extends React.Component {
         >
           <QText />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <p className="App-intro">QTEXT</p>
       </div>
     );
   }
