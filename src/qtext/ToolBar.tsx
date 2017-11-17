@@ -209,7 +209,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
     const contentStateWithEntity = contentState.createEntity(
       style,
       "IMMUTABLE",
-      { url, name }
+      { src: url, name }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {
