@@ -28,7 +28,7 @@ interface LinkProps {
 export const Link = (props: LinkProps) => {
   const { url } = props.contentState.getEntity(props.entityKey).getData();
   return (
-    <a href={url} style={styles.link}>
+    <a href={url} className={styles.link}>
       {props.children}
     </a>
   );

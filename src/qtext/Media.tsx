@@ -14,6 +14,7 @@ interface MediaProps {
   label: string;
   value?: string;
   type: TMedia;
+  donotName?: boolean;
   onClick?: () => void;
   onToggle: (style: string, name: string, value: string) => void;
 }
@@ -62,8 +63,13 @@ export class Media extends React.Component<MediaProps, MediaState> {
   };
 
   confirmMedia = () => {
+    const { donotName } = this.props;
     // check 数据
-    if (["showURLName", "showURLValue"].some(key => !this.state[key])) {
+    if (
+      (donotName ? ["showURLValue"] : ["showURLName", "showURLValue"]).some(
+        key => !this.state[key]
+      )
+    ) {
       alert("请把信息补充完整！");
     } else {
       const { type } = this.props;
@@ -90,7 +96,7 @@ export class Media extends React.Component<MediaProps, MediaState> {
 
   public render(): JSX.Element {
     const { onChange } = this;
-    const { icon, label } = this.props;
+    const { icon, label, donotName } = this.props;
 
     return (
       <div className={styles.media}>
@@ -105,16 +111,18 @@ export class Media extends React.Component<MediaProps, MediaState> {
         {this.state.showURLInput ? (
           <div className={styles.mask}>
             <div className={styles.urlInputContainer}>
-              <input
-                onChange={function(e: React.ChangeEvent<HTMLInputElement>) {
-                  onChange(false, e.target.value);
-                }}
-                className={styles.nameInput}
-                type="text"
-                placeholder="Input Name"
-                value={this.state.showURLName}
-                onKeyDown={this._onURLInputKeyDown}
-              />
+              {donotName ? null : (
+                <input
+                  onChange={function(e: React.ChangeEvent<HTMLInputElement>) {
+                    onChange(false, e.target.value);
+                  }}
+                  className={styles.nameInput}
+                  type="text"
+                  placeholder="Input Name"
+                  value={this.state.showURLName}
+                  onKeyDown={this._onURLInputKeyDown}
+                />
+              )}
               <input
                 onChange={function(e: React.ChangeEvent<HTMLInputElement>) {
                   onChange(true, e.target.value);

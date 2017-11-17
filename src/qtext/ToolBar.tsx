@@ -102,6 +102,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
           icon="link"
           ref={r => (this.linkStyle = r)}
           label="链接"
+          donotName={true}
           onClick={this.linkClick}
           onToggle={(style, name, value) => {
             this.linkConfirm(name, value);
