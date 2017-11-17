@@ -1,0 +1,68 @@
+.media {
+    display: inline-block;
+}
+
+.mask {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(#000, 0.6);
+}
+
+.urlInputContainer {
+    background-color: #fff;
+    width: 300px;
+    padding: 10px 20px;
+}
+
+.nameInput,
+.urlInput {
+    display: block;
+    line-height: 32px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 5px;
+}
+
+.audo {
+    max-width: 200px;
+}
+
+.video,
+.videoIframe {
+    width: 500px;
+    height: 282px;
+    max-width: 100%;
+}
+
+.videoIframe {
+    max-width: 100%;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.btnLine {
+    text-align: center;
+    button {
+        box-shadow: none;
+        padding: 0 20px;
+        line-height: 30px;
+        font-size: 14px;
+        margin: 0 10px;
+        background-color: #fff;
+        color: #333;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        cursor: pointer;
+    }
+}

@@ -1,8 +1,9 @@
 import * as React from "react";
-import { EditorState, Modifier, RichUtils } from "draft-js";
+import { EditorState, Modifier, RichUtils, AtomicBlockUtils } from "draft-js";
 import * as classnames from "classnames";
 import { CSSProperties } from "react/index";
 import { ListStyle } from "./ListStyle";
+import { Media, TMedia } from "./Media";
 import {
   STYLE_LIST,
   TStyleItem,
@@ -60,6 +61,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 
   public render(): JSX.Element {
     const { editorState } = this.props;
+
     return (
       <div className={styles.barbox}>
         {this._renderUndoBtn()}
@@ -88,9 +90,46 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
             />
           );
         })}
+
+        <Media
+          type={TMedia.video}
+          icon="video-camera"
+          label="视频"
+          onToggle={this.mediaConfirm}
+        />
+        <Media
+          type={TMedia.audio}
+          icon="music"
+          label="音频"
+          onToggle={this.mediaConfirm}
+        />
+        <Media
+          type={TMedia.image}
+          icon="picture-o"
+          label="图片"
+          onToggle={this.mediaConfirm}
+        />
       </div>
     );
   }
+
+  mediaConfirm = (style: string, name: string, src: string) => {
+    const { editorState, changeEditState } = this.props;
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      style,
+      "IMMUTABLE",
+      { src, name }
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity
+    });
+
+    changeEditState(
+      AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
+    );
+  };
 
   renderActionBtn(
     label: string,

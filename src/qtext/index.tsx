@@ -4,6 +4,7 @@ import { fontCssUrl } from "./config";
 import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
+import { MediaView, TMedia } from "./Media";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
 import { Editor, EditorState, RichUtils, ContentBlock } from "draft-js";
 
@@ -35,8 +36,26 @@ function getBlockStyle(block: ContentBlock) {
 }
 
 function getBlockRender(block: ContentBlock) {
-  const type: string = block.getType();
-  return type;
+  const type = block.getType();
+
+  if (type === "atomic") {
+    return {
+      component: (props: any) => {
+        const entity = props.contentState.getEntity(props.block.getEntityAt(0));
+        const subType = entity.getType();
+        const typeArr: TMedia[] = [TMedia.video, TMedia.image, TMedia.audio];
+
+        if (typeArr.some(ele => ele.toString() === subType)) {
+          return <MediaView type={subType} {...props} />;
+        }
+
+        return null;
+      },
+      editable: true
+    };
+  }
+
+  return null;
 }
 
 // https://www.froala.com/wysiwyg-editor

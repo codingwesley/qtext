@@ -36,18 +36,6 @@
   }
 }
 
-:global {
-  .fa-fw {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVEhL7ZRLSgNREEVbHYmgq3As/hBRQcRtiAPRDbgDB0b8i4jgNgTFsQMHrsG9eE/Xa3l5VJIKdHDSBw651C0IVLpTdXT8J6fJQdylz2FEdvqYll9JsseHnLXoQsfOWOzImyTZ416uWHShY2csHuVGkuxxIg8sutCxE6Y581Ry0Lm3ZM+iCx07YXbllcUaMrOSBflq0YWOnTBPct1iDZmZx2f6BK6SXybvRjIjOW0JM7qSdzlnsTpLAjO6MHvywmIfzOhKbuWabJ6L5nlgRhfmWfLS8zTmMqMrOZKHclvyRUhmRheCU37L8ksb6cpzb8pL+SCb14/MjC7Evjy36ELHTs68fJOcOH/9mNGFeJHLFl3o2Cn5kdcWa8jMwnCiUXg7vOdLFmvI+f9Axx+rcthvW9La/mIySmv7PPbhR1+0tt+c4njCuaNjklTVL25rQCmDzf0eAAAAAElFTkSuQmCC")
-      no-repeat center;
-    background-size: 100% auto;
-  }
-}
-
 .listBox {
   position: relative;
   display: inline-block;
