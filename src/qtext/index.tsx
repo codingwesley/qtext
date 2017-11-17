@@ -25,6 +25,7 @@ const styles = require("./scss/index.scss");
 interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
+  value?: RawDraftContentState;
   onChange?: (editorState: EditorState) => void;
 }
 
@@ -208,6 +209,16 @@ export class QText extends React.Component<QTextProps, QTextState> {
     );
   }
 
+  componentWillReceiveProps(nextProps: QTextProps) {
+    if (
+      nextProps.value &&
+      EditorState.createWithContent(convertFromRaw(nextProps.value)) !==
+        this.state.editorState
+    ) {
+      this.setData(nextProps.value);
+    }
+  }
+
   setData(rowData: RawDraftContentState) {
     const contentState = convertFromRaw(rowData);
     this.onChange(EditorState.createWithContent(contentState));
@@ -247,7 +258,9 @@ export class QText extends React.Component<QTextProps, QTextState> {
         return;
       }
       t.toLocaleTimeString();
-      const result = confirm(`需要继续编辑刚刚[<${TIMEBACK_MIN}min]浏览器保存的数据吗? 保存时间: ${t.toString()}`);
+      const result = confirm(
+        `需要继续编辑刚刚[<${TIMEBACK_MIN}min]浏览器保存的数据吗? 保存时间: ${t.toString()}`
+      );
       if (result) {
         this.setData(editContent);
       }
