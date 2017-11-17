@@ -14,6 +14,9 @@ import {
   EditorState,
   RichUtils,
   ContentBlock,
+  convertToRaw,
+  RawDraftContentState,
+  convertFromRaw,
   CompositeDecorator
 } from "draft-js";
 
@@ -69,12 +72,16 @@ function getBlockRender(block: ContentBlock) {
   return null;
 }
 
+const LOCALKEY = "LASTEST_VERSION";
+
 // https://www.froala.com/wysiwyg-editor
 export class QText extends React.Component<QTextProps, QTextState> {
   static defaultProps: QTextProps = {
     readOnly: false,
     placeholder: "Please edit your content..."
   };
+
+  id: number = 1;
 
   onChange: (editorState: EditorState) => void = editorState => {
     this.setState({ editorState }, () => {
@@ -83,6 +90,23 @@ export class QText extends React.Component<QTextProps, QTextState> {
       }
     });
   };
+
+  saveData = () => {
+    const data = this.getEditData();
+    localStorage.setItem(
+      LOCALKEY,
+      JSON.stringify({
+        time: new Date().getTime(),
+        editContent: data
+      })
+    );
+  };
+
+  getEditData() {
+    const { editorState } = this.state;
+
+    return convertToRaw(editorState.getCurrentContent());
+  }
 
   constructor(props: QTextProps) {
     super(props);
@@ -179,8 +203,54 @@ export class QText extends React.Component<QTextProps, QTextState> {
     );
   }
 
+  setData(rowData: RawDraftContentState) {
+    const contentState = convertFromRaw(rowData);
+    this.onChange(EditorState.createWithContent(contentState));
+  }
+
   componentDidMount() {
-    loadCSS(fontCssUrl);
+    const { readOnly } = this.props;
+    if (!readOnly) {
+      // 编辑模式
+      loadCSS(fontCssUrl);
+
+      const fn = () => {
+        if (this.id <= 0) {
+          return;
+        }
+        // 打开编辑器一分钟保存一次数据
+        setTimeout(() => {
+          this.saveData();
+          this.id += 1;
+
+          fn();
+        }, 1000 * 60);
+      };
+
+      fn();
+
+      // 取回上次的内容
+      const dataStr = localStorage.getItem(LOCALKEY);
+      if (!dataStr) {
+        return;
+      }
+      const TIMEBACK_MIN = 20;
+      const { time, editContent } = JSON.parse(dataStr);
+      const t = new Date(time);
+      if (new Date().getTime() - t.getTime() > TIMEBACK_MIN * 60 * 1000) {
+        // 超过时间就不回来
+        return;
+      }
+      t.toLocaleTimeString();
+      const result = confirm(`你需要恢复浏览器保存的数据吗? 保存时间: ${t.toString()}`);
+      if (result) {
+        this.setData(editContent);
+      }
+    }
+  }
+
+  componentWillUnMount() {
+    this.id = -1;
   }
 }
 
