@@ -93,6 +93,11 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
   saveData = () => {
     const data = this.getEditData();
+    if (!this.state.editorState.getCurrentContent().hasText()) {
+      // 没有内容是不保存的
+      return;
+    }
+
     localStorage.setItem(
       LOCALKEY,
       JSON.stringify({
@@ -242,7 +247,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
         return;
       }
       t.toLocaleTimeString();
-      const result = confirm(`你需要恢复浏览器保存的数据吗? 保存时间: ${t.toString()}`);
+      const result = confirm(`需要继续编辑刚刚[<${TIMEBACK_MIN}min]浏览器保存的数据吗? 保存时间: ${t.toString()}`);
       if (result) {
         this.setData(editContent);
       }
