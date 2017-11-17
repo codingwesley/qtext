@@ -12,6 +12,26 @@
   &.hidePlaceholder .public-DraftEditorPlaceholder-root {
     display: none;
   }
+
+  &.desktop {
+  }
+
+  &.mobile {
+    background: url("./../images/iphoneX.png") no-repeat top center;
+    background-size: 436px auto;
+    padding: 54px 0 28px;
+    box-sizing: border-box;
+
+    .inner {
+      width: 375px;
+      height: 788px;
+      border-radius: 0 0 30px 30px;
+      max-height: 100%;
+      margin: 0 auto;
+      overflow-y: auto;
+      background: #fff;
+    }
+  }
 }
 
 .blockquote {

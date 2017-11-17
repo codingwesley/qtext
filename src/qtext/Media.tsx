@@ -14,6 +14,7 @@ interface MediaProps {
   label: string;
   value?: string;
   type: TMedia;
+  onClick?: () => void;
   onToggle: (style: string, name: string, value: string) => void;
 }
 
@@ -40,6 +41,9 @@ export class Media extends React.Component<MediaProps, MediaState> {
 
   modalShow = () => {
     const flag = !this.state.showURLInput;
+    if (flag && this.props.onClick) {
+      this.props.onClick();
+    }
     this.setState({
       showURLInput: flag
     });
@@ -63,12 +67,18 @@ export class Media extends React.Component<MediaProps, MediaState> {
       alert("请把信息补充完整！");
     } else {
       const { type } = this.props;
-      this.modalShow();
       this.props.onToggle(
         type.toString(),
         this.state.showURLName,
         this.state.showURLValue
       );
+
+      // 重置信息
+      this.setState({
+        showURLInput: false,
+        showURLName: "",
+        showURLValue: ""
+      });
     }
   };
 

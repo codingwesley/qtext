@@ -2,10 +2,9 @@ import * as React from "react";
 import { findDOMNode } from "react-dom";
 import contains from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
-import { CSSProperties } from "react/index";
 
 interface ListStyleProps {
-  data: { [key: string]: CSSProperties };
+  data: { [key: string]: any };
   icon: string;
   label: string;
   value?: string;

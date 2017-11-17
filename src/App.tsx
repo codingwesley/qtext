@@ -1,5 +1,6 @@
 import * as React from "react";
 import { QText } from "./qtext/index";
+import { isMobile } from "./qtext/util";
 import "./App.css";
 
 const logo = require("./logo.svg");
@@ -14,7 +15,7 @@ class App extends React.Component {
         </div>
         <div
           style={{
-            margin: "20px 100px"
+            margin: isMobile() ? 0 : "20px 100px"
           }}
         >
           <QText />

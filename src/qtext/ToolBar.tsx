@@ -46,7 +46,11 @@ export class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
   }
 }
 
+type TMode = "desktop" | "mobile";
+
 interface ToolBarProps {
+  editMode: TMode;
+  toggleMode: (mode: TMode) => void;
   editorState: EditorState;
   changeEditState: (editorState: EditorState) => void;
   onToggle: (isBlock: boolean, style: string) => void;
@@ -55,6 +59,7 @@ interface ToolBarProps {
 interface ToolBarState {}
 
 export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
+  linkStyle: Media | null = null;
   onToggle = (isBlock: boolean, style: string) => {
     this.props.onToggle(isBlock, style);
   };
@@ -64,6 +69,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 
     return (
       <div className={styles.barbox}>
+        {this.modeBtn()}
         {this._renderUndoBtn()}
         {this._renderRedoBtn()}
         {this._renderFamily()}
@@ -92,6 +98,17 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
         })}
 
         <Media
+          type={TMedia.link}
+          icon="link"
+          ref={r => (this.linkStyle = r)}
+          label="链接"
+          onClick={this.linkClick}
+          onToggle={(style, name, value) => {
+            this.linkConfirm(name, value);
+          }}
+        />
+
+        <Media
           type={TMedia.video}
           icon="video-camera"
           label="视频"
@@ -113,13 +130,76 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
     );
   }
 
-  mediaConfirm = (style: string, name: string, src: string) => {
+  modeBtn() {
+    const { toggleMode, editMode } = this.props;
+
+    return (
+      <ListStyle
+        data={{
+          desktop: {},
+          mobile: {}
+        }}
+        icon={editMode}
+        label="预览窗口调整"
+        width={100}
+        onToggle={function(mode: string) {
+          toggleMode(mode as TMode);
+        }}
+      />
+    );
+  }
+
+  linkClick = () => {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent();
+      const startKey = editorState.getSelection().getStartKey();
+      const startOffset = editorState.getSelection().getStartOffset();
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+
+      let url = "";
+      if (linkKey) {
+        const linkInstance = contentState.getEntity(linkKey);
+        url = linkInstance.getData().url;
+      }
+
+      if (this.linkStyle !== null) {
+        this.linkStyle.onChange(true, url);
+      }
+    }
+  };
+
+  // TODO _removeLink
+  linkConfirm = (name: string, url: string, style = "LINK") => {
+    const { editorState, changeEditState } = this.props;
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(style, "MUTABLE", {
+      url,
+      name
+    });
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity
+    });
+
+    changeEditState(
+      RichUtils.toggleLink(
+        newEditorState,
+        newEditorState.getSelection(),
+        entityKey
+      )
+    );
+  };
+
+  mediaConfirm = (style: string, name: string, url: string) => {
     const { editorState, changeEditState } = this.props;
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
       style,
       "IMMUTABLE",
-      { src, name }
+      { url, name }
     );
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {

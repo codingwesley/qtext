@@ -1,12 +1,20 @@
 import * as React from "react";
-// import * as classnames from "classnames";
+import * as classnames from "classnames";
 import { fontCssUrl } from "./config";
 import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
+import { isMobile } from "./util";
 import { MediaView, TMedia } from "./Media";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
-import { Editor, EditorState, RichUtils, ContentBlock } from "draft-js";
+import { findLinkEntities, Link } from "./Link";
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  ContentBlock,
+  CompositeDecorator
+} from "draft-js";
 
 const styles = require("./scss/index.scss");
 
@@ -18,6 +26,8 @@ interface QTextProps {
 
 interface QTextState {
   editorState: EditorState;
+  readOnly: boolean;
+  editMode: "desktop" | "mobile";
 }
 
 function getBlockStyle(block: ContentBlock) {
@@ -75,7 +85,17 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
   constructor(props: QTextProps) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    const decorator = new CompositeDecorator([
+      {
+        strategy: findLinkEntities,
+        component: Link
+      }
+    ]);
+    this.state = {
+      editorState: EditorState.createEmpty(decorator),
+      readOnly: props.readOnly || false,
+      editMode: "desktop"
+    };
   }
 
   _toggleBlockType = (blockType: string) => {
@@ -88,40 +108,53 @@ export class QText extends React.Component<QTextProps, QTextState> {
     );
   };
 
+  toggleMode = (mode: "desktop" | "mobile") => {
+    this.setState({
+      editMode: mode
+    });
+  };
+
   public render(): JSX.Element {
-    const { placeholder, readOnly } = this.props;
-    const { editorState } = this.state;
-    const className = styles.editor;
+    const { placeholder } = this.props;
+    const { editorState, readOnly, editMode } = this.state;
+    const className = classnames(styles.editor, {
+      [styles.desktop]: editMode === "desktop",
+      [styles.mobile]: !isMobile() && editMode === "mobile"
+    });
 
     return (
       <div className={className}>
-        {readOnly ? null : (
-          <ToolBar
-            editorState={editorState}
-            changeEditState={this.onChange}
-            onToggle={(isBlock, style) => {
-              if (isBlock) {
-                this._toggleBlockType(style);
-              } else {
-                this._toggleInlineStyle(style);
-              }
-            }}
-          />
-        )}
-        <div className={styles.content}>
-          <Editor
-            customStyleMap={{
-              ...colorStyleMap,
-              ...fontFamilyStyleMap,
-              ...fontSizeStyleMap
-            }}
-            blockRendererFn={getBlockRender}
-            blockStyleFn={getBlockStyle}
-            placeholder={placeholder}
-            readOnly={readOnly}
-            editorState={editorState}
-            onChange={this.onChange}
-          />
+        <div className={styles.inner}>
+          {readOnly ? null : (
+            <ToolBar
+              editMode={editMode}
+              toggleMode={this.toggleMode}
+              editorState={editorState}
+              changeEditState={this.onChange}
+              onToggle={(isBlock, style) => {
+                if (isBlock) {
+                  this._toggleBlockType(style);
+                } else {
+                  this._toggleInlineStyle(style);
+                }
+              }}
+            />
+          )}
+          <div className={styles.content}>
+            <Editor
+              customStyleMap={{
+                ...colorStyleMap,
+                ...fontFamilyStyleMap,
+                ...fontSizeStyleMap
+              }}
+              blockRendererFn={getBlockRender}
+              blockStyleFn={getBlockStyle}
+              placeholder={placeholder}
+              readOnly={readOnly}
+              editorState={editorState}
+              onChange={this.onChange}
+            />
+          </div>
         </div>
       </div>
     );
