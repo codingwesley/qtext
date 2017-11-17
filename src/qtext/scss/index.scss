@@ -1,6 +1,7 @@
 @import "./font.scss";
 
 .editor {
+  position: relative;
   margin: 0;
   padding: 0;
 
@@ -39,6 +40,13 @@
   color: #666;
   margin: 16px 0;
   padding: 10px 20px;
+}
+
+.btnPreview {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  top: 0;
 }
 
 .center {

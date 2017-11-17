@@ -104,8 +104,8 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
           label="链接"
           donotName={true}
           onClick={this.linkClick}
-          onToggle={(style, name, value) => {
-            this.linkConfirm(name, value);
+          onToggle={(style, name, value, newTarget) => {
+            this.linkConfirm(name, value, newTarget);
           }}
         />
 
@@ -160,25 +160,34 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
       const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
       const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
 
-      let url = "";
       if (linkKey) {
         const linkInstance = contentState.getEntity(linkKey);
-        url = linkInstance.getData().url;
-      }
+        const { url, newTarget } = linkInstance.getData();
 
-      if (this.linkStyle !== null) {
-        this.linkStyle.onChange(true, url);
+        if (this.linkStyle !== null) {
+          // 存在修改链接的情况
+          this.linkStyle.onChange({
+            showURLValue: url,
+            checked: newTarget
+          });
+        }
       }
     }
   };
 
   // TODO _removeLink
-  linkConfirm = (name: string, url: string, style = "LINK") => {
+  linkConfirm = (
+    name: string,
+    url: string,
+    newTarget: boolean,
+    style = "LINK"
+  ) => {
     const { editorState, changeEditState } = this.props;
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(style, "MUTABLE", {
       url,
-      name
+      name,
+      newTarget
     });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {

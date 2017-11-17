@@ -16,7 +16,12 @@ interface MediaProps {
   type: TMedia;
   donotName?: boolean;
   onClick?: () => void;
-  onToggle: (style: string, name: string, value: string) => void;
+  onToggle: (
+    style: string,
+    name: string,
+    value: string,
+    check: boolean
+  ) => void;
 }
 
 interface MediaState {
@@ -24,15 +29,18 @@ interface MediaState {
   showURLType: TMedia;
   showURLName: string;
   showURLValue: string;
+  checked: boolean;
 }
 
 const stylesPa = require("./scss/ToolBar.scss");
 const styles = require("./scss/Media.scss");
 
 export class Media extends React.Component<MediaProps, MediaState> {
+  checkbox: HTMLInputElement | null = null;
   constructor(props: MediaProps) {
     super(props);
     this.state = {
+      checked: false,
       showURLInput: false,
       showURLType: TMedia.image,
       showURLName: "",
@@ -50,15 +58,9 @@ export class Media extends React.Component<MediaProps, MediaState> {
     });
   };
 
-  onChange = (isValue: boolean, value: string) => {
-    if (isValue) {
-      this.setState({
-        showURLValue: value
-      });
-    } else {
-      this.setState({
-        showURLName: value
-      });
+  onChange = (obj: any) => {
+    if (obj) {
+      this.setState(obj);
     }
   };
 
@@ -76,7 +78,8 @@ export class Media extends React.Component<MediaProps, MediaState> {
       this.props.onToggle(
         type.toString(),
         this.state.showURLName,
-        this.state.showURLValue
+        this.state.showURLValue,
+        this.checkbox ? this.checkbox.checked === true : false
       );
 
       // 重置信息
@@ -96,7 +99,8 @@ export class Media extends React.Component<MediaProps, MediaState> {
 
   public render(): JSX.Element {
     const { onChange } = this;
-    const { icon, label, donotName } = this.props;
+    const { icon, label, donotName, type } = this.props;
+    const isLink = type === TMedia.link;
 
     return (
       <div className={styles.media}>
@@ -114,7 +118,9 @@ export class Media extends React.Component<MediaProps, MediaState> {
               {donotName ? null : (
                 <input
                   onChange={function(e: React.ChangeEvent<HTMLInputElement>) {
-                    onChange(false, e.target.value);
+                    onChange({
+                      showURLName: e.target.value
+                    });
                   }}
                   className={styles.nameInput}
                   type="text"
@@ -123,9 +129,24 @@ export class Media extends React.Component<MediaProps, MediaState> {
                   onKeyDown={this._onURLInputKeyDown}
                 />
               )}
+              {isLink ? (
+                <span className={styles.checkboxInput}>
+                  <input
+                    type="checkbox"
+                    checked={this.state.checked}
+                    onChange={e => {
+                      onChange({
+                        checked: e.target.checked
+                      });
+                    }}
+                    ref={r => (this.checkbox = r)}
+                  />
+                  Open in Window
+                </span>
+              ) : null}
               <input
                 onChange={function(e: React.ChangeEvent<HTMLInputElement>) {
-                  onChange(true, e.target.value);
+                  onChange({ showURLValue: e.target.value });
                 }}
                 className={styles.urlInput}
                 type="text"

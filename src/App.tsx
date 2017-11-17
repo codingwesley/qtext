@@ -11,7 +11,7 @@ class App extends React.Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Welcome to Qtext</h2>
         </div>
         <div
           style={{
@@ -20,7 +20,7 @@ class App extends React.Component {
         >
           <QText />
         </div>
-        <p className="App-intro">QTEXT</p>
+        <p className="App-intro">Qtext</p>
       </div>
     );
   }

@@ -7,6 +7,7 @@ interface ListStyleProps {
   data: { [key: string]: any };
   icon: string;
   label: string;
+  className?: string;
   value?: string;
   width: number;
   onToggle: (style: string) => void;
@@ -68,10 +69,14 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   }
 
   render(): JSX.Element {
-    const { icon, label, width, data } = this.props;
+    const { icon, label, width, data, className } = this.props;
 
     return (
-      <div className={styles.listBox}>
+      <div
+        className={classnames(styles.listBox, {
+          [String(className)]: className !== undefined
+        })}
+      >
         <button
           onClick={this.modalShow}
           title={label}

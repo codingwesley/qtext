@@ -3,6 +3,7 @@ import * as classnames from "classnames";
 import { fontCssUrl } from "./config";
 import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
+import { ListStyle } from "./ListStyle";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
 import { MediaView, TMedia } from "./Media";
@@ -114,6 +115,12 @@ export class QText extends React.Component<QTextProps, QTextState> {
     });
   };
 
+  toggleEye = (mode: string) => {
+    this.setState({
+      readOnly: mode === "Preview"
+    });
+  };
+
   public render(): JSX.Element {
     const { placeholder } = this.props;
     const { editorState, readOnly, editMode } = this.state;
@@ -125,6 +132,18 @@ export class QText extends React.Component<QTextProps, QTextState> {
     return (
       <div className={className}>
         <div className={styles.inner}>
+          <ListStyle
+            className={styles.btnPreview}
+            data={{
+              Preview: {},
+              Edit: {}
+            }}
+            icon={readOnly ? "eye-slash" : "eye"}
+            label="预览效果"
+            width={80}
+            onToggle={this.toggleEye}
+          />
+
           {readOnly ? null : (
             <ToolBar
               editMode={editMode}

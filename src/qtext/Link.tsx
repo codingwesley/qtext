@@ -26,9 +26,15 @@ interface LinkProps {
 }
 
 export const Link = (props: LinkProps) => {
-  const { url } = props.contentState.getEntity(props.entityKey).getData();
+  const { url, newTarget } = props.contentState
+    .getEntity(props.entityKey)
+    .getData();
   return (
-    <a href={url} className={styles.link}>
+    <a
+      href={url}
+      target={newTarget ? "_blank" : "_self"}
+      className={styles.link}
+    >
       {props.children}
     </a>
   );
