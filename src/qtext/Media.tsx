@@ -184,7 +184,7 @@ const Audio = (props: TMediaData) => {
 };
 
 const Image = (props: TMediaData) => {
-  return <img src={props.src} className={styles.image} />;
+  return <img src={props.src} className={styles.image} alt={props.name} />;
 };
 
 const Video = (props: TMediaData) => {
