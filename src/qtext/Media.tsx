@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ContentState, ContentBlock } from "draft-js";
 import * as classnames from "classnames";
+import { getYoutubeVideoId } from "./util";
 
 export enum TMedia {
   audio,
@@ -188,10 +189,11 @@ const Image = (props: TMediaData) => {
 };
 
 const Video = (props: TMediaData) => {
-  if (/(youtube|youtu)\.(com|be)\/embed/i.test(props.src)) {
+  const id = getYoutubeVideoId(props.src);
+  if (id) {
     return (
       <iframe
-        src={props.src}
+        src={`https://www.youtube.com/embed/${id}`}
         allowFullScreen={true}
         frameBorder="0"
         className={styles.videoIframe}

@@ -56,7 +56,8 @@ function getBlockRender(block: ContentBlock) {
   if (type === "atomic") {
     return {
       component: (props: any) => {
-        const entity = props.contentState.getEntity(props.block.getEntityAt(0));
+        const start = props.block.getEntityAt(0);
+        const entity = props.contentState.getEntity(start);
         const subType = entity.getType();
         const typeArr: TMedia[] = [TMedia.video, TMedia.image, TMedia.audio];
 
@@ -66,7 +67,7 @@ function getBlockRender(block: ContentBlock) {
 
         return null;
       },
-      editable: true
+      editable: false
     };
   }
 
