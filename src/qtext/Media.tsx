@@ -1,5 +1,4 @@
 import * as React from "react";
-import { ContentState, ContentBlock } from "draft-js";
 import * as classnames from "classnames";
 import { getYoutubeVideoId, getVimeoId } from "./util";
 
@@ -169,8 +168,7 @@ export class Media extends React.Component<MediaProps, MediaState> {
 
 interface MediaViewProps {
   type: string;
-  block: ContentBlock;
-  contentState: ContentState;
+  data: TMediaData;
 }
 
 interface MediaViewState {}
@@ -231,11 +229,15 @@ const Video = (props: TMediaData) => {
   );
 };
 
-export class MediaView extends React.Component<MediaViewProps, MediaViewState> {
+export class MediaView extends React.PureComponent<
+  MediaViewProps,
+  MediaViewState
+> {
   render(): JSX.Element {
-    const { type, contentState, block } = this.props;
-    const entity = contentState.getEntity(block.getEntityAt(0));
-    const { src, name } = entity.getData();
+    const { type, data } = this.props;
+    const { src, name } = data;
+
+    console.count(data.src);
 
     let media = <span />;
     if (type === TMedia.audio.toString()) {

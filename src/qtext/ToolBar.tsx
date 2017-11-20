@@ -58,7 +58,7 @@ interface ToolBarProps {
 
 interface ToolBarState {}
 
-export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
+export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   linkStyle: Media | null = null;
   onToggle = (isBlock: boolean, style: string) => {
     this.props.onToggle(isBlock, style);
@@ -66,7 +66,7 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 
   public render(): JSX.Element {
     const { editorState } = this.props;
-
+    
     return (
       <div className={styles.barbox}>
         {this.modeBtn()}

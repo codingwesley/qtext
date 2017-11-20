@@ -6,9 +6,9 @@ import "draft-js/dist/Draft.css";
 import { ListStyle } from "./ListStyle";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
-import { MediaView, TMedia } from "./Media";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
 import { decorator } from "./decorator";
+import { AtomicBlock } from "./AtomicBlock";
 import {
   Editor,
   EditorState,
@@ -49,30 +49,6 @@ function getBlockStyle(block: ContentBlock) {
   }
 }
 
-function getBlockRender(block: ContentBlock) {
-  const type = block.getType();
-
-  if (type === "atomic") {
-    return {
-      component: (props: any) => {
-        const start = props.block.getEntityAt(0);
-        const entity = props.contentState.getEntity(start);
-        const subType = entity.getType();
-        const typeArr: TMedia[] = [TMedia.video, TMedia.image, TMedia.audio];
-
-        if (typeArr.some(ele => ele.toString() === subType)) {
-          return <MediaView type={subType} {...props} />;
-        }
-
-        return null;
-      },
-      editable: false
-    };
-  }
-
-  return null;
-}
-
 const LOCALKEY = "LASTEST_VERSION";
 
 // https://www.froala.com/wysiwyg-editor
@@ -83,6 +59,22 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   id: number = 1;
+
+  getBlockRender = (block: ContentBlock) => {
+    const type = block.getType();
+    const { editorState } = this.state;
+
+    if (type === "atomic") {
+      return {
+        component: AtomicBlock,
+        editable: false,
+        props: {
+          editorState
+        }
+      };
+    }
+    return null;
+  };
 
   onChange: (editorState: EditorState) => void = editorState => {
     this.setState({ editorState }, () => {
@@ -191,7 +183,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
                 ...fontFamilyStyleMap,
                 ...fontSizeStyleMap
               }}
-              blockRendererFn={getBlockRender}
+              blockRendererFn={this.getBlockRender}
               blockStyleFn={getBlockStyle}
               placeholder={placeholder}
               readOnly={readOnly}
