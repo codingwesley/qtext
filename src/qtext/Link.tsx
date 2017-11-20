@@ -29,6 +29,7 @@ export const Link = (props: LinkProps) => {
   const { url, newTarget } = props.contentState
     .getEntity(props.entityKey)
     .getData();
+
   return (
     <a
       href={url}

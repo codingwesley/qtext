@@ -8,7 +8,7 @@ import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
 import { MediaView, TMedia } from "./Media";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
-import { findLinkEntities, Link } from "./Link";
+import { decorator } from "./decorator";
 import {
   Editor,
   EditorState,
@@ -16,8 +16,7 @@ import {
   ContentBlock,
   convertToRaw,
   RawDraftContentState,
-  convertFromRaw,
-  CompositeDecorator
+  convertFromRaw
 } from "draft-js";
 
 const styles = require("./scss/index.scss");
@@ -117,12 +116,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
   constructor(props: QTextProps) {
     super(props);
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      }
-    ]);
+
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       readOnly: props.readOnly || false,
@@ -222,7 +216,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
   setData(rowData: RawDraftContentState) {
     const contentState = convertFromRaw(rowData);
-    this.onChange(EditorState.createWithContent(contentState));
+    this.onChange(EditorState.createWithContent(contentState, decorator));
   }
 
   componentDidMount() {

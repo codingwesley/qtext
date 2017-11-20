@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ContentState, ContentBlock } from "draft-js";
 import * as classnames from "classnames";
-import { getYoutubeVideoId } from "./util";
+import { getYoutubeVideoId, getVimeoId } from "./util";
 
 export enum TMedia {
   audio,
@@ -188,20 +188,47 @@ const Image = (props: TMediaData) => {
   return <img src={props.src} className={styles.image} alt={props.name} />;
 };
 
+/**
+ * 
+ * support youtube & vimeo video paste
+ * https://vimeo.com/59265245
+ * https://www.youtube.com/watch?v=832DNu0Oh6Y
+ */
+const YOUTUBE_PREFIX = "https://www.youtube.com/embed/";
+const VIMEO_PREFIX = "https://player.vimeo.com/video/";
 const Video = (props: TMediaData) => {
-  const id = getYoutubeVideoId(props.src);
-  if (id) {
-    return (
-      <iframe
-        src={`https://www.youtube.com/embed/${id}`}
-        allowFullScreen={true}
-        frameBorder="0"
-        className={styles.videoIframe}
-        name={props.name}
-      />
-    );
+  const testEle = document.createElement("video");
+  if (!testEle.canPlayType) {
+    return <span>你的浏览器不支持HTML5 video。</span>;
   }
-  return <video controls={true} src={props.src} className={styles.video} />;
+  const id = getYoutubeVideoId(props.src);
+
+  const cProps = {
+    webkitallowfullscreen: true,
+    mozallowfullscreen: true,
+    allowfullscreen: true,
+    frameBorder: "0",
+    className: styles.iframe,
+    name: props.name
+  };
+
+  let content = null;
+  if (id) {
+    content = <iframe src={`${YOUTUBE_PREFIX}${id}`} {...cProps} />;
+  }
+  const vimeoId = getVimeoId(props.src);
+  if (vimeoId) {
+    content = <iframe src={`${VIMEO_PREFIX}${vimeoId}`} {...cProps} />;
+  }
+  return (
+    <div className={styles.limitSize}>
+      <div className={styles.iframeContainer}>
+        {content || (
+          <video controls={true} src={props.src} className={styles.video} />
+        )}
+      </div>
+    </div>
+  );
 };
 
 export class MediaView extends React.Component<MediaViewProps, MediaViewState> {
