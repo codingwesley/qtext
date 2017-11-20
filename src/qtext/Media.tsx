@@ -236,9 +236,6 @@ export class MediaView extends React.PureComponent<
   render(): JSX.Element {
     const { type, data } = this.props;
     const { src, name } = data;
-
-    console.count(data.src);
-
     let media = <span />;
     if (type === TMedia.audio.toString()) {
       media = <Audio src={src} name={name} />;
