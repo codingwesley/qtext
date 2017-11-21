@@ -1,7 +1,6 @@
 {
   "name": "qtext",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
