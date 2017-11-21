@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from "react-dom";
-import contains from "rc-util/lib/Dom/contains";
+import * as contains from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
 export interface ListStyleProps {
