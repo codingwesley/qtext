@@ -4,10 +4,10 @@ import { ContentBlock, ContentState } from "draft-js";
 
 const styles = require("./scss/block.scss");
 
-export const atomicRenderers = {
-  [TMedia.video]: MediaView,
-  [TMedia.image]: MediaView,
-  [TMedia.audio]: MediaView
+export const atomicRenderers: { [key: string]: any } = {
+  [TMedia.video.toString()]: MediaView,
+  [TMedia.image.toString()]: MediaView,
+  [TMedia.audio.toString()]: MediaView
 };
 
 export interface AtomicBlockProps {
