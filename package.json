@@ -1,6 +1,6 @@
 {
   "name": "qtext",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "dependencies": {
     "classnames": "^2.2.5",
     "draft-js": "^0.10.4",
