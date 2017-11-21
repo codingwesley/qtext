@@ -8,7 +8,7 @@
     "rc-util": "^4.3.0"
   },
   "main": "./lib/js/qtext.js",
-  "types": "./lib/lib/qtext.d.ts",
+  "types": "./lib/lib/qtext/index.d.ts",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
