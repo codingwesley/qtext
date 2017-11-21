@@ -26,12 +26,17 @@ interface QTextProps {
   placeholder?: string;
   value?: RawDraftContentState;
   onChange?: (editorState: EditorState) => void;
+  autoSave?: boolean;
 }
 
 interface QTextState {
   editorState: EditorState;
   readOnly: boolean;
   editMode: "desktop" | "mobile";
+}
+
+interface TEditData {
+  data: RawDraftContentState;
 }
 
 function getBlockStyle(block: ContentBlock) {
@@ -55,6 +60,7 @@ const LOCALKEY = "LASTEST_VERSION";
 export class QText extends React.Component<QTextProps, QTextState> {
   static defaultProps: QTextProps = {
     readOnly: false,
+    autoSave: false,
     placeholder: "Please edit your content..."
   };
 
@@ -85,7 +91,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   saveData = () => {
-    const data = this.getEditData();
+    const { data } = this.getEditData();
     if (!this.state.editorState.getCurrentContent().hasText()) {
       // 没有内容是不保存的
       return;
@@ -100,10 +106,10 @@ export class QText extends React.Component<QTextProps, QTextState> {
     );
   };
 
-  getEditData() {
+  getEditData(): TEditData {
     const { editorState } = this.state;
 
-    return convertToRaw(editorState.getCurrentContent());
+    return { data: convertToRaw(editorState.getCurrentContent()) };
   }
 
   constructor(props: QTextProps) {
@@ -212,7 +218,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 
   componentDidMount() {
-    const { readOnly } = this.props;
+    const { readOnly, autoSave } = this.props;
     if (!readOnly) {
       // 编辑模式
       loadCSS(fontCssUrl);
@@ -230,7 +236,9 @@ export class QText extends React.Component<QTextProps, QTextState> {
         }, 1000 * 60);
       };
 
-      fn();
+      if (autoSave) {
+        fn();
+      }
 
       // 取回上次的内容
       const dataStr = localStorage.getItem(LOCALKEY);
