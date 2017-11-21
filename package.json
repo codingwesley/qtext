@@ -1,6 +1,6 @@
 {
   "name": "qtext",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
     "classnames": "^2.2.5",
     "draft-js": "^0.10.4",
@@ -57,8 +57,12 @@
   },
   "jest": {
     "mapCoverage": true,
-    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}"],
-    "setupFiles": ["<rootDir>/config/polyfills.js"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).ts?(x)"
@@ -95,7 +99,9 @@
     }
   },
   "babel": {
-    "presets": ["react-app"]
+    "presets": [
+      "react-app"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
