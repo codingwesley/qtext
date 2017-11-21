@@ -23,7 +23,7 @@ interface ToolBtnProps {
 
 interface ToolBtnState {}
 
-export class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
+class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
   onToggle = (e: any) => {
     e.preventDefault();
     this.props.onToggle(this.props.item.isBlock, this.props.item.style);
@@ -46,9 +46,8 @@ export class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
   }
 }
 
-type TMode = "desktop" | "mobile";
-
-interface ToolBarProps {
+export type TMode = "desktop" | "mobile";
+export interface ToolBarProps {
   editMode: TMode;
   toggleMode: (mode: TMode) => void;
   editorState: EditorState;
@@ -56,7 +55,7 @@ interface ToolBarProps {
   onToggle: (isBlock: boolean, style: string) => void;
 }
 
-interface ToolBarState {}
+export interface ToolBarState {}
 
 export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   linkStyle: Media | null = null;

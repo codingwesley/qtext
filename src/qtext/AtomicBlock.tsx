@@ -10,12 +10,12 @@ export const atomicRenderers = {
   [TMedia.audio]: MediaView
 };
 
-interface AtomicBlockProps {
+export interface AtomicBlockProps {
   block: ContentBlock;
   contentState: ContentState;
 }
 
-interface AtomicBlockState {}
+export interface AtomicBlockState {}
 
 export class AtomicBlock extends React.Component<
   AtomicBlockProps,

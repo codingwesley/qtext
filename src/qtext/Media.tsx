@@ -9,7 +9,7 @@ export enum TMedia {
   link
 }
 
-interface MediaProps {
+export interface MediaProps {
   icon: string;
   label: string;
   value?: string;
@@ -24,7 +24,7 @@ interface MediaProps {
   ) => void;
 }
 
-interface MediaState {
+export interface MediaState {
   showURLInput: boolean;
   showURLType: TMedia;
   showURLName: string;
@@ -166,14 +166,14 @@ export class Media extends React.Component<MediaProps, MediaState> {
   }
 }
 
-interface MediaViewProps {
+export interface MediaViewProps {
   type: string;
   data: TMediaData;
 }
 
-interface MediaViewState {}
+export interface MediaViewState {}
 
-interface TMediaData {
+export interface TMediaData {
   name: string;
   src: string;
 }
@@ -210,7 +210,7 @@ const Video = (props: TMediaData) => {
     name: props.name
   };
 
-  let content = null;
+  let content: JSX.Element | null = null;
   if (id) {
     content = <iframe src={`${YOUTUBE_PREFIX}${id}`} {...cProps} />;
   }

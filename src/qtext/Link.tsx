@@ -17,7 +17,7 @@ export function findLinkEntities(
   }, callback);
 }
 
-interface LinkProps {
+export interface LinkProps {
   type: string;
   block: ContentBlock;
   entityKey: string;

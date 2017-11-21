@@ -106,7 +106,7 @@ export const colorStyleMap = {
   }
 };
 
-interface TSize {
+export interface TSize {
   fontSize: number;
 }
 

@@ -3,7 +3,7 @@ import { findDOMNode } from "react-dom";
 import contains from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
-interface ListStyleProps {
+export interface ListStyleProps {
   data: { [key: string]: any };
   icon: string;
   label: string;
@@ -12,7 +12,8 @@ interface ListStyleProps {
   width: number;
   onToggle: (style: string) => void;
 }
-interface ListStyleState {
+
+export interface ListStyleState {
   value: string;
   visible: boolean;
 }

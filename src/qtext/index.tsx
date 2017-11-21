@@ -21,7 +21,7 @@ import {
 
 const styles = require("./scss/index.scss");
 
-interface QTextProps {
+export interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
   value?: RawDraftContentState;
@@ -29,13 +29,13 @@ interface QTextProps {
   autoSave?: boolean;
 }
 
-interface QTextState {
+export interface QTextState {
   editorState: EditorState;
   readOnly: boolean;
   editMode: "desktop" | "mobile";
 }
 
-interface TEditData {
+export interface TEditData {
   data: RawDraftContentState;
 }
 
