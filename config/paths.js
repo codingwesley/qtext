@@ -38,11 +38,14 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true);
 }
 
+const isProd = process.env.NODE_ENV === "production";
+
 // config after eject: we're in ./config/
 module.exports = {
+  isProd,
   qtext: resolveApp('src/qtext/index.tsx'),
   dotenv: resolveApp('.env'),
-  appBuild: resolveApp('build'),
+  appBuild: isProd ? path.join(__dirname, "../lib") : resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.tsx'),

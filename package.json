@@ -9,8 +9,8 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },
-  "main": "./lib/qtext.js",
-  "types": "./lib/qtext.d.ts",
+  "main": "./lib/js/qtext.js",
+  "types": "./lib/lib/qtext.d.ts",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

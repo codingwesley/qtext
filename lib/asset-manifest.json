@@ -1,0 +1,11 @@
+{
+  "main.css": "static/css/main.css",
+  "main.css.map": "static/css/main.css.map",
+  "main.js": "js/main.js",
+  "main.js.map": "js/main.js.map",
+  "qtext.css": "static/css/qtext.css",
+  "qtext.css.map": "static/css/qtext.css.map",
+  "qtext.js": "js/qtext.js",
+  "qtext.js.map": "js/qtext.js.map",
+  "static/media/logo.svg": "static/media/logo.5d5d9eef.svg"
+}

@@ -4,7 +4,7 @@
     "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom"],
-    "sourceMap": false,
+    "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
     "moduleResolution": "node",
