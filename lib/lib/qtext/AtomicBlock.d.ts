@@ -1,12 +1,9 @@
 /// <reference types="draft-js" />
 /// <reference types="react" />
 import * as React from "react";
-import { MediaView } from "./Media";
 import { ContentBlock, ContentState } from "draft-js";
 export declare const atomicRenderers: {
-    [TMedia.video]: typeof MediaView;
-    [TMedia.image]: typeof MediaView;
-    [TMedia.audio]: typeof MediaView;
+    [key: string]: any;
 };
 export interface AtomicBlockProps {
     block: ContentBlock;
