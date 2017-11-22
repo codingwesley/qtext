@@ -66,6 +66,16 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
   id: number = 1;
 
+  constructor(props: QTextProps) {
+    super(props);
+
+    this.state = {
+      editorState: EditorState.createEmpty(decorator),
+      readOnly: props.readOnly || false,
+      editMode: "desktop"
+    };
+  }
+
   getBlockRender = (block: ContentBlock) => {
     const type = block.getType();
     const { editorState } = this.state;
@@ -110,16 +120,6 @@ export class QText extends React.Component<QTextProps, QTextState> {
     const { editorState } = this.state;
 
     return { data: convertToRaw(editorState.getCurrentContent()) };
-  }
-
-  constructor(props: QTextProps) {
-    super(props);
-
-    this.state = {
-      editorState: EditorState.createEmpty(decorator),
-      readOnly: props.readOnly || false,
-      editMode: "desktop"
-    };
   }
 
   _toggleBlockType = (blockType: string) => {
@@ -254,7 +254,9 @@ export class QText extends React.Component<QTextProps, QTextState> {
       }
       t.toLocaleTimeString();
       const result = confirm(
-        `需要继续编辑刚刚[<${TIMEBACK_MIN}min]浏览器保存的数据吗? 保存时间: ${t.toString()}`
+        `需要继续编辑刚刚[<${
+          TIMEBACK_MIN
+        }min]浏览器保存的数据吗? 保存时间: ${t.toString()}`
       );
       if (result) {
         this.setData(editContent);
