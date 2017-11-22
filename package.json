@@ -21,6 +21,11 @@
       "./src/index.tsx"
     ]
   },
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
   "devDependencies": {
     "@types/jest": "^21.1.6",
     "@types/node": "^8.0.51",
