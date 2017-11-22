@@ -1,11 +1,6 @@
+export PATH := $(pwd)/node_modules/.bin:$(PATH)
 
-
-# 发布npm包
-npmpublish:
-	sh publish.sh
-	npm version patch
-	npm publish
-	git push origin master
+.PHONY: watchTsc server
 
 watchTsc:
 	node /Volumes/qw/githubsource/rc-tools/bin/rc-tools.js run watch-tsc
