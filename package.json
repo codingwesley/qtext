@@ -1,6 +1,6 @@
 {
   "name": "qtext",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "dependencies": {
     "@types/draft-js": "^0.10.17",
     "classnames": "^2.2.5",
@@ -17,10 +17,16 @@
   "config": {
     "port": 8000,
     "entry": {
-      "main": ["./src/index.tsx"]
+      "main": [
+        "./src/index.tsx"
+      ]
     }
   },
-  "files": ["lib", "es", "dist"],
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
   "devDependencies": {
     "@types/jest": "^21.1.6",
     "@types/node": "^8.0.51",
