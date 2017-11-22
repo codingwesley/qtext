@@ -20,7 +20,7 @@
   "config": {
     "port": 8000,
     "entry": [
-      "./src/qtext/index.tsx"
+      "./src/index.tsx"
     ]
   },
   "devDependencies": {

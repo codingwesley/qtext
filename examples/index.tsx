@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
-import { QText } from "../src/qtext/index";
-import { isMobile } from "../src/qtext/util";
+import { QText } from "../src/index";
+import { isMobile } from "../src/util";
 import "./index.css";
 import "./App.css";
 
