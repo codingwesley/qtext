@@ -44,8 +44,6 @@ node_modules
 .cache
 *.css
 build
-lib
-es
 coverage
 *.js
 *.jsx
