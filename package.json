@@ -15,6 +15,14 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
+  "main": "./lib/index",
+  "module": "./es/index",
+  "config": {
+    "port": 8000,
+    "entry": [
+      "./src/qtext/index.tsx"
+    ]
+  },
   "devDependencies": {
     "@types/jest": "^21.1.6",
     "@types/node": "^8.0.51",
@@ -35,6 +43,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
+    "rc-tools": "^7.0.3",
     "react": "^16.1.1",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.1.1",
@@ -96,13 +105,5 @@
         "tsConfigFile": "/Users/chenhuan/www/qtext/tsconfig.test.json"
       }
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
