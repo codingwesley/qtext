@@ -1,10 +1,38 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
-import { QText } from "../src/index";
+import { QText, TEditData } from "../src/index";
 import { isMobile } from "../src/util";
 import "./index.css";
 import "./App.css";
+
+const initValue: TEditData = {
+  data: {
+    entityMap: {},
+    blocks: [
+      {
+        key: "92hbu",
+        text: "陈欢 编辑内容 开始了",
+        type: "header-one",
+        depth: 0,
+        inlineStyleRanges: [
+          {
+            offset: 0,
+            length: 11,
+            style: "red"
+          },
+          {
+            offset: 0,
+            length: 11,
+            style: "BOLD"
+          }
+        ],
+        entityRanges: [],
+        data: {}
+      }
+    ]
+  }
+};
 
 const logo = require("./logo.svg").default;
 const logoView = (
@@ -14,6 +42,9 @@ const logoView = (
 );
 
 class App extends React.Component {
+  state = {
+    value: undefined
+  };
   render() {
     return (
       <div className="App">
@@ -26,11 +57,19 @@ class App extends React.Component {
             margin: isMobile() ? 0 : "20px 100px"
           }}
         >
-          <QText />
+          <QText value={this.state.value} />
         </div>
         <p className="App-intro">Qtext</p>
       </div>
     );
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        value: initValue
+      });
+    }, 3000);
   }
 }
 

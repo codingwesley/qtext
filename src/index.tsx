@@ -24,7 +24,7 @@ const styles = require("./scss/index.less");
 export interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
-  value?: RawDraftContentState;
+  value?: TEditData;
   onChange?: (editorState: EditorState) => void;
   autoSave?: boolean;
 }
@@ -205,10 +205,10 @@ export class QText extends React.Component<QTextProps, QTextState> {
   componentWillReceiveProps(nextProps: QTextProps) {
     if (
       nextProps.value &&
-      EditorState.createWithContent(convertFromRaw(nextProps.value)) !==
+      EditorState.createWithContent(convertFromRaw(nextProps.value.data)) !==
         this.state.editorState
     ) {
-      this.setData(nextProps.value);
+      this.setData(nextProps.value.data);
     }
   }
 
@@ -218,7 +218,12 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 
   componentDidMount() {
-    const { readOnly, autoSave } = this.props;
+    const { readOnly, autoSave, value } = this.props;
+
+    if (value && value.data) {
+      this.setData(value.data);
+    }
+
     if (!readOnly) {
       // 编辑模式
       loadCSS(fontCssUrl);
