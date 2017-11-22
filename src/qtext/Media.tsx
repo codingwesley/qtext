@@ -32,8 +32,8 @@ export interface MediaState {
   checked: boolean;
 }
 
-const stylesPa = require("./scss/ToolBar.scss");
-const styles = require("./scss/Media.scss");
+const stylesPa = require("./scss/ToolBar.less");
+const styles = require("./scss/Media.less");
 
 export class Media extends React.Component<MediaProps, MediaState> {
   checkbox: HTMLInputElement | null = null;

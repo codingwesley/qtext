@@ -12,7 +12,7 @@ import {
   colorStyleMap
 } from "./const";
 
-const styles = require("./scss/ToolBar.scss");
+const styles = require("./scss/ToolBar.less");
 
 interface ToolBtnProps {
   onToggle: (isBlock: boolean, style: string) => void;
@@ -104,7 +104,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
           donotName={true}
           onClick={this.linkClick}
           onToggle={(style, name, value, newTarget) => {
-            this.linkConfirm(name, value, newTarget);
+            this.linkConfirm(name, value, newTarget, style);
           }}
         />
 

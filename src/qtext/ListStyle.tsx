@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from "react-dom";
-import * as contains from "rc-util/lib/Dom/contains";
+import { default as contains } from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
 export interface ListStyleProps {
@@ -18,7 +18,7 @@ export interface ListStyleState {
   visible: boolean;
 }
 
-const styles = require("./scss/ToolBar.scss");
+const styles = require("./scss/ToolBar.less");
 
 export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   constructor(props: ListStyleProps) {
@@ -44,9 +44,18 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
 
   modalShow = () => {
     const flag = !this.state.visible;
-    this.setState({
-      visible: flag
-    });
+    this.setState(
+      {
+        visible: flag
+      },
+      () => {
+        if (flag) {
+          this.initClickEvents();
+        } else {
+          document.removeEventListener("click", this.documentCancelFunc);
+        }
+      }
+    );
   };
 
   initClickEvents() {
@@ -63,10 +72,6 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
         value: nextProps.value
       });
     }
-  }
-
-  componentDidMount() {
-    this.initClickEvents();
   }
 
   render(): JSX.Element {
