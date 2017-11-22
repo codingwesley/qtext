@@ -16,7 +16,9 @@
   },
   "config": {
     "port": 8000,
-    "entry": ["./src/index.tsx"]
+    "entry": {
+      "main": ["./src/index.tsx"]
+    }
   },
   "files": ["lib", "es", "dist"],
   "devDependencies": {
