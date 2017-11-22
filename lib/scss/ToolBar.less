@@ -1,0 +1,70 @@
+.barbox {
+  position: relative;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(153, 153, 153, 0.363);
+  background-color: #fff;
+}
+
+.toolbtn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #999;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    color: #999;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &.active {
+    color: #1e88e5;
+  }
+}
+
+.listBox {
+  position: relative;
+  display: inline-block;
+}
+
+.listModal {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 30px;
+  display: none;
+  max-height: 20px * 6;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  background-color: #fff;
+
+  &.activeList {
+    display: block;
+  }
+
+  .item {
+    line-height: 1.8;
+    padding: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
+  }
+}
