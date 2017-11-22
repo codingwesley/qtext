@@ -1,6 +1,6 @@
 {
   "name": "qtext",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "dependencies": {
     "@types/draft-js": "^0.10.17",
     "classnames": "^2.2.5",
@@ -9,7 +9,7 @@
     "rc-util": "^4.3.0"
   },
   "main": "./lib/index",
-  "module": "./es/index",  
+  "module": "./es/index",
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "node scripts/start.js",
