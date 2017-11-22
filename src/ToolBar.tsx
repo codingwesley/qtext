@@ -65,7 +65,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
 
   public render(): JSX.Element {
     const { editorState } = this.props;
-    
+
     return (
       <div className={styles.barbox}>
         {this.modeBtn()}
@@ -104,7 +104,12 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
           donotName={true}
           onClick={this.linkClick}
           onToggle={(style, name, value, newTarget) => {
-            this.linkConfirm(name, value, newTarget, style);
+            this.linkConfirm(
+              name,
+              value,
+              newTarget,
+              style === TMedia.link.toString() ? "LINK" : style
+            );
           }}
         />
 
