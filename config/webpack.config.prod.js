@@ -34,7 +34,7 @@ if (env.stringified["process.env"].NODE_ENV !== '"production"') {
 }
 
 // Note: defined here because it will be used more than once.
-const cssFilename = "static/css/[name].css";
+const cssFilename = "css/[name].css";
 
 // ExtractTextPlugin expects the build output to be flat.
 // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
@@ -149,7 +149,7 @@ module.exports = {
             loader: require.resolve("url-loader"),
             options: {
               limit: 10000,
-              name: "static/media/[name].[hash:8].[ext]"
+              name: "media/[name].[hash:8].[ext]"
             }
           },
           //Compile .tsx?
@@ -224,7 +224,7 @@ module.exports = {
                       options: {
                         importLoaders: 1,
                         modules: true,
-                        localIdentName: "[name]__[local]___[hash:base64:5]"
+                        localIdentName: "_[hash:base64:5]"
                       }
                     },
                     require.resolve("sass-loader"),
@@ -266,7 +266,7 @@ module.exports = {
             // by webpacks internal loaders.
             exclude: [/\.js$/, /\.html$/, /\.json$/],
             options: {
-              name: "static/media/[name].[hash:8].[ext]"
+              name: "media/[name].[hash:8].[ext]"
             }
           }
           // ** STOP ** Are you adding a new loader?
