@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "moduleResolution": "node",
+    "module": "ES6",
     "jsx": "preserve",
-    "allowSyntheticDefaultImports":true,
-    "target": "es6"
+    "target": "ES5"
   },
   "exclude": [
     "node_modules",
     "build",
     "lib",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
+    "es"
   ]
 }
