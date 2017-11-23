@@ -15,13 +15,6 @@ figure {
     min-height: 100px;
   }
 
-  &.hidePlaceholder .public-DraftEditorPlaceholder-root {
-    display: none;
-  }
-
-  &.desktop {
-  }
-
   &.mobile {
     background: url("//i.ezbuy.sg/FpjrbpcApGlAaI1oXJLLnvMzLEop") no-repeat top
       center;
@@ -31,12 +24,44 @@ figure {
 
     .inner {
       width: 375px;
-      height: 788px;
+      box-sizing: border-box;
       border-radius: 0 0 30px 30px;
       max-height: 100%;
       margin: 0 auto;
-      overflow-y: auto;
       background: #fff;
+    }
+  }
+
+  &.inEditStatus {
+    .inner {
+      position: relative;
+    }
+
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    &.desktop {
+      .inner {
+        padding-top: 30px;
+      }
+      .content {
+        height: 600px;
+        overflow-y: auto;
+      }
+    }
+
+    &.mobile {
+      .inner {
+        padding-top: 30px * 3;
+      }
+      .content {
+        height: 680px;
+        overflow-y: auto;
+      }
     }
   }
 }

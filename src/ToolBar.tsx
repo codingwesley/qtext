@@ -49,6 +49,7 @@ class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
 
 export type TMode = "desktop" | "mobile";
 export interface ToolBarProps {
+  className?: string;
   editMode: TMode;
   toggleMode: (mode: TMode) => void;
   editorState: EditorState;
@@ -65,10 +66,10 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   };
 
   public render(): JSX.Element {
-    const { editorState } = this.props;
+    const { editorState, className } = this.props;
 
     return (
-      <div className={styles.barbox}>
+      <div className={classnames(styles.barbox, className)}>
         {this.modeBtn()}
         {this._renderUndoBtn()}
         {this._renderRedoBtn()}

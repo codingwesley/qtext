@@ -134,6 +134,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
     const { placeholder } = this.props;
     const { editorState, readOnly, editMode } = this.state;
     const className = classnames(styles.editor, {
+      [styles.inEditStatus]: !readOnly,
       [styles.desktop]: editMode === "desktop",
       [styles.mobile]: !isMobile() && editMode === "mobile"
     });
@@ -161,6 +162,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
           {readOnly ? null : (
             <ToolBar
+              className={styles.header}
               editMode={editMode}
               toggleMode={this.toggleMode}
               editorState={editorState}
