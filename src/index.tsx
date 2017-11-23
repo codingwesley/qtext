@@ -3,7 +3,6 @@ import * as classnames from "classnames";
 import { fontCssUrl } from "./config";
 import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
-import { ListStyle } from "./ListStyle";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";

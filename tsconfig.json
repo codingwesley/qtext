@@ -1,14 +1,11 @@
 {
   "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "strictNullChecks": true,
     "module": "commonjs",
     "jsx": "preserve",
     "target": "ES6"
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "lib",
-    "es"
-  ]
+  "exclude": ["node_modules", "build", "lib", "es"]
 }

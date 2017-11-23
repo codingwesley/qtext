@@ -63,8 +63,7 @@ export class ToggleIcon extends React.Component<
     if (!currentIcon) {
       return null;
     }
-
-    const { icon, value } = currentIcon;
+    const { icon } = currentIcon;
 
     return (
       <div
