@@ -9,6 +9,7 @@ import { isMobile } from "./util";
 import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
 import { decorator } from "./decorator";
 import { AtomicBlock } from "./AtomicBlock";
+import { getBlockStyle } from "./blockStyle";
 import {
   Editor,
   EditorState,
@@ -39,20 +40,7 @@ export interface TEditData {
   data: RawDraftContentState;
 }
 
-function getBlockStyle(block: ContentBlock) {
-  const type: string = block.getType();
 
-  switch (type) {
-    case "blockquote":
-      return styles.blockquote;
-
-    case "center":
-    case "right":
-      return styles[type];
-    default:
-      return "";
-  }
-}
 
 const LOCALKEY = "LASTEST_VERSION";
 
@@ -274,4 +262,4 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 }
 
-export default QText;
+export default { QText };
