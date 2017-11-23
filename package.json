@@ -13,7 +13,7 @@
   "scripts": {
     "start": "./node_modules/.bin/rc-tools run server",
     "build": "./node_modules/.bin/rc-tools run build",
-    "publish": "./node_modules/.bin/rc-tools run npm-publish"
+    "npm-publish": "./node_modules/.bin/rc-tools run npm-publish"
   },
   "config": {
     "port": 8000,
