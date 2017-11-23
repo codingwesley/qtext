@@ -142,21 +142,24 @@ export class QText extends React.Component<QTextProps, QTextState> {
     return (
       <div className={className}>
         <div className={styles.inner}>
-          <ToggleIcon
-            className={styles.btnPreview}
-            value={readOnly ? "Preview" : "Edit"}
-            icons={[
-              {
-                icon: "eye-slash",
-                value: "Edit"
-              },
-              {
-                icon: "eye",
-                value: "Preview"
-              }
-            ]}
-            onToggle={this.toggleEye}
-          />
+          {!this.props.readOnly ? (
+            <ToggleIcon
+              className={styles.btnPreview}
+              value={readOnly ? "Preview" : "Edit"}
+              icons={[
+                {
+                  icon: "eye-slash",
+                  value: "Edit"
+                },
+                {
+                  icon: "eye",
+                  value: "Preview"
+                }
+              ]}
+              onToggle={this.toggleEye}
+            />
+          ) : null}
+
           {readOnly ? null : (
             <ToolBar
               editMode={editMode}
