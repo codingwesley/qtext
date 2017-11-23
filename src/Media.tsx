@@ -183,11 +183,15 @@ const Audio = (props: TMediaData) => {
 };
 
 const Image = (props: TMediaData) => {
-  return <img src={props.src} className={styles.image} alt={props.name} />;
+  return (
+    <div className={styles.image}>
+      <img src={props.src} alt={props.name} />
+    </div>
+  );
 };
 
 /**
- * 
+ *
  * support youtube & vimeo video paste
  * https://vimeo.com/59265245
  * https://www.youtube.com/watch?v=832DNu0Oh6Y
