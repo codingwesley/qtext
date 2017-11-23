@@ -10,6 +10,7 @@ import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
 import { decorator } from "./decorator";
 import { AtomicBlock } from "./AtomicBlock";
 import { getBlockStyle } from "./blockStyle";
+import { ToggleIcon } from "./components/ToggleIcon";
 import {
   Editor,
   EditorState,
@@ -39,8 +40,6 @@ export interface QTextState {
 export interface TEditData {
   data: RawDraftContentState;
 }
-
-
 
 const LOCALKEY = "LASTEST_VERSION";
 
@@ -143,18 +142,21 @@ export class QText extends React.Component<QTextProps, QTextState> {
     return (
       <div className={className}>
         <div className={styles.inner}>
-          <ListStyle
+          <ToggleIcon
             className={styles.btnPreview}
-            data={{
-              Preview: {},
-              Edit: {}
-            }}
-            icon={readOnly ? "eye-slash" : "eye"}
-            label="预览效果"
-            width={80}
+            value={readOnly ? "Preview" : "Edit"}
+            icons={[
+              {
+                icon: "eye-slash",
+                value: "Edit"
+              },
+              {
+                icon: "eye",
+                value: "Preview"
+              }
+            ]}
             onToggle={this.toggleEye}
           />
-
           {readOnly ? null : (
             <ToolBar
               editMode={editMode}

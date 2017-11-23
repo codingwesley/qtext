@@ -4,6 +4,7 @@ import * as classnames from "classnames";
 import { CSSProperties } from "react/index";
 import { ListStyle } from "./ListStyle";
 import { Media, TMedia } from "./Media";
+import { ToggleIcon } from "./components/ToggleIcon";
 import {
   STYLE_LIST,
   TStyleItem,
@@ -139,14 +140,18 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     const { toggleMode, editMode } = this.props;
 
     return (
-      <ListStyle
-        data={{
-          desktop: {},
-          mobile: {}
-        }}
-        icon={editMode}
-        label="预览窗口调整"
-        width={100}
+      <ToggleIcon
+        value={editMode}
+        icons={[
+          {
+            icon: "desktop",
+            value: "desktop"
+          },
+          {
+            icon: "mobile",
+            value: "mobile"
+          }
+        ]}
         onToggle={function(mode: string) {
           toggleMode(mode as TMode);
         }}
