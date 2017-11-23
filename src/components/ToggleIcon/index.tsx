@@ -1,6 +1,4 @@
 import * as React from "react";
-import { findDOMNode } from "react-dom";
-import { default as contains } from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
 export interface TIcon {
