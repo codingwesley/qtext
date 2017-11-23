@@ -12,7 +12,7 @@ const initValue: TEditData = {
     blocks: [
       {
         key: "92hbu",
-        text: "陈欢 编辑内容 开始了",
+        text: "可以开始编辑内容了",
         type: "header-one",
         depth: 0,
         inlineStyleRanges: [
