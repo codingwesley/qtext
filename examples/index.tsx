@@ -12,14 +12,14 @@ const initValue: TEditData = {
     blocks: [
       {
         key: "92hbu",
-        text: "可以开始编辑内容了",
+        text: "You can edit your content!",
         type: "header-one",
         depth: 0,
         inlineStyleRanges: [
           {
             offset: 0,
-            length: 11,
-            style: "red"
+            length: 15,
+            style: "green"
           },
           {
             offset: 0,
@@ -48,10 +48,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <div className="App-logo">{logoView}</div>
-          <h2>Welcome to Qtext</h2>
-        </div>
+        <h2>Qtext: React editor base on Draft-js</h2>
         <div
           style={{
             margin: isMobile() ? 0 : "20px 100px"
