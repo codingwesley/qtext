@@ -1,12 +1,21 @@
 import * as React from "react";
+import { CSSProperties } from "react";
 import { findDOMNode } from "react-dom";
 import { default as contains } from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
-export interface ListStyleProps {
-  data: { [key: string]: any };
-  icon: string;
+export interface TItem {
+  value: string;
+  icon?: string;
   label: string;
+  desc?: string;
+  style?: CSSProperties;
+  renderItem?: (ele: TItem) => JSX.Element;
+}
+
+export interface ListStyleProps {
+  data: TItem[];
+  defaultValue?: string;
   className?: string;
   value?: string;
   width: number;
@@ -18,13 +27,13 @@ export interface ListStyleState {
   visible: boolean;
 }
 
-const styles = require("./less/ToolBar.less");
+const styles = require("./index.less");
 
 export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   constructor(props: ListStyleProps) {
     super(props);
     this.state = {
-      value: "",
+      value: props.value || props.defaultValue || "",
       visible: false
     };
   }
@@ -74,8 +83,9 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
     }
   }
 
-  render(): JSX.Element {
-    const { icon, label, width, data, className } = this.props;
+  render(): JSX.Element | null {
+    const { width, data, className } = this.props;
+    const defaultItem = data.find(ele => ele.value === this.state.value);
 
     return (
       <div
@@ -83,13 +93,28 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
           [String(className)]: className !== undefined
         })}
       >
-        <button
+        <div
           onClick={this.modalShow}
-          title={label}
-          className={classnames(styles.toolbtn)}
+          className={classnames(styles.item, {
+            [styles.head]: true,
+            [styles.active]: this.state.visible
+          })}
+          style={{
+            width
+          }}
         >
-          {icon ? <i className={`fa fa-${icon}`} /> : <span>{label}</span>}
-        </button>
+          {defaultItem && defaultItem.icon ? (
+            <i className={`fa fa-${defaultItem.icon}`} />
+          ) : (
+            <span>
+              {defaultItem && defaultItem.renderItem
+                ? defaultItem.renderItem(defaultItem)
+                : (defaultItem && defaultItem.label) || "  "}
+            </span>
+          )}
+          <i className={"fa fa-angle-right " + styles.rightIcon} />
+        </div>
+
         {!this.state.visible ? null : (
           <div
             style={{
@@ -97,20 +122,20 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
             }}
             className={classnames(styles.listModal, styles.activeList)}
           >
-            {Object.keys(data).map(prp => {
-              const style = data[prp];
+            {data.map(item => {
+              const { value, renderItem } = item;
+              const text = renderItem ? renderItem(item) : item.label;
 
               return (
                 <div
-                  key={prp}
+                  key={value}
                   onClick={() => {
-                    this.onToggle(prp);
+                    this.onToggle(value);
                     this.modalShow();
                   }}
-                  style={style}
                   className={styles.item}
                 >
-                  {prp}
+                  {item.icon ? <i className={`fa fa-${item.icon}`} /> : text}
                 </div>
               );
             })}
@@ -121,4 +146,4 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   }
 }
 
-export default ListStyle;
+export default { ListStyle };

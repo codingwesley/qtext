@@ -3,12 +3,13 @@ import { EditorState, Modifier, RichUtils, AtomicBlockUtils } from "draft-js";
 import * as classnames from "classnames";
 import { OrderedSet } from "immutable";
 import { CSSProperties } from "react/index";
-import { ListStyle } from "./ListStyle";
+import { ListStyle, TItem } from "./components/ListStyle";
 import { Media, TMedia } from "./Media";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
   STYLE_LIST,
   TStyleItem,
+  titles,
   fontFamilyStyleMap,
   fontSizeStyleMap,
   colorStyleMap
@@ -118,6 +119,8 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
             />
           );
         })}
+
+        {this._renderTitles()}
 
         <Media
           type={TMedia.link}
@@ -341,15 +344,57 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     changeEditState(nextEditorState);
   };
 
-  _renderColors() {
-    const { togglePrp } = this;
+  _renderTitles() {
+    const { onToggle } = this;
+    const data: TItem[] = [
+      { label: "none", style: "unstyle", desc: "None", isBlock: true }
+    ]
+      .concat(titles)
+      .map(ele => {
+        const { label, desc, style } = ele;
+        return {
+          value: style,
+          label,
+          desc,
+          renderItem(item: TItem) {
+            return <span>{item.desc}</span>;
+          }
+        };
+      });
+    const valueItem = data.find(ele => this.hasBlockStyle(ele.value));
 
     return (
       <ListStyle
-        data={colorStyleMap}
-        icon="eyedropper"
-        label="颜色设置"
+        data={data}
+        width={120}
+        value={valueItem ? valueItem.value : "unstyle"}
+        onToggle={function(style: string) {
+          onToggle(true, style);
+        }}
+      />
+    );
+  }
+
+  _renderColors() {
+    const { togglePrp } = this;
+    const data: TItem[] = Object.keys(colorStyleMap).map(value => {
+      const style = colorStyleMap[value];
+      return {
+        value,
+        label: value,
+        style,
+        renderItem(item: TItem) {
+          return <span style={item.style}>{item.label}</span>;
+        }
+      };
+    });
+    const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
+
+    return (
+      <ListStyle
+        data={data}
         width={100}
+        value={valueItem ? valueItem.value : "black"}
         onToggle={function(style: string) {
           togglePrp(colorStyleMap, style);
         }}
@@ -358,12 +403,24 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   }
   _renderFamily() {
     const { togglePrp } = this;
+    const data: TItem[] = Object.keys(fontFamilyStyleMap).map(value => {
+      const style = fontFamilyStyleMap[value];
+      return {
+        value,
+        label: value,
+        style,
+        renderItem(item: TItem) {
+          return <span style={item.style}>{value}</span>;
+        }
+      };
+    });
+    const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
+
     return (
       <ListStyle
-        data={fontFamilyStyleMap}
-        icon="font"
-        label="字体设置"
+        data={data}
         width={160}
+        value={valueItem ? valueItem.value : "Roboto-Regular"}
         onToggle={function(style: string) {
           togglePrp(fontFamilyStyleMap, style);
         }}
@@ -373,12 +430,24 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
 
   _renderFontSize() {
     const { togglePrp } = this;
+    const data: TItem[] = Object.keys(fontSizeStyleMap).map(value => {
+      const style = fontSizeStyleMap[value];
+      return {
+        value,
+        label: value,
+        style,
+        renderItem(item: TItem) {
+          return <span>{item.value}</span>;
+        }
+      };
+    });
+    const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
+
     return (
       <ListStyle
-        data={fontSizeStyleMap}
-        icon="text-height"
-        label="字体大小设置"
-        width={100}
+        data={data}
+        width={40}
+        value={valueItem ? valueItem.value : "14"}
         onToggle={function(style: string) {
           togglePrp(fontSizeStyleMap, style);
         }}

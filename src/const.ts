@@ -6,13 +6,16 @@ export interface TStyleItem {
   isBlock: boolean;
 }
 
+export const titles = [
+  { label: "H1", style: "header-one", desc: "Heading 1", isBlock: true },
+  { label: "H2", style: "header-two", desc: "Heading 2", isBlock: true },
+  { label: "H3", style: "header-three", desc: "Heading 3", isBlock: true },
+  { label: "H4", style: "header-four", desc: "Heading 4", isBlock: true },
+  { label: "H5", style: "header-five", desc: "Heading 5", isBlock: true },
+  { label: "H6", style: "header-six", desc: "Heading 6", isBlock: true }
+];
+
 export const STYLE_LIST: TStyleItem[] = [
-  { label: "H1", style: "header-one", desc: "1号标题", isBlock: true },
-  { label: "H2", style: "header-two", desc: "2好标题", isBlock: true },
-  { label: "H3", style: "header-three", desc: "3号标题", isBlock: true },
-  { label: "H4", style: "header-four", desc: "4号标题", isBlock: true },
-  { label: "H5", style: "header-five", desc: "5号标题", isBlock: true },
-  { label: "H6", style: "header-six", desc: "6号标题", isBlock: true },
   {
     label: "Blockquote",
     style: "blockquote",
