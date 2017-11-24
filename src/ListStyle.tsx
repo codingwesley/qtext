@@ -18,7 +18,7 @@ export interface ListStyleState {
   visible: boolean;
 }
 
-const styles = require("./scss/ToolBar.less");
+const styles = require("./less/ToolBar.less");
 
 export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   constructor(props: ListStyleProps) {

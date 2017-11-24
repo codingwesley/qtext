@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ContentState, ContentBlock } from "draft-js";
 
-const styles = require("./scss/Link.less");
+const styles = require("./less/Link.less");
 
 export function findLinkEntities(
   contentBlock: ContentBlock,

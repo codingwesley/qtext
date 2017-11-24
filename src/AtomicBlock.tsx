@@ -2,7 +2,7 @@ import * as React from "react";
 import { MediaView, TMedia } from "./Media";
 import { ContentBlock, ContentState } from "draft-js";
 
-const styles = require("./scss/block.less");
+const styles = require("./less/block.less");
 
 export const atomicRenderers: { [key: string]: any } = {
   [TMedia.video.toString()]: MediaView,

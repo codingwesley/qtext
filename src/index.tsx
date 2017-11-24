@@ -20,7 +20,7 @@ import {
   convertFromRaw
 } from "draft-js";
 
-const styles = require("./scss/index.less");
+const styles = require("./less/index.less");
 
 export interface QTextProps {
   readOnly?: boolean;

@@ -1,6 +1,6 @@
 import { ContentBlock } from "draft-js";
 
-const styles = require("./scss/index.less");
+const styles = require("./less/index.less");
 
 export function getBlockStyle(block: ContentBlock) {
   const type: string = block.getType();

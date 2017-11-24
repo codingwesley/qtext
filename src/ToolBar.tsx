@@ -1,6 +1,7 @@
 import * as React from "react";
 import { EditorState, Modifier, RichUtils, AtomicBlockUtils } from "draft-js";
 import * as classnames from "classnames";
+import { OrderedSet } from "immutable";
 import { CSSProperties } from "react/index";
 import { ListStyle } from "./ListStyle";
 import { Media, TMedia } from "./Media";
@@ -13,7 +14,7 @@ import {
   colorStyleMap
 } from "./const";
 
-const styles = require("./scss/ToolBar.less");
+const styles = require("./less/ToolBar.less");
 
 interface ToolBtnProps {
   onToggle: (isBlock: boolean, style: string) => void;
@@ -65,8 +66,34 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     this.props.onToggle(isBlock, style);
   };
 
+  hasInlineStyle(style: string) {
+    return this.findInlineStyle().has(style);
+  }
+
+  findInlineStyle(): OrderedSet<string> {
+    const { editorState } = this.props;
+    const currentStyle = editorState.getCurrentInlineStyle();
+
+    return currentStyle;
+  }
+
+  hasBlockStyle(style: string): boolean {
+    return this.findBlockStyle() === style;
+  }
+
+  findBlockStyle(): string {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+
+    return blockType;
+  }
+
   public render(): JSX.Element {
-    const { editorState, className } = this.props;
+    const { className } = this.props;
 
     return (
       <div className={classnames(styles.barbox, className)}>
@@ -78,15 +105,9 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         {this._renderColors()}
 
         {STYLE_LIST.map(item => {
-          const currentStyle = editorState.getCurrentInlineStyle();
-          const selection = editorState.getSelection();
-          const blockType = editorState
-            .getCurrentContent()
-            .getBlockForKey(selection.getStartKey())
-            .getType();
           const active = item.isBlock
-            ? blockType === item.style
-            : currentStyle.has(item.style);
+            ? this.hasBlockStyle(item.style)
+            : this.hasInlineStyle(item.style);
 
           return (
             <ToolBtn
