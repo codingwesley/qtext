@@ -5,7 +5,12 @@ import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
-import { colorStyleMap, fontFamilyStyleMap, fontSizeStyleMap } from "./const";
+import {
+  colorStyleMap,
+  fontFamilyStyleMap,
+  fontSizeStyleMap,
+  bgColors
+} from "./const";
 import { decorator } from "./decorator";
 import { AtomicBlock } from "./AtomicBlock";
 import { getBlockStyle } from "./blockStyle";
@@ -179,6 +184,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
           <div className={styles.content}>
             <Editor
               customStyleMap={{
+                ...bgColors,
                 ...colorStyleMap,
                 ...fontFamilyStyleMap,
                 ...fontSizeStyleMap
