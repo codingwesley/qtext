@@ -415,7 +415,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
                   })
                 }
               >
-                <i className={`fa fa-${"paint-brush"}`} />
+                <i className={`fa fa-${isColor ? "font" : "paint-brush"}`} />
               </span>
             );
           }
