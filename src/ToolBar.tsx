@@ -349,7 +349,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   _renderTitles() {
     const { onToggle } = this;
     const data: TItem[] = [
-      { label: "none", style: "unstyle", desc: "None", isBlock: true }
+      { label: "none", style: "unstyle", desc: "Normal", isBlock: true }
     ]
       .concat(titles)
       .map(ele => {

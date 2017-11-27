@@ -76,6 +76,13 @@ export const STYLE_LIST: TStyleItem[] = [
     icon: "italic"
   },
   {
+    label: "strikethrough",
+    style: "STRIKETHROUGH",
+    desc: "strikethrough",
+    isBlock: false,
+    icon: "strikethrough"
+  },
+  {
     label: "Underline",
     style: "UNDERLINE",
     desc: "下划线",
