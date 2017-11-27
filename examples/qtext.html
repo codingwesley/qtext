@@ -341,7 +341,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById("qrcode") as HTMLElement);
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById(
+  "__react-content"
+) as HTMLElement);
 
 registerServiceWorker();
 </span></code></pre></div>

@@ -12507,7 +12507,7 @@ var App = function (_React$Component) {
     return App;
 }(React.Component);
 
-ReactDOM.render(React.createElement(App, null), document.getElementById("qrcode"));
+ReactDOM.render(React.createElement(App, null), document.getElementById("__react-content"));
 registerServiceWorker_1["default"]();
 
 /***/ }),
