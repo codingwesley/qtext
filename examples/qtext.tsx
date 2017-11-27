@@ -70,6 +70,8 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("qrcode") as HTMLElement);
+ReactDOM.render(<App />, document.getElementById(
+  "__react-content"
+) as HTMLElement);
 
 registerServiceWorker();
