@@ -25,9 +25,7 @@
   "config": {
     "port": 8000,
     "entry": {
-      "main": [
-        "./src/index.tsx"
-      ]
+      "main": "./src/index.tsx"
     }
   },
   "files": [
