@@ -40421,4 +40421,4 @@ return sprite$1;
 
 /***/ })
 ],[79]);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=qtext.js.map
