@@ -17,7 +17,6 @@ import { getBlockStyle } from "./blockStyle";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
   Editor,
-  DraftInlineStyle,
   EditorState,
   RichUtils,
   ContentBlock,
