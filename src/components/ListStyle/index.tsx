@@ -6,19 +6,20 @@ import * as classnames from "classnames";
 
 export interface TItem {
   value: string;
-  icon?: string;
   label: string;
   desc?: string;
   style?: CSSProperties;
-  renderItem?: (ele: TItem) => JSX.Element;
 }
 
 export interface ListStyleProps {
   data: TItem[];
   defaultValue?: string;
   className?: string;
+  icon?: string;
   value?: string;
   width: number;
+  isColor?: boolean;
+  renderItem?: (ele: TItem, isHead?: boolean) => JSX.Element;
   onToggle: (style: string) => void;
 }
 
@@ -84,8 +85,14 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   }
 
   render(): JSX.Element | null {
-    const { width, data, className } = this.props;
+    const { width, data, className, isColor, renderItem } = this.props;
     const defaultItem = data.find(ele => ele.value === this.state.value);
+    const style: CSSProperties = { width };
+    if (isColor) {
+      style.width = 30;
+      style.textAlign = "center";
+      style.padding = 0;
+    }
 
     return (
       <div
@@ -99,20 +106,16 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
             [styles.head]: true,
             [styles.active]: this.state.visible
           })}
-          style={{
-            width
-          }}
+          style={style}
         >
-          {defaultItem && defaultItem.icon ? (
-            <i className={`fa fa-${defaultItem.icon}`} />
-          ) : (
-            <span>
-              {defaultItem && defaultItem.renderItem
-                ? defaultItem.renderItem(defaultItem)
-                : (defaultItem && defaultItem.label) || "  "}
-            </span>
+          <span>
+            {renderItem
+              ? renderItem(defaultItem as TItem, true)
+              : (defaultItem && defaultItem.label) || "none"}
+          </span>
+          {isColor ? null : (
+            <i className={"fa fa-angle-right " + styles.rightIcon} />
           )}
-          <i className={"fa fa-angle-right " + styles.rightIcon} />
         </div>
 
         {!this.state.visible ? null : (
@@ -123,7 +126,7 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
             className={classnames(styles.listModal, styles.activeList)}
           >
             {data.map(item => {
-              const { value, renderItem } = item;
+              const { value } = item;
               const text = renderItem ? renderItem(item) : item.label;
 
               return (
@@ -133,9 +136,11 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
                     this.onToggle(value);
                     this.modalShow();
                   }}
-                  className={styles.item}
+                  className={classnames(styles.item, {
+                    [styles.color]: isColor
+                  })}
                 >
-                  {item.icon ? <i className={`fa fa-${item.icon}`} /> : text}
+                  {text}
                 </div>
               );
             })}

@@ -12,7 +12,8 @@ import {
   titles,
   fontFamilyStyleMap,
   fontSizeStyleMap,
-  colorStyleMap
+  colorStyleMap,
+  bgColors
 } from "./const";
 
 const styles = require("./less/ToolBar.less");
@@ -103,7 +104,8 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         {this._renderRedoBtn()}
         {this._renderFamily()}
         {this._renderFontSize()}
-        {this._renderColors()}
+        {this._renderColors("color")}
+        {this._renderColors("bgcolor")}
 
         {STYLE_LIST.map(item => {
           const active = item.isBlock
@@ -355,10 +357,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         return {
           value: style,
           label,
-          desc,
-          renderItem(item: TItem) {
-            return <span>{item.desc}</span>;
-          }
+          desc
         };
       });
     const valueItem = data.find(ele => this.hasBlockStyle(ele.value));
@@ -371,32 +370,64 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         onToggle={function(style: string) {
           onToggle(true, style);
         }}
+        renderItem={function(item: TItem) {
+          return <span>{item.desc}</span>;
+        }}
       />
     );
   }
 
-  _renderColors() {
+  _renderColors(type: string) {
     const { togglePrp } = this;
-    const data: TItem[] = Object.keys(colorStyleMap).map(value => {
-      const style = colorStyleMap[value];
-      return {
+    const isColor = type === "color";
+    const sdata = isColor ? colorStyleMap : bgColors;
+    const data: TItem[] = Object.keys(sdata).map(value => {
+      const style = sdata[value];
+      const r: TItem = {
         value,
-        label: value,
-        style,
-        renderItem(item: TItem) {
-          return <span style={item.style}>{item.label}</span>;
-        }
+        label: isColor ? style.color : style.backgroundColor,
+        style
       };
+
+      return r;
     });
     const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
 
     return (
       <ListStyle
+        isColor={true}
         data={data}
-        width={100}
-        value={valueItem ? valueItem.value : "black"}
+        width={120}
+        value={valueItem ? valueItem.value : isColor ? "black" : "white"}
         onToggle={function(style: string) {
-          togglePrp(colorStyleMap, style);
+          togglePrp(sdata, style);
+        }}
+        renderItem={function(item: TItem, isHead: boolean) {
+          if (isHead === true) {
+            return (
+              <span
+                style={
+                  valueItem &&
+                  Object.assign({}, valueItem.style, {
+                    width: 30,
+                    height: 30,
+                    display: "inline-block"
+                  })
+                }
+              >
+                <i className={`fa fa-${isColor ? "font" : "paint-brush"}`} />
+              </span>
+            );
+          }
+
+          return (
+            <span
+              key={item.value}
+              style={{
+                backgroundColor: item.label
+              }}
+            />
+          );
         }}
       />
     );
@@ -408,10 +439,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
       return {
         value,
         label: value,
-        style,
-        renderItem(item: TItem) {
-          return <span style={item.style}>{value}</span>;
-        }
+        style
       };
     });
     const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
@@ -424,6 +452,9 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         onToggle={function(style: string) {
           togglePrp(fontFamilyStyleMap, style);
         }}
+        renderItem={function(item: TItem) {
+          return <span style={item.style}>{item.value}</span>;
+        }}
       />
     );
   }
@@ -435,10 +466,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
       return {
         value,
         label: value,
-        style,
-        renderItem(item: TItem) {
-          return <span>{item.value}</span>;
-        }
+        style
       };
     });
     const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
@@ -450,6 +478,9 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         value={valueItem ? valueItem.value : "14"}
         onToggle={function(style: string) {
           togglePrp(fontSizeStyleMap, style);
+        }}
+        renderItem={function(item: TItem) {
+          return <span>{item.value}</span>;
         }}
       />
     );
