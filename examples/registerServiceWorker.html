@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>registerServiceWorker.js - example - qtext@0.1.28</title>
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <style>
+    .highlight pre {
+      padding: .8em 1em;
+      font: 14px/20px Consolas, Monaco, 'Andale Mono', monospace;
+      border: 1px solid #e5e8ec;
+      border-radius: 3px;
+      background-color: #21221d;
+      background-image: -webkit-linear-gradient(#21221d 50%, #272822 50%);
+      background-image: -moz-linear-gradient(#21221d 50%, #272822 50%);
+      background-image: -ms-linear-gradient(#21221d 50%, #272822 50%);
+      background-image: -o-linear-gradient(#21221d 50%, #272822 50%);
+      background-image: linear-gradient(#21221d 50%, #272822 50%);
+      background-size: 40px 40px;
+      background-origin: content-box;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .highlight pre > code {
+      font-family: inherit;
+      direction: ltr;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      vertical-align: 2px;
+      display: block;
+      -moz-tab-size: 2;
+      -o-tab-size: 2;
+      tab-size: 2;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+      color: #E5E5C2;
+    }
+  </style>
+  <style>
+/*
+
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #23241f;
+  -webkit-text-size-adjust: none;
+}
+
+.hljs,
+.hljs-tag,
+.css .hljs-rule,
+.css .hljs-value,
+.aspectj .hljs-function,
+.css .hljs-function
+.hljs-preprocessor,
+.hljs-pragma {
+  color: #f8f8f2;
+}
+
+.hljs-strongemphasis,
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
+
+.hljs-bullet,
+.hljs-blockquote,
+.hljs-horizontal_rule,
+.hljs-number,
+.hljs-regexp,
+.alias .hljs-keyword,
+.hljs-literal,
+.hljs-hexcolor {
+  color: #ae81ff;
+}
+
+.hljs-code,
+.hljs-title,
+.css .hljs-class,
+.hljs-class .hljs-title:last-child {
+  color: #a6e22e;
+  /*color: #e6db74;*/
+}
+
+.hljs-link_url {
+  font-size: 80%;
+}
+
+.hljs-strong,
+.hljs-strongemphasis {
+  font-weight: bold;
+}
+
+.hljs-emphasis,
+.hljs-strongemphasis,
+.hljs-class .hljs-title:last-child,
+.hljs-typename {
+  font-style: italic;
+}
+
+.hljs-keyword,
+.ruby .hljs-class .hljs-keyword:first-child,
+.ruby .hljs-function .hljs-keyword,
+.hljs-function,
+.hljs-change,
+.hljs-winutils,
+.hljs-flow,
+.nginx .hljs-title,
+.tex .hljs-special,
+.hljs-header,
+.hljs-symbol,
+.hljs-symbol .hljs-string,
+.hljs-tag .hljs-title,
+.hljs-value,
+.alias .hljs-keyword:first-child,
+.css .hljs-tag,
+.css .unit,
+.css .hljs-important {
+  color: #f92672;
+}
+
+.hljs-function .hljs-keyword,
+.hljs-class .hljs-keyword:first-child,
+.hljs-aspect .hljs-keyword:first-child,
+.hljs-constant,
+.hljs-typename,
+.hljs-name,
+.css .hljs-attribute {
+  color: #66d9ef;
+}
+
+.hljs-variable,
+.hljs-params,
+.hljs-class .hljs-title,
+.hljs-aspect .hljs-title {
+  color: #f8f8f2;
+}
+
+.hljs-tag .hljs-value,
+.hljs-string,
+.css .hljs-id,
+.hljs-subst,
+.hljs-type,
+.ruby .hljs-class .hljs-parent,
+.django .hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.django .hljs-filter .hljs-argument,
+.smalltalk .hljs-localvars,
+.smalltalk .hljs-array,
+.hljs-attr_selector,
+.hljs-pseudo,
+.hljs-addition,
+.hljs-stream,
+.hljs-envvar,
+.apache .hljs-tag,
+.apache .hljs-cbracket,
+.tex .hljs-command,
+.hljs-prompt,
+.hljs-link_label,
+.hljs-link_url {
+  color: #e6db74;
+}
+
+.hljs-comment,
+.hljs-annotation,
+.hljs-decorator,
+.hljs-pi,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.tex .hljs-formula {
+  color: #75715e;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata,
+.xml .php,
+.php .xml {
+  opacity: 0.5;
+}
+/***********/
+.hljs-attribute{
+  color: #a6e22e;
+}
+/***** node keyword ******/
+.hljs-built_in{
+  color: #3396dc;
+  font-weight: bold;
+}
+  </style>
+  <style>
+    .container {
+      width: 86%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header p {
+      color: #666;
+    }
+
+    .example {
+      padding: 20px 0;
+    }
+  </style>
+
+  <script>
+    // Console-polyfill. MIT license.
+    // https://github.com/paulmillr/console-polyfill
+    // Make it safe to do console.log() always.
+    (function (global) {
+      'use strict';
+      global.console = global.console || {};
+      var con = global.console;
+      var prop, method;
+      var empty = {};
+      var dummy = function () {
+      };
+      var properties = 'memory'.split(',');
+      var methods = ('assert,clear,count,debug,dir,dirxml,error,exception,group,' +
+      'groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,' +
+      'show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn').split(',');
+      while (prop = properties.pop()) con[prop] = con[prop] || empty;
+      while (method = methods.pop()) con[method] = con[method] || dummy;
+    })(typeof window === 'undefined' ? this : window);
+    // Using `this` for web workers while maintaining compatibility with browser
+    // targeted script loaders such as Browserify or Webpack where the only way to
+    // get to the global object is via `window`.
+  </script>
+  <!--[if lt IE 9]>
+  <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://as.alipayobjects.com/g/component/??modernizr/2.8.3/modernizr.js,fastclick/1.0.6/fastclick.js"></script>
+  <script>
+  if(!window.Promise) {
+    document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+  }
+  </script>
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>qtext@0.1.28</h1>
+
+      <p></p>
+    </div>
+    <div class="example" id="__react-content"></div>
+
+    <div class="highlight"><pre><code language="js"><span class="hljs-comment">// tslint:disable:no-console</span>
+<span class="hljs-comment">// In production, we register a service worker to serve assets from local cache.</span>
+
+<span class="hljs-comment">// This lets the app load faster on subsequent visits in production, and gives</span>
+<span class="hljs-comment">// it offline capabilities. However, it also means that developers (and users)</span>
+<span class="hljs-comment">// will only see deployed updates on the 'N+1' visit to a page, since previously</span>
+<span class="hljs-comment">// cached resources are updated in the background.</span>
+
+<span class="hljs-comment">// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.</span>
+<span class="hljs-comment">// This link also includes instructions on opting out of this behavior.</span>
+
+<span class="hljs-keyword">const</span> isLocalhost = <span class="hljs-built_in">Boolean</span>(
+  <span class="hljs-built_in">window</span>.location.hostname === <span class="hljs-string">"localhost"</span> ||
+    <span class="hljs-comment">// [::1] is the IPv6 localhost address.</span>
+    <span class="hljs-built_in">window</span>.location.hostname === <span class="hljs-string">"[::1]"</span> ||
+    <span class="hljs-comment">// 127.0.0.1/8 is considered localhost for IPv4.</span>
+    <span class="hljs-built_in">window</span>.location.hostname.match(
+      <span class="hljs-regexp">/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/</span>
+    )
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (process.env.NODE_ENV === <span class="hljs-string">"production"</span> &amp;&amp; <span class="hljs-string">"serviceWorker"</span> <span class="hljs-keyword">in</span> navigator) {
+    <span class="hljs-comment">// The URL constructor is available in all browsers that support SW.</span>
+    <span class="hljs-keyword">const</span> publicUrl = <span class="hljs-keyword">new</span> URL(
+      process.env.PUBLIC_URL!,
+      <span class="hljs-built_in">window</span>.location.toString()
+    );
+    <span class="hljs-keyword">if</span> (publicUrl.origin !== <span class="hljs-built_in">window</span>.location.origin) {
+      <span class="hljs-comment">// Our service worker won't work if PUBLIC_URL is on a different origin</span>
+      <span class="hljs-comment">// from what our page is served on. This might happen if a CDN is used to</span>
+      <span class="hljs-comment">// serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374</span>
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"load"</span>, () =&gt; {
+      <span class="hljs-keyword">const</span> swUrl = <span class="hljs-string">`<span class="hljs-subst">${process.env.PUBLIC_URL}</span>/service-worker.js`</span>;
+
+      <span class="hljs-keyword">if</span> (!isLocalhost) {
+        <span class="hljs-comment">// Is not local host. Just register service worker</span>
+        registerValidSW(swUrl);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// This is running on localhost. Lets check if a service worker still exists or not.</span>
+        checkValidServiceWorker(swUrl);
+      }
+    });
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registerValidSW</span>(<span class="hljs-params">swUrl: string</span>) </span>{
+  navigator.serviceWorker
+    .register(swUrl)
+    .then(registration =&gt; {
+      registration.onupdatefound = () =&gt; {
+        <span class="hljs-keyword">const</span> installingWorker = registration.installing;
+        <span class="hljs-keyword">if</span> (installingWorker) {
+          installingWorker.onstatechange = () =&gt; {
+            <span class="hljs-keyword">if</span> (installingWorker.state === <span class="hljs-string">"installed"</span>) {
+              <span class="hljs-keyword">if</span> (navigator.serviceWorker.controller) {
+                <span class="hljs-comment">// At this point, the old content will have been purged and</span>
+                <span class="hljs-comment">// the fresh content will have been added to the cache.</span>
+                <span class="hljs-comment">// It's the perfect time to display a 'New content is</span>
+                <span class="hljs-comment">// available; please refresh.' message in your web app.</span>
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"New content is available; please refresh."</span>);
+              } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">// At this point, everything has been precached.</span>
+                <span class="hljs-comment">// It's the perfect time to display a</span>
+                <span class="hljs-comment">// 'Content is cached for offline use.' message.</span>
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Content is cached for offline use."</span>);
+              }
+            }
+          };
+        }
+      };
+    })
+    .catch(error =&gt; {
+      <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Error during service worker registration:"</span>, error);
+    });
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkValidServiceWorker</span>(<span class="hljs-params">swUrl: string</span>) </span>{
+  <span class="hljs-comment">// Check if the service worker can be found. If it can't reload the page.</span>
+  fetch(swUrl)
+    .then(response =&gt; {
+      <span class="hljs-comment">// Ensure service worker exists, and that we really are getting a JS file.</span>
+      <span class="hljs-keyword">if</span> (
+        response.status === <span class="hljs-number">404</span> ||
+        response.headers.get(<span class="hljs-string">"content-type"</span>)!.indexOf(<span class="hljs-string">"javascript"</span>) === -<span class="hljs-number">1</span>
+      ) {
+        <span class="hljs-comment">// No service worker found. Probably a different app. Reload the page.</span>
+        navigator.serviceWorker.ready.then(registration =&gt; {
+          registration.unregister().then(() =&gt; {
+            <span class="hljs-built_in">window</span>.location.reload();
+          });
+        });
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// Service worker found. Proceed as normal.</span>
+        registerValidSW(swUrl);
+      }
+    })
+    .catch(() =&gt; {
+      <span class="hljs-built_in">console</span>.log(
+        <span class="hljs-string">"No internet connection found. App is running in offline mode."</span>
+      );
+    });
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unregister</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-string">"serviceWorker"</span> <span class="hljs-keyword">in</span> navigator) {
+    navigator.serviceWorker.ready.then(registration =&gt; {
+      registration.unregister();
+    });
+  }
+}
+</code></pre></div>
+  </div>
+  <a href="">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+         alt="Fork me on GitHub"
+         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  </a>
+  <script>FastClick.attach(document.body);</script>
+  <script src="../common.js?nowrap"></script>
+  <script src="registerServiceWorker.js?nowrap"></script>
+</body>
+
+</html>
