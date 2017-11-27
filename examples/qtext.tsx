@@ -49,11 +49,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h2>Qtext: React editor base on Draft-js</h2>
-        <div
-          style={{
-            margin: isMobile() ? 0 : "20px 100px"
-          }}
-        >
+        <div>
           <QText value={this.state.value} />
         </div>
         <p className="App-intro">Qtext</p>
