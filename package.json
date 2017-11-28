@@ -20,7 +20,7 @@
     "start": "./node_modules/.bin/rc-tools run server",
     "build": "./node_modules/.bin/rc-tools run compile dist",
     "gh-pages": "./node_modules/.bin/rc-tools run gh-pages",
-    "npm-publish": "./node_modules/.bin/rc-tools run compile dist && npm version patch && npm run publish"
+    "npm-publish": "./node_modules/.bin/rc-tools run compile dist && npm version patch && npm publish"
   },
   "config": {
     "port": 8000,
