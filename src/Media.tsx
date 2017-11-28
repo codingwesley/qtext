@@ -204,11 +204,8 @@ const Video = (props: TMediaData) => {
     return <span>你的浏览器不支持HTML5 video。</span>;
   }
   const id = getYoutubeVideoId(props.src);
-
   const cProps = {
-    webkitallowfullscreen: true,
-    mozallowfullscreen: true,
-    allowfullscreen: true,
+    allowFullScreen: true,
     frameBorder: "0",
     className: styles.iframe,
     name: props.name
