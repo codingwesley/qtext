@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CSSProperties } from "react";
 import { findDOMNode } from "react-dom";
-import { default as contains } from "rc-util/lib/Dom/contains";
+import * as contains from "rc-util/lib/Dom/contains";
 import * as classnames from "classnames";
 
 export interface TItem {
@@ -86,7 +86,7 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
 
   render(): JSX.Element | null {
     const { width, data, className, isColor, renderItem } = this.props;
-    const defaultItem = data.find(ele => ele.value === this.state.value);
+    const defaultItem = data.find(ele => ele.value.toString() === this.state.value.toString());
     const style: CSSProperties = { width };
     if (isColor) {
       style.width = 30;

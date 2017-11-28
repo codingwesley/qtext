@@ -10,6 +10,7 @@ import {
   STYLE_LIST,
   TStyleItem,
   titles,
+  lineHeightStyleMap,
   fontFamilyStyleMap,
   fontSizeStyleMap,
   colorStyleMap,
@@ -104,6 +105,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
         {this._renderRedoBtn()}
         {this._renderFamily()}
         {this._renderFontSize()}
+        {this._renderLineHeight()}
         {this._renderColors("color")}
         {this._renderColors("bgcolor")}
 
@@ -428,6 +430,42 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
               }}
             />
           );
+        }}
+      />
+    );
+  }
+
+  _renderLineHeight() {
+    const { togglePrp } = this;
+    const data: TItem[] = Object.keys(lineHeightStyleMap).sort().map(value => {
+      const style = lineHeightStyleMap[value];
+      return {
+        value,
+        label: value,
+        style
+      };
+    });
+    const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
+
+    return (
+      <ListStyle
+        data={data}
+        width={80}
+        value={valueItem ? valueItem.value : "1.5"}
+        onToggle={function(style: string) {
+          togglePrp(lineHeightStyleMap, style);
+        }}
+        renderItem={function(item: TItem, isHead: boolean) {
+          if (isHead) {
+            return (
+              <span>
+                <i className="fa fa-text-height" />
+                &nbsp;
+                {item.value}
+              </span>
+            );
+          }
+          return <span>{item.value}</span>;
         }}
       />
     );

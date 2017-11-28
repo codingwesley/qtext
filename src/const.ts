@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+import { bgColors, colorStyleMap } from "./colors";
 export { colorStyleMap, bgColors } from "./colors";
 
 export interface TStyleItem {
@@ -108,6 +110,20 @@ export const fontSizeStyleMap = (() => {
   return r;
 })();
 
+export const lineHeightStyleMap = (() => {
+  const min = 1;
+  const max = 4;
+  const r: { [key: string]: CSSProperties } = {};
+  for (let i = min; i <= max; i = parseFloat((i + 0.1).toFixed(1))) {
+    const key = `${i}`;
+    r[key] = {
+      lineHeight: i
+    };
+  }
+
+  return r;
+})();
+
 export const fontFamilyStyleMap = {
   "Roboto-Regular": {
     fontFamily: "Roboto-Regular"
@@ -166,4 +182,12 @@ export const fontFamilyStyleMap = {
   Verdana: {
     fontFamily: "Verdana,Geneva,sans-serif"
   }
+};
+
+export const InlineStyleMap: { [key: string]: CSSProperties } = {
+  ...bgColors,
+  ...colorStyleMap,
+  ...fontFamilyStyleMap,
+  ...fontSizeStyleMap,
+  ...lineHeightStyleMap
 };

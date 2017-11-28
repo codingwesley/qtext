@@ -6,10 +6,7 @@ import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
 import {
-  colorStyleMap,
-  fontFamilyStyleMap,
-  fontSizeStyleMap,
-  bgColors
+  InlineStyleMap
 } from "./const";
 import { decorator } from "./decorator";
 import { AtomicBlock } from "./AtomicBlock";
@@ -183,12 +180,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
           )}
           <div className={styles.content}>
             <Editor
-              customStyleMap={{
-                ...bgColors,
-                ...colorStyleMap,
-                ...fontFamilyStyleMap,
-                ...fontSizeStyleMap
-              }}
+              customStyleMap={InlineStyleMap}
               blockRendererFn={this.getBlockRender}
               blockStyleFn={getBlockStyle}
               placeholder={placeholder}
