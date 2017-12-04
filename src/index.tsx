@@ -5,9 +5,7 @@ import { loadCSS } from "fg-loadcss";
 import "draft-js/dist/Draft.css";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
-import {
-  InlineStyleMap
-} from "./const";
+import { InlineStyleMap } from "./const";
 import { decorator } from "./decorator";
 import { AtomicBlock } from "./AtomicBlock";
 import { getBlockStyle } from "./blockStyle";
@@ -30,6 +28,8 @@ export interface QTextProps {
   value?: TEditData;
   onChange?: (editorState: EditorState) => void;
   autoSave?: boolean;
+  rcUploadProps?: any;
+  rcSuccess?: (data: any) => string | Promise<string>;
 }
 
 export interface QTextState {
@@ -133,7 +133,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   public render(): JSX.Element {
-    const { placeholder } = this.props;
+    const { placeholder, rcUploadProps, rcSuccess } = this.props;
     const { editorState, readOnly, editMode } = this.state;
     const className = classnames(styles.editor, {
       [styles.inEditStatus]: !readOnly,
@@ -169,6 +169,8 @@ export class QText extends React.Component<QTextProps, QTextState> {
               toggleMode={this.toggleMode}
               editorState={editorState}
               changeEditState={this.onChange}
+              rcUploadProps={rcUploadProps}
+              rcSuccess={rcSuccess}
               onToggle={(isBlock, style) => {
                 if (isBlock) {
                   this._toggleBlockType(style);

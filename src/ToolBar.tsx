@@ -5,6 +5,7 @@ import { OrderedSet } from "immutable";
 import { CSSProperties } from "react/index";
 import { ListStyle, TItem } from "./components/ListStyle";
 import { Media, TMedia } from "./Media";
+import { MediaAction } from "./components/Media/action";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
   STYLE_LIST,
@@ -20,7 +21,7 @@ import {
 const styles = require("./less/ToolBar.less");
 
 interface ToolBtnProps {
-  onToggle: (isBlock: boolean, style: string) => void;
+  onToggle?: (isBlock: boolean, style: string) => void;
   item: TStyleItem;
   active: boolean;
   disabled?: boolean;
@@ -31,12 +32,18 @@ interface ToolBtnState {}
 class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
   onToggle = (e: any) => {
     e.preventDefault();
-    this.props.onToggle(this.props.item.isBlock, this.props.item.style);
+    if (this.props.onToggle) {
+      this.props.onToggle(
+        this.props.item.isBlock || false,
+        this.props.item.style
+      );
+    }
   };
 
   public render(): JSX.Element {
     const { label, icon } = this.props.item;
     const { disabled } = this.props;
+
     return (
       <button
         disabled={disabled !== undefined ? disabled : false}
@@ -59,12 +66,14 @@ export interface ToolBarProps {
   editorState: EditorState;
   changeEditState: (editorState: EditorState) => void;
   onToggle: (isBlock: boolean, style: string) => void;
+  rcUploadProps?: any;
+  rcSuccess?: (data: any) => string | Promise<string>;
 }
 
 export interface ToolBarState {}
 
 export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
-  linkStyle: Media | null = null;
+  linkStyle: MediaAction | null = null;
   onToggle = (isBlock: boolean, style: string) => {
     this.props.onToggle(isBlock, style);
   };
@@ -96,7 +105,13 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
   }
 
   public render(): JSX.Element {
-    const { className } = this.props;
+    const {
+      className,
+      editorState,
+      changeEditState,
+      rcUploadProps,
+      rcSuccess
+    } = this.props;
 
     return (
       <div className={classnames(styles.barbox, className)}>
@@ -126,41 +141,77 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
 
         {this._renderTitles()}
 
-        <Media
-          type={TMedia.link}
-          icon="link"
+        <MediaAction
+          editorState={editorState}
+          changeEditorState={changeEditState}
+          type="LINK"
           ref={r => (this.linkStyle = r)}
-          label="链接"
-          donotName={true}
-          onClick={this.linkClick}
-          onToggle={(style, name, value, newTarget) => {
-            this.linkConfirm(
-              name,
-              value,
-              newTarget,
-              style === TMedia.link.toString() ? "LINK" : style
-            );
-          }}
-        />
-
-        <Media
-          type={TMedia.video}
-          icon="video-camera"
-          label="视频"
-          onToggle={this.mediaConfirm}
-        />
-        <Media
-          type={TMedia.audio}
-          icon="music"
-          label="音频"
-          onToggle={this.mediaConfirm}
-        />
-        <Media
-          type={TMedia.image}
-          icon="picture-o"
-          label="图片"
-          onToggle={this.mediaConfirm}
-        />
+        >
+          <ToolBtn
+            key="LINK"
+            item={{
+              icon: "link",
+              label: "LINK",
+              desc: "insert link",
+              style: "LINK",
+              isBlock: false
+            }}
+            active={false}
+          />
+        </MediaAction>
+        <MediaAction
+          editorState={editorState}
+          changeEditorState={changeEditState}
+          type="IMAGE"
+          rcUploadProps={rcUploadProps}
+          rcSuccess={rcSuccess}
+        >
+          <ToolBtn
+            key="IMAGE"
+            item={{
+              icon: "picture-o",
+              label: "IMAGE",
+              desc: "insert IMAGE",
+              style: "IMAGE",
+              isBlock: false
+            }}
+            active={false}
+          />
+        </MediaAction>
+        <MediaAction
+          editorState={editorState}
+          changeEditorState={changeEditState}
+          type="VIDEO"
+        >
+          <ToolBtn
+            key="VIDEO"
+            item={{
+              icon: "video-camera",
+              label: "VIDEO",
+              desc: "insert video",
+              style: "VIDEO",
+              isBlock: false
+            }}
+            active={false}
+          />
+        </MediaAction>
+        <MediaAction
+          editorState={editorState}
+          changeEditorState={changeEditState}
+          type="AUDIO"
+        >
+          <ToolBtn
+            key="AUDIO"
+            item={{
+              icon: "music",
+              label: "AUDIO",
+              desc: "insert audio media",
+              style: "AUDIO",
+              isBlock: false
+            }}
+            active={false}
+          />
+        </MediaAction>
       </div>
     );
   }
@@ -187,59 +238,6 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
       />
     );
   }
-
-  linkClick = () => {
-    const { editorState } = this.props;
-    const selection = editorState.getSelection();
-    if (!selection.isCollapsed()) {
-      const contentState = editorState.getCurrentContent();
-      const startKey = editorState.getSelection().getStartKey();
-      const startOffset = editorState.getSelection().getStartOffset();
-      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
-      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
-
-      if (linkKey) {
-        const linkInstance = contentState.getEntity(linkKey);
-        const { url, newTarget } = linkInstance.getData();
-
-        if (this.linkStyle !== null) {
-          // 存在修改链接的情况
-          this.linkStyle.onChange({
-            showURLValue: url,
-            checked: newTarget
-          });
-        }
-      }
-    }
-  };
-
-  // TODO _removeLink
-  linkConfirm = (
-    name: string,
-    url: string,
-    newTarget: boolean,
-    style = "LINK"
-  ) => {
-    const { editorState, changeEditState } = this.props;
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(style, "MUTABLE", {
-      url,
-      name,
-      newTarget
-    });
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, {
-      currentContent: contentStateWithEntity
-    });
-
-    changeEditState(
-      RichUtils.toggleLink(
-        newEditorState,
-        newEditorState.getSelection(),
-        entityKey
-      )
-    );
-  };
 
   mediaConfirm = (style: string, name: string, url: string) => {
     const { editorState, changeEditState } = this.props;
@@ -437,14 +435,16 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
 
   _renderLineHeight() {
     const { togglePrp } = this;
-    const data: TItem[] = Object.keys(lineHeightStyleMap).sort().map(value => {
-      const style = lineHeightStyleMap[value];
-      return {
-        value,
-        label: value,
-        style
-      };
-    });
+    const data: TItem[] = Object.keys(lineHeightStyleMap)
+      .sort()
+      .map(value => {
+        const style = lineHeightStyleMap[value];
+        return {
+          value,
+          label: value,
+          style
+        };
+      });
     const valueItem = data.find(ele => this.hasInlineStyle(ele.value));
 
     return (

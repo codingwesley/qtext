@@ -7,7 +7,7 @@ export interface TStyleItem {
   icon?: string; // 没有 icon 的时候显示 label http://fontawesome.io/icons/
   desc: string; // 提示信息
   style: string;
-  isBlock: boolean;
+  isBlock?: boolean;
 }
 
 export const titles = [

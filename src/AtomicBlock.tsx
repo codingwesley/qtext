@@ -1,13 +1,13 @@
 import * as React from "react";
-import { MediaView, TMedia } from "./Media";
+import { MediaView } from "./components/Media/view";
 import { ContentBlock, ContentState } from "draft-js";
 
 const styles = require("./less/block.less");
 
 export const atomicRenderers: { [key: string]: any } = {
-  [TMedia.video.toString()]: MediaView,
-  [TMedia.image.toString()]: MediaView,
-  [TMedia.audio.toString()]: MediaView
+  IMAGE: MediaView,
+  VIDEO: MediaView,
+  AUDIO: MediaView
 };
 
 export interface AtomicBlockProps {
