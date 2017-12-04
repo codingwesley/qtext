@@ -4,7 +4,6 @@ import * as classnames from "classnames";
 import { OrderedSet } from "immutable";
 import { CSSProperties } from "react/index";
 import { ListStyle, TItem } from "./components/ListStyle";
-import { Media, TMedia } from "./Media";
 import { MediaAction } from "./components/Media/action";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
@@ -152,7 +151,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
             item={{
               icon: "link",
               label: "LINK",
-              desc: "insert link",
+              desc: "insert link media",
               style: "LINK",
               isBlock: false
             }}
@@ -171,7 +170,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
             item={{
               icon: "picture-o",
               label: "IMAGE",
-              desc: "insert IMAGE",
+              desc: "insert image media",
               style: "IMAGE",
               isBlock: false
             }}
@@ -188,7 +187,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
             item={{
               icon: "video-camera",
               label: "VIDEO",
-              desc: "insert video",
+              desc: "insert video media",
               style: "VIDEO",
               isBlock: false
             }}
