@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import { QText, TEditData } from "../src/index";
-import { isMobile } from "../src/util";
 import "./index.css";
 import "./App.css";
 
@@ -33,13 +32,6 @@ const initValue: TEditData = {
     ]
   }
 };
-
-const logo = require("./logo.svg").default;
-const logoView = (
-  <svg width="80" viewBox={logo.viewBox}>
-    <use xlinkHref={`#${logo.id}`} />
-  </svg>
-);
 
 function url(hash: string) {
   return `http://7xiata.com1.z0.glb.clouddn.com/${hash}`;
