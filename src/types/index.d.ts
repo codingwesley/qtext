@@ -5,4 +5,4 @@ declare module "rc-util/lib/Dom/contains";
 
 declare const __DEV__: "false" | "true";
 
-declare module "rc-upload";
+declare module "rc-upload*";

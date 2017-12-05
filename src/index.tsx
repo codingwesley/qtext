@@ -17,8 +17,10 @@ import {
   ContentBlock,
   convertToRaw,
   RawDraftContentState,
-  convertFromRaw
+  convertFromRaw,
+  DraftHandleValue
 } from "draft-js";
+import { onPasted } from "./onPasted";
 
 const styles = require("./less/index.less");
 
@@ -132,6 +134,12 @@ export class QText extends React.Component<QTextProps, QTextState> {
     });
   };
 
+  handlePastedFiles = (files: Array<Blob>): DraftHandleValue => {
+    onPasted(this, files);
+
+    return "not-handled";
+  };
+
   public render(): JSX.Element {
     const { placeholder, rcUploadProps, rcSuccess } = this.props;
     const { editorState, readOnly, editMode } = this.state;
@@ -187,6 +195,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
               blockStyleFn={getBlockStyle}
               placeholder={placeholder}
               readOnly={readOnly}
+              handlePastedFiles={this.handlePastedFiles}
               editorState={editorState}
               onChange={this.onChange}
             />

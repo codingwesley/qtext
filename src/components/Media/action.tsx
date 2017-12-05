@@ -143,7 +143,7 @@ export class MediaAction extends React.Component<
   };
 
   _onURLInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.which === 13) {
       this.confirmMedia();
     }
   };

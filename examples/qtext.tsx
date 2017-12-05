@@ -39,7 +39,7 @@ function url(hash: string) {
 
 const d = {
   token:
-    "LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:3ne7rNhedUOa8Bwp1nMuSoCC5KI=:eyJzY29wZSI6ImRhaWdvdXRlc3QiLCJkZWFkbGluZSI6MTUxMjM4NTU1NywidXBob3N0cyI6WyJodHRwOi8vdXAucWluaXUuY29tIiwiaHR0cDovL3VwbG9hZC5xaW5pdS5jb20iLCItSCB1cC5xaW5pdS5jb20gaHR0cDovLzE4My4xMzEuNy4xOCJdfQ==",
+    "LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:v7zePT6i6CaL-16h-udLmJwR0bs=:eyJzY29wZSI6ImRhaWdvdXRlc3QiLCJkZWFkbGluZSI6MTUxMjQ1NzUwNiwidXBob3N0cyI6WyJodHRwOi8vdXAucWluaXUuY29tIiwiaHR0cDovL3VwbG9hZC5xaW5pdS5jb20iLCItSCB1cC5xaW5pdS5jb20gaHR0cDovLzE4My4xMzEuNy4xOCJdfQ==",
   baseUrl: "http://7xiata.com1.z0.glb.clouddn.com/"
 };
 const TOKEN = d.token;
