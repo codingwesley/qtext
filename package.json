@@ -19,7 +19,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "./node_modules/.bin/rc-tools run server",
-    "build": "./node_modules/.bin/rc-tools run compile dist",
+    "build": "./node_modules/.bin/rc-tools run compile && ./node_modules/.bin/rc-tools run dist",
     "gh-pages": "./node_modules/.bin/rc-tools run gh-pages"
   },
   "config": {
