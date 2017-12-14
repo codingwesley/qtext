@@ -2,10 +2,37 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import { QText, TEditData } from "../src/index";
+import { EditorDefaultTools } from "./../src/tools";
 import "./index.css";
 import "./App.css";
 
-const initValue = require("./test.json");
+const initValue: TEditData = {
+  data: {
+    entityMap: {},
+    blocks: [
+      {
+        key: "92hbu",
+        text: "You can edit your content!",
+        type: "header-one",
+        depth: 0,
+        inlineStyleRanges: [
+          {
+            offset: 0,
+            length: 15,
+            style: "green"
+          },
+          {
+            offset: 0,
+            length: 11,
+            style: "BOLD"
+          }
+        ],
+        entityRanges: [],
+        data: {}
+      }
+    ]
+  }
+};
 
 function url(hash: string) {
   return `http://7xiata.com1.z0.glb.clouddn.com/${hash}`;
@@ -22,12 +49,13 @@ const TOKEN = d.token;
 class App extends React.Component {
   editor: QText | null;
   state = {
-    value: undefined
+    value: undefined,
+    disabled: []
   };
   render() {
     return (
       <div className="App">
-        <h2>Qtext: React editor base on Draft-js</h2>
+        <h2>Qtext: React editor base on Draft-js test disabled</h2>
         <p>
           <button
             onClick={() => {
@@ -43,29 +71,28 @@ class App extends React.Component {
             log editor data
           </button>
         </p>
+        <div id="listbox" className="list">
+          {EditorDefaultTools.map(ele => {
+            return (
+              <span
+                title={ele.key}
+                key={ele.key}
+                style={{
+                  padding: "5px",
+                  display: "inline-block"
+                }}
+              >
+                <input id={ele.key} type="checkbox" value={ele.key} />
+                <label htmlFor={ele.key}>{ele.label}</label>
+              </span>
+            );
+          })}
+        </div>
+        <button onClick={this.refresh}>refresh</button>
         <div>
           <QText
             ref={r => (this.editor = r)}
-            disabled={[]}
-            value={this.state.value}
-            rcSuccess={data => {
-              return url(data.hash);
-            }}
-            rcUploadProps={{
-              data: {
-                token: TOKEN
-              },
-              action:
-                location.protocol === "https:"
-                  ? "https://up.qbox.me"
-                  : "http://upload.qiniu.com/"
-            }}
-          />
-
-          <h2>Test disabled some tools</h2>
-          <QText
-            ref={r => (this.editor = r)}
-            disabled={["heading", "preview"]}
+            disabled={this.state.disabled}
             value={this.state.value}
             rcSuccess={data => {
               return url(data.hash);
@@ -85,6 +112,21 @@ class App extends React.Component {
       </div>
     );
   }
+
+  refresh = () => {
+    const listbox = document.querySelectorAll("#listbox input");
+    const keys: (string | null)[] = [];
+
+    listbox.forEach((ele: HTMLInputElement) => {
+      if (ele.checked) {
+        keys.push(ele.value);
+      }
+    });
+
+    this.setState({
+      disabled: keys.filter(ele => ele !== null)
+    });
+  };
 
   componentDidMount() {
     setTimeout(() => {

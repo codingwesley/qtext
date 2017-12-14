@@ -40,6 +40,14 @@ export class QTextView extends React.Component<QTextViewProps, QTextViewState> {
 
   constructor(props: QTextViewProps) {
     super(props);
+    if (props.value) {
+      const contentState = convertFromRaw(props.value);
+      this.state = {
+        editorState: EditorState.createWithContent(contentState, decorator)
+      };
+      return;
+    }
+
     this.state = {
       editorState: EditorState.createEmpty(decorator)
     };
