@@ -123,9 +123,16 @@ class App extends React.Component {
       }
     });
 
-    this.setState({
-      disabled: keys.filter(ele => ele !== null)
-    });
+    this.setState(
+      {
+        disabled: keys.filter(ele => ele !== null)
+      },
+      () => {
+        if (this.editor) {
+          this.editor.setToolBarHeight();
+        }
+      }
+    );
   };
 
   componentDidMount() {
