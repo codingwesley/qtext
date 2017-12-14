@@ -4,7 +4,8 @@ import * as classnames from "classnames";
 import { OrderedSet } from "immutable";
 import { CSSProperties } from "react/index";
 import { ListStyle, TItem } from "./components/ListStyle";
-import { MediaAction } from "./components/Media/action";
+import { MediaAction, mediaIcons } from "./components/Media/action";
+import { TMedia } from "./components/Media/type";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
   STYLE_LIST,
@@ -16,6 +17,7 @@ import {
   colorStyleMap,
   bgColors
 } from "./const";
+import { EditorDefaultTools } from "./tools";
 
 const styles = require("./less/ToolBar.less");
 
@@ -61,6 +63,9 @@ export type TMode = "desktop" | "mobile";
 export interface ToolBarProps {
   className?: string;
   editMode: TMode;
+  disabled?: string[];
+  readOnly: boolean;
+  toggleEye: (mode: string) => void;
   toggleMode: (mode: TMode) => void;
   editorState: EditorState;
   changeEditState: (editorState: EditorState) => void;
@@ -109,114 +114,145 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     return blockType;
   }
 
+  renderItem(
+    toolKey: string,
+    children: JSX.Element | JSX.Element[] | null
+  ): JSX.Element | JSX.Element[] | null {
+    const { disabled } = this.props;
+    if (!disabled) {
+      return children;
+    } else if (
+      Array.isArray(disabled) &&
+      disabled.find(key => key === toolKey)
+    ) {
+      return children;
+    } else {
+      return null;
+    }
+  }
+
   public render(): JSX.Element {
     const {
       className,
       editorState,
       changeEditState,
       rcUploadProps,
-      rcSuccess
+      rcSuccess,
+      readOnly,
+      toggleEye
     } = this.props;
 
+    const toolItemList: (
+      | JSX.Element
+      | JSX.Element[]
+      | null)[] = EditorDefaultTools.map(ele => {
+      if (readOnly && ele.key !== "preview") {
+        return null;
+      }
+
+      let resultItem: JSX.Element | JSX.Element[] | null = null;
+      const findStyleItem = STYLE_LIST.find(
+        styleItem => styleItem.style.toLocaleLowerCase() === ele.key
+      );
+      if (findStyleItem) {
+        const active = findStyleItem.isBlock
+          ? this.hasBlockStyle(findStyleItem.style)
+          : this.hasInlineStyle(findStyleItem.style);
+        resultItem = (
+          <ToolBtn
+            key={findStyleItem.style}
+            item={findStyleItem}
+            onToggle={this.onToggle}
+            active={active}
+          />
+        );
+      } else {
+        switch (ele.key) {
+          case "preview":
+            resultItem = (
+              <ToggleIcon
+                value={readOnly ? "Preview" : "Edit"}
+                icons={[
+                  {
+                    icon: "eye-slash",
+                    value: "Edit"
+                  },
+                  {
+                    icon: "eye",
+                    value: "Preview"
+                  }
+                ]}
+                onToggle={toggleEye}
+              />
+            );
+            break;
+
+          case "pcandmobile":
+            resultItem = this.modeBtn();
+            break;
+
+          case "undoandredo":
+            resultItem = [this._renderUndoBtn(), this._renderRedoBtn()];
+            break;
+
+          case "fontfamily":
+            resultItem = this._renderFamily();
+            break;
+
+          case "fontsize":
+            resultItem = this._renderFontSize();
+            break;
+
+          case "lineheight":
+            resultItem = this._renderLineHeight();
+            break;
+          case "color":
+            resultItem = this._renderColors("color");
+            break;
+          case "backgroundcolor":
+            resultItem = this._renderColors("bgcolor");
+            break;
+          case "heading":
+            resultItem = this._renderTitles();
+            break;
+
+          case "image":
+          case "video":
+          case "link":
+          case "audio":
+            resultItem = (
+              <MediaAction
+                editorState={editorState}
+                changeEditorState={changeEditState}
+                type={ele.key.toLocaleUpperCase() as TMedia}
+                rcUploadProps={rcUploadProps}
+                rcSuccess={rcSuccess}
+              >
+                <ToolBtn
+                  key={ele.key.toLocaleUpperCase()}
+                  item={{
+                    icon: mediaIcons[ele.key.toLocaleUpperCase()],
+                    label: ele.key,
+                    desc: `insert ${ele.key} media`,
+                    style: ele.key.toLocaleUpperCase() as TMedia,
+                    isBlock: false
+                  }}
+                  active={false}
+                />
+              </MediaAction>
+            );
+            break;
+
+          default:
+            return null;
+        }
+      }
+
+      return this.renderItem(ele.key, resultItem);
+    });
+
     return (
-      <div className={classnames(styles.barbox, className)}>
-        {this.modeBtn()}
-        {this._renderUndoBtn()}
-        {this._renderRedoBtn()}
-        {this._renderFamily()}
-        {this._renderFontSize()}
-        {this._renderLineHeight()}
-        {this._renderColors("color")}
-        {this._renderColors("bgcolor")}
-
-        {STYLE_LIST.map(item => {
-          const active = item.isBlock
-            ? this.hasBlockStyle(item.style)
-            : this.hasInlineStyle(item.style);
-
-          return (
-            <ToolBtn
-              key={item.style}
-              item={item}
-              onToggle={this.onToggle}
-              active={active}
-            />
-          );
-        })}
-
-        {this._renderTitles()}
-
-        <MediaAction
-          editorState={editorState}
-          changeEditorState={changeEditState}
-          type="LINK"
-        >
-          <ToolBtn
-            key="LINK"
-            item={{
-              icon: "link",
-              label: "LINK",
-              desc: "insert link media",
-              style: "LINK",
-              isBlock: false
-            }}
-            active={false}
-          />
-        </MediaAction>
-        <MediaAction
-          editorState={editorState}
-          changeEditorState={changeEditState}
-          type="IMAGE"
-          rcUploadProps={rcUploadProps}
-          rcSuccess={rcSuccess}
-        >
-          <ToolBtn
-            key="IMAGE"
-            item={{
-              icon: "picture-o",
-              label: "IMAGE",
-              desc: "insert image media",
-              style: "IMAGE",
-              isBlock: false
-            }}
-            active={false}
-          />
-        </MediaAction>
-        <MediaAction
-          editorState={editorState}
-          changeEditorState={changeEditState}
-          type="VIDEO"
-        >
-          <ToolBtn
-            key="VIDEO"
-            item={{
-              icon: "video-camera",
-              label: "VIDEO",
-              desc: "insert video media",
-              style: "VIDEO",
-              isBlock: false
-            }}
-            active={false}
-          />
-        </MediaAction>
-        <MediaAction
-          editorState={editorState}
-          changeEditorState={changeEditState}
-          type="AUDIO"
-        >
-          <ToolBtn
-            key="AUDIO"
-            item={{
-              icon: "music",
-              label: "AUDIO",
-              desc: "insert audio media",
-              style: "AUDIO",
-              isBlock: false
-            }}
-            active={false}
-          />
-        </MediaAction>
-      </div>
+      <div className={classnames(styles.barbox, className)}>{toolItemList}</div>
     );
   }
 

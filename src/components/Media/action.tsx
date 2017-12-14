@@ -21,6 +21,13 @@ export interface MediaActionState {
   showURLInput: boolean;
 }
 
+export const mediaIcons = {
+  LINK: "link",
+  IMAGE: "picture-o",
+  VIDEO: "video-camera",
+  AUDIO: "music"
+};
+
 function getPlaceholder(type: TMedia = "IMAGE") {
   switch (type) {
     case "AUDIO":

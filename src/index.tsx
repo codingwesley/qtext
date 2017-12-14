@@ -24,6 +24,7 @@ export interface QTextProps {
   onChange?: (data: TEditData) => void;
   value?: TEditData;
   rcUploadProps?: any;
+  disabled?: string[]; // ./tools.ts  disabled tool keys
   rcSuccess?: (data: any) => string | Promise<string>;
 }
 
@@ -103,7 +104,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
         editMode: mode
       },
       () => {
-        this.setToolBarHeight();
+        setTimeout(this.setToolBarHeight, 500);
       }
     );
   };
@@ -124,7 +125,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
     const { rcUploadProps, rcSuccess, placeholder } = this.props;
     const { readOnly, editMode, toolBarHeight, editorState } = this.state;
     const className = classnames(styles.editor, {
-      [styles.inEditStatus]: !readOnly,
+      [styles.inEditStatus]: !this.props.readOnly,
       [styles.desktop]: editMode === "desktop",
       [styles.mobile]: !isMobile() && editMode === "mobile"
     });
@@ -137,29 +138,14 @@ export class QText extends React.Component<QTextProps, QTextState> {
             paddingTop: readOnly ? "auto" : toolBarHeight
           }}
         >
-          {!this.props.readOnly ? (
-            <ToggleIcon
-              className={styles.btnPreview}
-              value={readOnly ? "Preview" : "Edit"}
-              icons={[
-                {
-                  icon: "eye-slash",
-                  value: "Edit"
-                },
-                {
-                  icon: "eye",
-                  value: "Preview"
-                }
-              ]}
-              onToggle={this.toggleEye}
-            />
-          ) : null}
-
-          {readOnly ? null : (
+          {this.props.readOnly ? null : (
             <ToolBar
               ref={r => (this.toolbar = r)}
+              readOnly={readOnly}
               className={styles.header}
               editMode={editMode}
+              disabled={this.props.disabled}
+              toggleEye={this.toggleEye}
               toggleMode={this.toggleMode}
               editorState={editorState}
               changeEditState={this.onChange}
@@ -199,12 +185,14 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 
   setToolBarHeight = () => {
-    if (this && this.toolbar) {
-      const toolBarHeight = ReactDOM.findDOMNode(this.toolbar).clientHeight;
-      this.setState({
-        toolBarHeight
-      });
-    }
+    setTimeout(() => {
+      if (this && this.toolbar) {
+        const toolBarHeight = ReactDOM.findDOMNode(this.toolbar).clientHeight;
+        this.setState({
+          toolBarHeight
+        });
+      }
+    }, 1000);
   };
 
   componentDidMount() {
@@ -223,7 +211,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
       this.link = link;
     }
 
-    setTimeout(this.setToolBarHeight, 0);
+    this.setToolBarHeight();
   }
 
   componentWillUnMount() {
