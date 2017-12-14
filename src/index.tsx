@@ -6,7 +6,6 @@ import { decorator } from "./decorator";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
 import { QTextView } from "./QtextView";
-import { ToggleIcon } from "./components/ToggleIcon";
 import {
   EditorState,
   convertToRaw,
@@ -221,4 +220,4 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 }
 
-export default { QText };
+export default { QText, QTextView };

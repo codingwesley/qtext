@@ -72,6 +72,26 @@ class App extends React.Component {
         <div>
           <QText
             ref={r => (this.editor = r)}
+            disabled={[]}
+            value={this.state.value}
+            rcSuccess={data => {
+              return url(data.hash);
+            }}
+            rcUploadProps={{
+              data: {
+                token: TOKEN
+              },
+              action:
+                location.protocol === "https:"
+                  ? "https://up.qbox.me"
+                  : "http://upload.qiniu.com/"
+            }}
+          />
+
+          <h2>Test disabled some tools</h2>
+          <QText
+            ref={r => (this.editor = r)}
+            disabled={["heading", "preview"]}
             value={this.state.value}
             rcSuccess={data => {
               return url(data.hash);

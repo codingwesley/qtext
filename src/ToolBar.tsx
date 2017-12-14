@@ -119,15 +119,16 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     children: JSX.Element | JSX.Element[] | null
   ): JSX.Element | JSX.Element[] | null {
     const { disabled } = this.props;
+
     if (!disabled) {
       return children;
     } else if (
       Array.isArray(disabled) &&
       disabled.find(key => key === toolKey)
     ) {
-      return children;
-    } else {
       return null;
+    } else {
+      return children;
     }
   }
 
