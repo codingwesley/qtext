@@ -1,20 +1,14 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as classnames from "classnames";
 import { fontCssUrl } from "./config";
-import { loadCSS } from "fg-loadcss";
-import "draft-js/dist/Draft.css";
+import { decorator } from "./decorator";
 import { ToolBar } from "./ToolBar";
 import { isMobile } from "./util";
-import { InlineStyleMap } from "./const";
-import { decorator } from "./decorator";
-import { AtomicBlock } from "./AtomicBlock";
-import { getBlockStyle } from "./blockStyle";
+import { QTextView } from "./QtextView";
 import { ToggleIcon } from "./components/ToggleIcon";
 import {
-  Editor,
   EditorState,
-  RichUtils,
-  ContentBlock,
   convertToRaw,
   RawDraftContentState,
   convertFromRaw,
@@ -27,9 +21,8 @@ const styles = require("./less/index.less");
 export interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
+  onChange?: (data: TEditData) => void;
   value?: TEditData;
-  onChange?: (editorState: EditorState) => void;
-  autoSave?: boolean;
   rcUploadProps?: any;
   rcSuccess?: (data: any) => string | Promise<string>;
 }
@@ -38,6 +31,7 @@ export interface QTextState {
   editorState: EditorState;
   readOnly: boolean;
   editMode: "desktop" | "mobile";
+  toolBarHeight: number;
 }
 
 export interface TEditData {
@@ -50,55 +44,48 @@ const LOCALKEY = "LASTEST_VERSION";
 export class QText extends React.Component<QTextProps, QTextState> {
   static defaultProps: QTextProps = {
     readOnly: false,
-    autoSave: false,
     placeholder: "Please edit your content..."
   };
 
   id: number = 1;
 
+  qtextView: QTextView | null;
+  link: HTMLLinkElement;
+  toolbar: ToolBar | null;
+
   constructor(props: QTextProps) {
     super(props);
-
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       readOnly: props.readOnly || false,
-      editMode: "desktop"
+      editMode: "desktop",
+      toolBarHeight: 30
     };
   }
 
-  getBlockRender = (block: ContentBlock) => {
-    const type = block.getType();
-    const { editorState } = this.state;
-
-    if (type === "atomic") {
-      return {
-        component: AtomicBlock,
-        editable: false,
-        props: {
-          editorState
-        }
-      };
-    }
-    return null;
-  };
-
   onChange: (editorState: EditorState) => void = editorState => {
-    this.setState({ editorState }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(editorState);
+    this.setState(
+      {
+        editorState
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(this.getEditData());
+        }
       }
-    });
+    );
   };
-
-  saveData = () => {
+  /**
+   * 保存数据到localStorage
+   */
+  saveData = (localKey: string = LOCALKEY) => {
     const { data } = this.getEditData();
     if (!this.state.editorState.getCurrentContent().hasText()) {
       // 没有内容是不保存的
       return;
     }
-
     localStorage.setItem(
-      LOCALKEY,
+      localKey,
       JSON.stringify({
         time: new Date().getTime(),
         editContent: data
@@ -107,25 +94,18 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   getEditData(): TEditData {
-    const { editorState } = this.state;
-
-    return { data: convertToRaw(editorState.getCurrentContent()) };
+    return { data: convertToRaw(this.state.editorState.getCurrentContent()) };
   }
 
-  _toggleBlockType = (blockType: string) => {
-    this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
-  };
-
-  _toggleInlineStyle = (inlineStyle: string) => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle)
-    );
-  };
-
   toggleMode = (mode: "desktop" | "mobile") => {
-    this.setState({
-      editMode: mode
-    });
+    this.setState(
+      {
+        editMode: mode
+      },
+      () => {
+        this.setToolBarHeight();
+      }
+    );
   };
 
   toggleEye = (mode: string) => {
@@ -141,8 +121,8 @@ export class QText extends React.Component<QTextProps, QTextState> {
   };
 
   public render(): JSX.Element {
-    const { placeholder, rcUploadProps, rcSuccess } = this.props;
-    const { editorState, readOnly, editMode } = this.state;
+    const { rcUploadProps, rcSuccess, placeholder } = this.props;
+    const { readOnly, editMode, toolBarHeight, editorState } = this.state;
     const className = classnames(styles.editor, {
       [styles.inEditStatus]: !readOnly,
       [styles.desktop]: editMode === "desktop",
@@ -151,7 +131,12 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
     return (
       <div className={className}>
-        <div className={styles.inner}>
+        <div
+          className={styles.inner}
+          style={{
+            paddingTop: readOnly ? "auto" : toolBarHeight
+          }}
+        >
           {!this.props.readOnly ? (
             <ToggleIcon
               className={styles.btnPreview}
@@ -172,6 +157,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
 
           {readOnly ? null : (
             <ToolBar
+              ref={r => (this.toolbar = r)}
               className={styles.header}
               editMode={editMode}
               toggleMode={this.toggleMode}
@@ -179,25 +165,18 @@ export class QText extends React.Component<QTextProps, QTextState> {
               changeEditState={this.onChange}
               rcUploadProps={rcUploadProps}
               rcSuccess={rcSuccess}
-              onToggle={(isBlock, style) => {
-                if (isBlock) {
-                  this._toggleBlockType(style);
-                } else {
-                  this._toggleInlineStyle(style);
-                }
-              }}
             />
           )}
           <div className={styles.content}>
-            <Editor
-              customStyleMap={InlineStyleMap}
-              blockRendererFn={this.getBlockRender}
-              blockStyleFn={getBlockStyle}
-              placeholder={placeholder}
+            <QTextView
+              ref={r => (this.qtextView = r)}
               readOnly={readOnly}
-              handlePastedFiles={this.handlePastedFiles}
-              editorState={editorState}
-              onChange={this.onChange}
+              editorProps={{
+                onChange: this.onChange,
+                editorState: this.state.editorState,
+                placeholder: placeholder || "",
+                handlePastedFiles: this.handlePastedFiles
+              }}
             />
           </div>
         </div>
@@ -216,64 +195,41 @@ export class QText extends React.Component<QTextProps, QTextState> {
   }
 
   setData(rowData: RawDraftContentState) {
-    const contentState = convertFromRaw(rowData);
-    this.onChange(EditorState.createWithContent(contentState, decorator));
+    this.onChange(EditorState.createWithContent(convertFromRaw(rowData)));
   }
 
-  componentDidMount() {
-    const { readOnly, autoSave, value } = this.props;
+  setToolBarHeight = () => {
+    if (this && this.toolbar) {
+      const toolBarHeight = ReactDOM.findDOMNode(this.toolbar).clientHeight;
+      this.setState({
+        toolBarHeight
+      });
+    }
+  };
 
+  componentDidMount() {
+    const { readOnly, value } = this.props;
     if (value && value.data) {
       this.setData(value.data);
     }
 
     if (!readOnly) {
       // 编辑模式
-      loadCSS(fontCssUrl);
-
-      const fn = () => {
-        if (this.id <= 0) {
-          return;
-        }
-        // 打开编辑器一分钟保存一次数据
-        setTimeout(() => {
-          this.saveData();
-          this.id += 1;
-
-          fn();
-        }, 1000 * 60);
-      };
-
-      if (autoSave) {
-        fn();
-      }
-
-      // 取回上次的内容
-      const dataStr = localStorage.getItem(LOCALKEY);
-      if (!dataStr) {
-        return;
-      }
-      const TIMEBACK_MIN = 20;
-      const { time, editContent } = JSON.parse(dataStr);
-      const t = new Date(time);
-      if (new Date().getTime() - t.getTime() > TIMEBACK_MIN * 60 * 1000) {
-        // 超过时间就不回来
-        return;
-      }
-      t.toLocaleTimeString();
-      const result = confirm(
-        `需要继续编辑刚刚[<${
-          TIMEBACK_MIN
-        }min]浏览器保存的数据吗? 保存时间: ${t.toString()}`
-      );
-      if (result) {
-        this.setData(editContent);
-      }
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = fontCssUrl;
+      document.head.appendChild(link);
+      this.link = link;
     }
+
+    setTimeout(this.setToolBarHeight, 0);
   }
 
   componentWillUnMount() {
-    this.id = -1;
+    if (this.link) {
+      document.head.removeChild(this.link);
+    }
   }
 }
 

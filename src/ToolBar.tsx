@@ -64,7 +64,6 @@ export interface ToolBarProps {
   toggleMode: (mode: TMode) => void;
   editorState: EditorState;
   changeEditState: (editorState: EditorState) => void;
-  onToggle: (isBlock: boolean, style: string) => void;
   rcUploadProps?: any;
   rcSuccess?: (data: any) => string | Promise<string>;
 }
@@ -72,9 +71,16 @@ export interface ToolBarProps {
 export interface ToolBarState {}
 
 export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
-  linkStyle: MediaAction | null = null;
   onToggle = (isBlock: boolean, style: string) => {
-    this.props.onToggle(isBlock, style);
+    if (isBlock) {
+      this.props.changeEditState(
+        RichUtils.toggleBlockType(this.props.editorState, style)
+      );
+    } else {
+      this.props.changeEditState(
+        RichUtils.toggleInlineStyle(this.props.editorState, style)
+      );
+    }
   };
 
   hasInlineStyle(style: string) {
@@ -144,7 +150,6 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
           editorState={editorState}
           changeEditorState={changeEditState}
           type="LINK"
-          ref={r => (this.linkStyle = r)}
         >
           <ToolBtn
             key="LINK"
