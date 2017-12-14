@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>qtext.js - example - qtext@0.1.37</title>
+  <title>qtextdisabled.js - example - qtext@0.1.37</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="../common.css" /><link rel="stylesheet" href="qtext.css" />
+  <link rel="stylesheet" href="../common.css" /><link rel="stylesheet" href="qtextdisabled.css" />
 </head>
 
 <body>
@@ -269,39 +269,67 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom"</span>;
-<span class="hljs-keyword">import</span> registerServiceWorker <span class="hljs-keyword">from</span> <span class="hljs-string">"./registerServiceWorker"</span>;
-<span class="hljs-keyword">import</span> { QText, TEditData } <span class="hljs-keyword">from</span> <span class="hljs-string">"../src/index"</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">"./index.css"</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">"./App.css"</span>;
+    <div class="highlight"><pre><code language="undefined">import * as React from "react";
+import * as ReactDOM from "react-dom";
+import registerServiceWorker from "./registerServiceWorker";
+import { QText, TEditData } from "../src/index";
+import { EditorDefaultTools } from "./../src/tools";
+import "./index.css";
+import "./App.css";
 
-<span class="hljs-keyword">const</span> initValue = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./test.json"</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">url</span>(<span class="hljs-params">hash: string</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">`http://7xiata.com1.z0.glb.clouddn.com/<span class="hljs-subst">${hash}</span>`</span>;
-}
-
-<span class="hljs-keyword">const</span> d = {
-  token:
-    <span class="hljs-string">"LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:YUPh7TfD5N96-5-9jhzfgjf8UPI=:eyJzY29wZSI6ImRhaWdvdXRlc3QiLCJkZWFkbGluZSI6MTUxMzA3NTU3NCwidXBob3N0cyI6WyJodHRwOi8vdXAucWluaXUuY29tIiwiaHR0cDovL3VwbG9hZC5xaW5pdS5jb20iLCItSCB1cC5xaW5pdS5jb20gaHR0cDovLzE4My4xMzEuNy4xOCJdfQ=="</span>,
-  baseUrl: <span class="hljs-string">"http://7xiata.com1.z0.glb.clouddn.com/"</span>
+const initValue: TEditData = {
+  data: {
+    entityMap: {},
+    blocks: [
+      {
+        key: "92hbu",
+        text: "You can edit your content!",
+        type: "header-one",
+        depth: 0,
+        inlineStyleRanges: [
+          {
+            offset: 0,
+            length: 15,
+            style: "green"
+          },
+          {
+            offset: 0,
+            length: 11,
+            style: "BOLD"
+          }
+        ],
+        entityRanges: [],
+        data: {}
+      }
+    ]
+  }
 };
 
-<span class="hljs-keyword">const</span> TOKEN = d.token;
+function url(hash: string) {
+  return `http://7xiata.com1.z0.glb.clouddn.com/${hash}`;
+}
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  editor: QText | <span class="hljs-literal">null</span>;
+const d = {
+  token:
+    "LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:YUPh7TfD5N96-5-9jhzfgjf8UPI=:eyJzY29wZSI6ImRhaWdvdXRlc3QiLCJkZWFkbGluZSI6MTUxMzA3NTU3NCwidXBob3N0cyI6WyJodHRwOi8vdXAucWluaXUuY29tIiwiaHR0cDovL3VwbG9hZC5xaW5pdS5jb20iLCItSCB1cC5xaW5pdS5jb20gaHR0cDovLzE4My4xMzEuNy4xOCJdfQ==",
+  baseUrl: "http://7xiata.com1.z0.glb.clouddn.com/"
+};
+
+const TOKEN = d.token;
+
+class App extends React.Component {
+  editor: QText | null;
   state = {
-    value: <span class="hljs-literal">undefined</span>
+    value: undefined,
+    disabled: []
   };
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"App"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Qtext: React editor base on Draft-js<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">button</span>
-            <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> {
+    return (
+      &lt;div className="App"&gt;
+        &lt;h2&gt;Qtext: React editor base on Draft-js test disabled&lt;/h2&gt;
+        &lt;p&gt;
+          &lt;button
+            onClick={() =&gt; {
               console.log(
                 JSON.stringify(
                   this.editor ? this.editor.getEditData() : {},
@@ -312,12 +340,30 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             }}
           &gt;
             log editor data
-          <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QText</span>
-            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editor = r)}
-            disabled={[]}
+          &lt;/button&gt;
+        &lt;/p&gt;
+        &lt;div id="listbox" className="list"&gt;
+          {EditorDefaultTools.map(ele =&gt; {
+            return (
+              &lt;span
+                title={ele.key}
+                key={ele.key}
+                style={{
+                  padding: "5px",
+                  display: "inline-block"
+                }}
+              &gt;
+                &lt;input id={ele.key} type="checkbox" value={ele.key} /&gt;
+                &lt;label htmlFor={ele.key}&gt;{ele.label}&lt;/label&gt;
+              &lt;/span&gt;
+            );
+          })}
+        &lt;/div&gt;
+        &lt;button onClick={this.refresh}&gt;refresh&lt;/button&gt;
+        &lt;div&gt;
+          &lt;QText
+            ref={r =&gt; (this.editor = r)}
+            disabled={this.state.disabled}
             value={this.state.value}
             rcSuccess={data =&gt; {
               return url(data.hash);
@@ -332,46 +378,49 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
                   : "http://upload.qiniu.com/"
             }}
           /&gt;
-
-          <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Test disabled some tools<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QText</span>
-            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editor = r)}
-            disabled={["heading", "preview"]}
-            value={this.state.value}
-            rcSuccess={data =&gt; {
-              return url(data.hash);
-            }}
-            rcUploadProps={{
-              data: {
-                token: TOKEN
-              },
-              action:
-                location.protocol === "https:"
-                  ? "https://up.qbox.me"
-                  : "http://upload.qiniu.com/"
-            }}
-          /&gt;
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"App-intro"</span>&gt;</span>Qtext<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>;
+        &lt;/div&gt;
+        &lt;p className="App-intro"&gt;Qtext&lt;/p&gt;
+      &lt;/div&gt;
+    );
   }
+
+  refresh = () =&gt; {
+    const listbox = document.querySelectorAll("#listbox input");
+    const keys: (string | null)[] = [];
+
+    listbox.forEach((ele: HTMLInputElement) =&gt; {
+      if (ele.checked) {
+        keys.push(ele.value);
+      }
+    });
+
+    this.setState(
+      {
+        disabled: keys.filter(ele =&gt; ele !== null)
+      },
+      () =&gt; {
+        if (this.editor) {
+          this.editor.setToolBarHeight();
+        }
+      }
+    );
+  };
 
   componentDidMount() {
     setTimeout(() =&gt; {
-      <span class="hljs-keyword">this</span>.setState({
+      this.setState({
         value: initValue
       });
-    }, <span class="hljs-number">3000</span>);
+    }, 3000);
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById(
+ReactDOM.render(&lt;App /&gt;, document.getElementById(
   "__react-content"
 ) as HTMLElement);
 
 registerServiceWorker();
-</span></code></pre></div>
+</code></pre></div>
   </div>
   <a href="">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -381,7 +430,7 @@ registerServiceWorker();
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="qtext.js?nowrap"></script>
+  <script src="qtextdisabled.js?nowrap"></script>
 </body>
 
 </html>

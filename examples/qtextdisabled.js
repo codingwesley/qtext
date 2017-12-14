@@ -1,4 +1,4 @@
-webpackJsonp([0],[
+webpackJsonp([1],[
 /* 0 */,
 /* 1 */,
 /* 2 */,
@@ -4817,12 +4817,7 @@ module.exports = {"editor":"editor___2WQri","content":"content___2eRp6","mobile"
 /***/ }),
 /* 162 */,
 /* 163 */,
-/* 164 */
-/***/ (function(module, exports) {
-
-module.exports = {"data":{"entityMap":{"0":{"type":"LINK","mutability":"MUTABLE","data":{"url":"https://www.youtube.com/","name":"","newTarget":true}},"1":{"type":"LINK","mutability":"MUTABLE","data":{"url":"https://vimeo.com/","name":"","newTarget":true}},"2":{"type":"VIDEO","mutability":"IMMUTABLE","data":{"url":"https://www.youtube.com/watch?v=nJaUYY9Idpc","name":"ezbuy"}},"3":{"type":"VIDEO","mutability":"IMMUTABLE","data":{"url":"https://vimeo.com/240423673","name":"vimeo"}},"4":{"type":"IMAGE","mutability":"IMMUTABLE","data":{"url":"https://i.ezbuy.sg/FjIYA844ef9sOCUsEaGVwIGZBNl2?imageView2/2/w/2880/h/1000/q/90/format/jpg","name":"name"}},"5":{"type":"AUDIO","mutability":"IMMUTABLE","data":{"url":"http://i.ezbuy.sg/luNQwysMJ4RdkukceW5VSqDjciU4","name":"see you again"}},"6":{"type":"IMAGE","mutability":"IMMUTABLE","data":{"url":"http://i.ezbuy.sg/FkWzwdbfsh0Z0-9Ky7fZzD-n36C-","name":"pc"}},"7":{"type":"IMAGE","mutability":"IMMUTABLE","data":{"url":"http://i.ezbuy.sg/FrhCg97WJ4K6s9_JPsr4DydDX0gx","name":"mobile"}}},"blocks":[{"key":"b93j4","text":"文本编辑功能说明","type":"header-one","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"9s3re","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"3b52r","text":"显示模式切换 pc/mobile","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":16,"style":"Roboto-Bold"},{"offset":0,"length":16,"style":"BOLD"},{"offset":0,"length":16,"style":"18"}],"entityRanges":[],"data":{}},{"key":"atos6","text":"撤销/重做功能","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":7,"style":"Roboto-Bold"},{"offset":0,"length":7,"style":"BOLD"},{"offset":0,"length":7,"style":"18"}],"entityRanges":[],"data":{}},{"key":"f439a","text":"字体设置","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":4,"style":"Roboto-Bold"},{"offset":0,"length":4,"style":"BOLD"},{"offset":0,"length":4,"style":"18"}],"entityRanges":[],"data":{}},{"key":"5r8as","text":"字体大小设置","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":6,"style":"Roboto-Bold"},{"offset":0,"length":6,"style":"BOLD"},{"offset":0,"length":6,"style":"18"}],"entityRanges":[],"data":{}},{"key":"6t7in","text":"改变文本颜色","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":6,"style":"Roboto-Bold"},{"offset":0,"length":6,"style":"BOLD"},{"offset":0,"length":6,"style":"18"},{"offset":0,"length":6,"style":"green"}],"entityRanges":[],"data":{}},{"key":"6h58q","text":"设置h1 - h6号标题","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":12,"style":"Roboto-Bold"},{"offset":0,"length":12,"style":"BOLD"},{"offset":0,"length":12,"style":"18"}],"entityRanges":[],"data":{}},{"key":"er71b","text":"有序/无序列表","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":7,"style":"Roboto-Bold"},{"offset":0,"length":7,"style":"BOLD"},{"offset":0,"length":7,"style":"18"}],"entityRanges":[],"data":{}},{"key":"34b54","text":"代码块粘贴","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":5,"style":"Roboto-Bold"},{"offset":0,"length":5,"style":"BOLD"},{"offset":0,"length":5,"style":"18"}],"entityRanges":[],"data":{}},{"key":"96jba","text":"文本\b方向","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":5,"style":"Roboto-Bold"},{"offset":0,"length":5,"style":"BOLD"},{"offset":0,"length":5,"style":"18"}],"entityRanges":[],"data":{}},{"key":"9ohj0","text":"多媒体 图片/音频/视频添加 eg：youtube vimeo 视频URL粘贴","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":39,"style":"Roboto-Bold"},{"offset":0,"length":39,"style":"BOLD"},{"offset":0,"length":39,"style":"18"}],"entityRanges":[{"offset":18,"length":7,"key":0},{"offset":26,"length":5,"key":1}],"data":{}},{"key":"dae77","text":"文本链接添加","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":6,"style":"Roboto-Bold"},{"offset":0,"length":6,"style":"BOLD"},{"offset":0,"length":6,"style":"18"}],"entityRanges":[],"data":{}},{"key":"2dg6r","text":"预览内容","type":"ordered-list-item","depth":0,"inlineStyleRanges":[{"offset":0,"length":4,"style":"Roboto-Bold"},{"offset":0,"length":4,"style":"BOLD"},{"offset":0,"length":4,"style":"18"}],"entityRanges":[],"data":{}},{"key":"17ujd","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"7eqjs","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":2}],"data":{}},{"key":"687sg","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"bqfcu","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"9jfec","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"99t21","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"8ejp2","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":3}],"data":{}},{"key":"16u1m","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"73d9i","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"62qg5","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"32uiu","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"5u94t","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"5kicj","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":4}],"data":{}},{"key":"fb53o","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"8b4vh","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"4b2ln","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"6t7db","text":"music： see you again","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":0,"length":20,"style":"BOLD"},{"offset":0,"length":20,"style":"orange"},{"offset":0,"length":20,"style":"14"}],"entityRanges":[],"data":{}},{"key":"5lloj","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"6hukb","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"aq41p","text":" ","type":"atomic","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":5}],"data":{}},{"key":"3ij7q","text":"  ","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[{"offset":0,"length":1,"key":6},{"offset":1,"length":1,"key":7}],"data":{}},{"key":"4a78t","text":"文本居中","type":"center","depth":0,"inlineStyleRanges":[{"offset":0,"length":4,"style":"Roboto-Bold"},{"offset":0,"length":4,"style":"30"}],"entityRanges":[],"data":{}},{"key":"34g5l","text":"","type":"center","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"4h1rm","text":"设置颜色","type":"center","depth":0,"inlineStyleRanges":[{"offset":0,"length":4,"style":"Roboto-Bold"},{"offset":0,"length":4,"style":"green"},{"offset":0,"length":4,"style":"24"},{"offset":0,"length":4,"style":"bg 紅色 red"},{"offset":0,"length":4,"style":"琥珀色 amber"}],"entityRanges":[],"data":{}},{"key":"b0p5d","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"8n6tv","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}},{"key":"6apbm","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}}
-
-/***/ }),
+/* 164 */,
 /* 165 */,
 /* 166 */,
 /* 167 */,
@@ -4855,14 +4850,114 @@ module.exports = {"data":{"entityMap":{"0":{"type":"LINK","mutability":"MUTABLE"
 /* 194 */,
 /* 195 */,
 /* 196 */,
-/* 197 */
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(198);
+module.exports = __webpack_require__(298);
 
 
 /***/ }),
-/* 198 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4879,9 +4974,31 @@ var React = __webpack_require__(2);
 var ReactDOM = __webpack_require__(6);
 var registerServiceWorker_1 = __webpack_require__(85);
 var index_1 = __webpack_require__(86);
+var tools_1 = __webpack_require__(84);
 __webpack_require__(162);
 __webpack_require__(163);
-var initValue = __webpack_require__(164);
+var initValue = {
+    data: {
+        entityMap: {},
+        blocks: [{
+            key: "92hbu",
+            text: "You can edit your content!",
+            type: "header-one",
+            depth: 0,
+            inlineStyleRanges: [{
+                offset: 0,
+                length: 15,
+                style: "green"
+            }, {
+                offset: 0,
+                length: 11,
+                style: "BOLD"
+            }],
+            entityRanges: [],
+            data: {}
+        }]
+    }
+};
 function url(hash) {
     return "http://7xiata.com1.z0.glb.clouddn.com/" + hash;
 }
@@ -4900,7 +5017,26 @@ var App = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
 
         _this.state = {
-            value: undefined
+            value: undefined,
+            disabled: []
+        };
+        _this.refresh = function () {
+            var listbox = document.querySelectorAll("#listbox input");
+            var keys = [];
+            listbox.forEach(function (ele) {
+                if (ele.checked) {
+                    keys.push(ele.value);
+                }
+            });
+            _this.setState({
+                disabled: keys.filter(function (ele) {
+                    return ele !== null;
+                })
+            }, function () {
+                if (_this.editor) {
+                    _this.editor.setToolBarHeight();
+                }
+            });
         };
         return _this;
     }
@@ -4914,7 +5050,7 @@ var App = function (_React$Component) {
             React.createElement(
                 "h2",
                 null,
-                "\bQtext: React editor base on Draft-js"
+                "\bQtext: React editor base on Draft-js test disabled"
             ),
             React.createElement(
                 "p",
@@ -4929,25 +5065,34 @@ var App = function (_React$Component) {
             ),
             React.createElement(
                 "div",
+                { id: "listbox", className: "list" },
+                tools_1.EditorDefaultTools.map(function (ele) {
+                    return React.createElement(
+                        "span",
+                        { title: ele.key, key: ele.key, style: {
+                                padding: "5px",
+                                display: "inline-block"
+                            } },
+                        React.createElement("input", { id: ele.key, type: "checkbox", value: ele.key }),
+                        React.createElement(
+                            "label",
+                            { htmlFor: ele.key },
+                            ele.label
+                        )
+                    );
+                })
+            ),
+            React.createElement(
+                "button",
+                { onClick: this.refresh },
+                "refresh"
+            ),
+            React.createElement(
+                "div",
                 null,
                 React.createElement(index_1.QText, { ref: function ref(r) {
                         return _this2.editor = r;
-                    }, disabled: [], value: this.state.value, rcSuccess: function rcSuccess(data) {
-                        return url(data.hash);
-                    }, rcUploadProps: {
-                        data: {
-                            token: TOKEN
-                        },
-                        action: location.protocol === "https:" ? "https://up.qbox.me" : "http://upload.qiniu.com/"
-                    } }),
-                React.createElement(
-                    "h2",
-                    null,
-                    "Test disabled some tools"
-                ),
-                React.createElement(index_1.QText, { ref: function ref(r) {
-                        return _this2.editor = r;
-                    }, disabled: ["heading", "preview"], value: this.state.value, rcSuccess: function rcSuccess(data) {
+                    }, disabled: this.state.disabled, value: this.state.value, rcSuccess: function rcSuccess(data) {
                         return url(data.hash);
                     }, rcUploadProps: {
                         data: {
@@ -4981,5 +5126,5 @@ ReactDOM.render(React.createElement(App, null), document.getElementById("__react
 registerServiceWorker_1["default"]();
 
 /***/ })
-],[197]);
-//# sourceMappingURL=qtext.js.map
+],[297]);
+//# sourceMappingURL=qtextdisabled.js.map
