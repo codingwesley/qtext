@@ -20,7 +20,7 @@ const styles = require("./less/index.less");
 export interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
-  onChange?: (data: EditorState) => void;
+  onChange?: (data: TEditData) => void;
   value?: TEditData;
   disabled?: string[]; // ./tools.ts  disabled tool keys
   rcUploadProps?: any; // 同 rc-upload props image upload
@@ -70,7 +70,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
       },
       () => {
         if (this.props.onChange) {
-          this.props.onChange(editorState);
+          this.props.onChange(this.getEditData());
         }
       }
     );
