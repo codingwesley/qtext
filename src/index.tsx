@@ -179,8 +179,17 @@ export class QText extends React.Component<QTextProps, QTextState> {
     }
   }
 
-  setData(rowData: RawDraftContentState) {
-    this.onChange(EditorState.createWithContent(convertFromRaw(rowData)));
+  setData(rowData: RawDraftContentState, cb?: Function) {
+    this.setState(
+      {
+        editorState: EditorState.createWithContent(convertFromRaw(rowData))
+      },
+      () => {
+        if (cb) {
+          cb();
+        }
+      }
+    );
   }
 
   setToolBarHeight = () => {
