@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as classnames from "classnames";
-import { is } from "immutable";
 import { fontCssUrl } from "./config";
 import { decorator } from "./decorator";
 import { ToolBar } from "./ToolBar";
