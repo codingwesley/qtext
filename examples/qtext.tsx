@@ -21,6 +21,8 @@ const TOKEN = d.token;
 
 class App extends React.Component {
   editor: QText | null;
+  editorView: QText | null;
+
   state = {
     value: undefined
   };
@@ -48,6 +50,12 @@ class App extends React.Component {
             ref={r => (this.editor = r)}
             disabled={[]}
             value={this.state.value}
+            onChange={s => {
+              // use setData change view
+              if (s && s.data && this.editorView) {
+                this.editorView.setData(s.data);
+              }
+            }}
             rcSuccess={data => {
               return url(data.hash);
             }}
@@ -62,23 +70,11 @@ class App extends React.Component {
             }}
           />
 
-          <h2>Test disabled some tools</h2>
+          <h2>Test qtext view</h2>
           <QText
-            ref={r => (this.editor = r)}
-            disabled={["heading", "preview"]}
+            ref={r => (this.editorView = r)}
             value={this.state.value}
-            rcSuccess={data => {
-              return url(data.hash);
-            }}
-            rcUploadProps={{
-              data: {
-                token: TOKEN
-              },
-              action:
-                location.protocol === "https:"
-                  ? "https://up.qbox.me"
-                  : "http://upload.qiniu.com/"
-            }}
+            readOnly={true}
           />
         </div>
         <p className="App-intro">Qtext</p>

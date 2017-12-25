@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as classnames from "classnames";
+import { is } from "immutable";
 import { fontCssUrl } from "./config";
 import { decorator } from "./decorator";
 import { ToolBar } from "./ToolBar";
@@ -39,6 +40,18 @@ export interface TEditData {
 }
 
 const LOCALKEY = "LASTEST_VERSION";
+
+function equalObj(a: any, b: any): boolean {
+  if (typeof a !== typeof b) {
+    return false;
+  }
+
+  if (JSON.stringify(a) !== JSON.stringify(b)) {
+    return false;
+  }
+
+  return true;
+}
 
 // https://www.froala.com/wysiwyg-editor
 export class QText extends React.Component<QTextProps, QTextState> {
@@ -159,7 +172,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
               editorProps={{
                 onChange: this.onChange,
                 editorState: this.state.editorState,
-                placeholder: placeholder || "",
+                placeholder: readOnly ? "" : placeholder || "",
                 handlePastedFiles: this.handlePastedFiles
               }}
             />
@@ -172,8 +185,8 @@ export class QText extends React.Component<QTextProps, QTextState> {
   componentWillReceiveProps(nextProps: QTextProps) {
     if (
       nextProps.value &&
-      EditorState.createWithContent(convertFromRaw(nextProps.value.data)) !==
-        this.state.editorState
+      nextProps.value.data &&
+      !equalObj(nextProps.value.data, this.getEditData())
     ) {
       this.setData(nextProps.value.data);
     }
