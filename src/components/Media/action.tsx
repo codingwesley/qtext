@@ -186,6 +186,11 @@ export class MediaAction extends React.Component<
           } else {
             cb(res);
           }
+        } else {
+          console.warn(
+            "Please check your Qtext props: rcSuccess, has upload file must have it."
+          );
+          cb(data as string);
         }
       }
     };
