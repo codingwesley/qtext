@@ -7,14 +7,18 @@
     "rc-upload": "^2.4.4",
     "rc-util": "^4.3.0"
   },
-  "keywords": ["draft-js", "richtext editor", "editor", "react editor"],
-  "main": "./dist/main.js",
+  "keywords": [
+    "draft-js",
+    "richtext editor",
+    "editor",
+    "react editor"
+  ],
+  "main": "./lib/main.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "start": "./node_modules/.bin/rc-tools run server",
-    "build":
-      "./node_modules/.bin/rc-tools run compile && ./node_modules/.bin/rc-tools run dist",
-    "gh-pages": "./node_modules/.bin/rc-tools run gh-pages"
+    "start": "rc-tools run server",
+    "build": "rc-tools run compile",
+    "gh-pages": "rc-tools run gh-pages"
   },
   "config": {
     "port": 8000,
@@ -23,12 +27,16 @@
       "qtextview": "./src/QtextView.tsx"
     }
   },
-  "files": ["lib", "es", "dist"],
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
   "devDependencies": {
+    "@types/draft-js": "^0.10.17",
     "@types/node": "^8.0.51",
     "@types/react": "^16.0.22",
     "@types/react-dom": "^16.0.3",
-    "@types/draft-js": "^0.10.17",
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
@@ -43,7 +51,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
-    "rc-tools": "git+ssh://git@github.com:QuietWind/rc-tools.git",
+    "rc-tools": "^7.0.8",
     "react": "^16.1.1",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.1.1",

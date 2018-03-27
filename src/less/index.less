@@ -1,11 +1,11 @@
-@import "./font.less";
-@import "./draft.less";
+.@{qtextPrefixCls}-import"./font.less";
+.@{qtextPrefixCls}-import"./draft.less";
 
-figure {
-  margin: 0 1em;
+.@{qtextPrefixCls}-igure{
+  margin:.@{qtextPrefixCls}-01em;
 }
 
-.editor {
+.@{qtextPrefixCls}-editor{
   position: relative;
   margin: 0;
   padding: 0;
@@ -14,34 +14,34 @@ figure {
   font-family: "Roboto-Regular";
   background-color: #fff;
 
-  .content {
+  .@{qtextPrefixCls}-content{
     padding: 8px;
     min-height: 100px;
   }
 
-  &.mobile {
-    background: url("//i.ezbuy.sg/FpjrbpcApGlAaI1oXJLLnvMzLEop") no-repeat top
+  &.@{qtextPrefixCls}-mobile{
+    background: url("//i.ezbuy.sg/FpjrbpcApGlAaI1oXJLLnvMzLEop") no.@{qtextPrefixCls}-repeattop
       center;
-    background-size: 436px auto;
-    padding: 54px 0 28px;
+    background-size:.@{qtextPrefixCls}-436pxauto;
+    padding:.@{qtextPrefixCls}-54px0 28px;
     box-sizing: border-box;
 
-    .inner {
+    .@{qtextPrefixCls}-inner{
       width: 375px;
       box-sizing: border-box;
-      border-radius: 0 0 30px 30px;
+      border-radius:.@{qtextPrefixCls}-00.@{qtextPrefixCls}-30px30px;
       max-height: 100%;
-      margin: 0 auto;
+      margin:.@{qtextPrefixCls}-0auto;
       background: #fff;
     }
   }
 
-  &.inEditStatus {
-    .inner {
+  &.@{qtextPrefixCls}-inEditStatus{
+    .@{qtextPrefixCls}-inner{
       position: relative;
     }
 
-    .header {
+    .@{qtextPrefixCls}-header{
       position: absolute;
       top: 0;
       left: 0;
@@ -49,21 +49,21 @@ figure {
       box-sizing: border-box;
     }
 
-    &.desktop {
-      .inner {
+    &.@{qtextPrefixCls}-desktop{
+      .@{qtextPrefixCls}-inner{
         padding-top: 30px;
       }
-      .content {
+      .@{qtextPrefixCls}-content{
         height: 600px;
         overflow-y: auto;
       }
     }
 
-    &.mobile {
-      .inner {
-        padding-top: 30px * 3;
+    &.@{qtextPrefixCls}-mobile{
+      .@{qtextPrefixCls}-inner{
+        padding-top:.@{qtextPrefixCls}-30px* 3;
       }
-      .content {
+      .@{qtextPrefixCls}-content{
         height: 680px;
         overflow-y: auto;
       }

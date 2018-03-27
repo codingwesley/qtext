@@ -2,12 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import { QTextView } from "../src/QtextView";
-import "./index.css";
+
 import "./App.css";
+import "./../assets/index.less";
+import "./view.less";
 
 const initValue = require("./test.json");
-
-const styles = require("./view.less");
 
 class App extends React.Component {
   editor: QTextView | null;
@@ -37,7 +37,7 @@ class App extends React.Component {
         </p>
         <div>
           <QTextView
-            className={styles.showbox}
+            className={"qtext-showbox"}
             ref={r => (this.editor = r)}
             value={initValue.data}
           />

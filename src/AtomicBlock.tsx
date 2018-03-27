@@ -2,8 +2,6 @@ import * as React from "react";
 import { MediaView } from "./components/Media/view";
 import { ContentBlock, ContentState } from "draft-js";
 
-const styles = require("./less/block.less");
-
 export const atomicRenderers: { [key: string]: any } = {
   IMAGE: MediaView,
   VIDEO: MediaView,
@@ -31,7 +29,7 @@ export class AtomicBlock extends React.Component<
     if (atomicRenderers[type]) {
       const AtComponent = atomicRenderers[type];
       return (
-        <div className={styles[`block-${type}`]}>
+        <div className={`qtext-block-${type}`}>
           <AtComponent data={data} type={type} />
         </div>
       );

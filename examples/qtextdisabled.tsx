@@ -3,7 +3,8 @@ import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import { QText, TEditData } from "../src/index";
 import { EditorDefaultTools } from "./../src/tools";
-import "./index.css";
+
+import "./../assets/index.less";
 import "./App.css";
 
 const initValue: TEditData = {

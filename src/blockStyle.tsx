@@ -1,30 +1,28 @@
 import { ContentBlock } from "draft-js";
 
-const styles = require("./less/block.less");
-
 export function getBlockStyle(block: ContentBlock) {
   const type: string = block.getType();
 
   switch (type) {
     case "header-one":
-      return styles.titleH1;
+      return "qtext-titleH1";
     case "header-two":
-      return styles.titleH2;
+      return "qtext-titleH2";
     case "header-three":
-      return styles.titleH3;
+      return "qtext-titleH3";
     case "header-four":
-      return styles.titleH4;
+      return "qtext-titleH4";
     case "header-five":
-      return styles.titleH5;
+      return "qtext-titleH5";
     case "header-six":
-      return styles.titleH6;
+      return "qtext-titleH6";
     case "blockquote":
-      return styles.blockquote;
+      return "qtext-blockquote";
     case "code-block":
-      return styles.code;
+      return "qtext-code";
     case "center":
     case "right":
-      return styles[type];
+      return `qtext-${type}`;
     default:
       return "";
   }

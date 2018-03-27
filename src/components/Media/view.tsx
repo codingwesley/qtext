@@ -8,15 +8,13 @@ export interface TMediaData {
   url: string;
 }
 
-const styles = require("./index.less");
-
 const Audio = (props: TMediaData) => {
-  return <audio controls={true} src={props.url} className={styles.audio} />;
+  return <audio controls={true} src={props.url} className={"qtext-audio"} />;
 };
 
 const Image = (props: TMediaData) => {
   return (
-    <div className={styles.image}>
+    <div className={"qtext-image"}>
       <img src={props.url} />
     </div>
   );
@@ -39,7 +37,7 @@ const Video = (props: TMediaData) => {
   const cProps = {
     allowFullScreen: true,
     frameBorder: "0",
-    className: styles.iframe
+    className: "qtext-iframe"
   };
 
   let content: JSX.Element | null = null;
@@ -53,10 +51,10 @@ const Video = (props: TMediaData) => {
   }
 
   return (
-    <div className={styles.limitSize}>
-      <div className={styles.iframeContainer}>
+    <div className={"qtext-limitSize"}>
+      <div className={"qtext-iframeContainer"}>
         {content || (
-          <video controls={true} src={url} className={styles.video} />
+          <video controls={true} src={url} className={"qtext-video"} />
         )}
       </div>
     </div>

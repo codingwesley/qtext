@@ -15,8 +15,6 @@ import {
 } from "draft-js";
 import "draft-js/dist/Draft.css";
 
-const styles = require("./less/QtextView.less");
-
 export interface QTextViewProps {
   readOnly?: boolean;
   onChange?: (editorState: EditorState) => void;
@@ -81,7 +79,7 @@ export class QTextView extends React.Component<QTextViewProps, QTextViewState> {
     const { editorState } = this.state;
 
     return (
-      <div className={classnames(styles.viewcontent, className)}>
+      <div className={classnames("qtext-viewcontent", className)}>
         <Editor
           customStyleMap={InlineStyleMap}
           blockRendererFn={this.getBlockRender}
