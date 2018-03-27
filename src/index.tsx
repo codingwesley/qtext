@@ -23,7 +23,6 @@ export interface QTextProps {
   disabled?: string[]; // ./tools.ts  disabled tool keys
   rcUploadProps?: any; // 同 rc-upload props image upload
   rcSuccess?: (data: any) => string | Promise<string>;
-  prefixCls?: string;
 }
 
 export interface QTextState {
