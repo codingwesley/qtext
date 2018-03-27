@@ -1,9 +1,9 @@
-.@{qtextPrefixCls}-listBox {
+.listBox {
   position: relative;
   display: inline-block;
 }
 
-.@{qtextPrefixCls}-listModal {
+.listModal {
   position: absolute;
   z-index: 100;
   left: 0;
@@ -15,12 +15,12 @@
   border: 1px solid #ddd;
   background-color: #fff;
 
-  &.@{qtextPrefixCls}-activeList {
+  &.activeList {
     display: block;
   }
 }
 
-.@{qtextPrefixCls}-item {
+.item {
   line-height: 1.8;
   padding: 0 10px;
   font-size: 16px;
@@ -32,7 +32,7 @@
   }
 }
 
-.@{qtextPrefixCls}-color {
+.color {
   display: inline-block;
   padding: 0;
   margin: 0;
@@ -40,7 +40,6 @@
   &:hover {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.534);
   }
-
   span {
     display: block;
     width: 20px;
@@ -50,12 +49,12 @@
 
 @h: 30px;
 
-.@{qtextPrefixCls}-head {
+.head {
   position: relative;
   line-height: @h;
   font-size: 14px;
 
-  .@{qtextPrefixCls}-rightIcon {
+  .rightIcon {
     position: absolute;
     right: 2px;
     top: 0;
@@ -64,8 +63,8 @@
   }
 }
 
-.@{qtextPrefixCls}-active {
-  .@{qtextPrefixCls}-rightIcon {
+.active {
+  .rightIcon {
     transform: rotate(90deg);
   }
 }

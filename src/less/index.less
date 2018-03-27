@@ -1,8 +1,11 @@
+@import "./font.less";
+@import "./draft.less";
+
 figure {
   margin: 0 1em;
 }
 
-.@{qtextPrefixCls}-editor {
+.editor {
   position: relative;
   margin: 0;
   padding: 0;
@@ -11,19 +14,19 @@ figure {
   font-family: "Roboto-Regular";
   background-color: #fff;
 
-  .@{qtextPrefixCls}-content {
+  .content {
     padding: 8px;
     min-height: 100px;
   }
 
-  &.@{qtextPrefixCls}-mobile {
+  &.mobile {
     background: url("//i.ezbuy.sg/FpjrbpcApGlAaI1oXJLLnvMzLEop") no-repeat top
       center;
     background-size: 436px auto;
     padding: 54px 0 28px;
     box-sizing: border-box;
 
-    .@{qtextPrefixCls}-inner {
+    .inner {
       width: 375px;
       box-sizing: border-box;
       border-radius: 0 0 30px 30px;
@@ -33,12 +36,12 @@ figure {
     }
   }
 
-  &.@{qtextPrefixCls}-inEditStatus {
-    .@{qtextPrefixCls}-inner {
+  &.inEditStatus {
+    .inner {
       position: relative;
     }
 
-    .@{qtextPrefixCls}-header {
+    .header {
       position: absolute;
       top: 0;
       left: 0;
@@ -46,21 +49,21 @@ figure {
       box-sizing: border-box;
     }
 
-    &.@{qtextPrefixCls}-desktop {
-      .@{qtextPrefixCls}-inner {
+    &.desktop {
+      .inner {
         padding-top: 30px;
       }
-      .@{qtextPrefixCls}-content {
+      .content {
         height: 600px;
         overflow-y: auto;
       }
     }
 
-    &.@{qtextPrefixCls}-mobile {
-      .@{qtextPrefixCls}-inner {
+    &.mobile {
+      .inner {
         padding-top: 30px * 3;
       }
-      .@{qtextPrefixCls}-content {
+      .content {
         height: 680px;
         overflow-y: auto;
       }
