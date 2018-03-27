@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>view.js - example - qtext@0.1.37</title>
+  <title>view.js - example - qtext@0.1.44</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>qtext@0.1.37</h1>
+      <h1>qtext@0.1.44</h1>
 
       <p></p>
     </div>
@@ -273,12 +273,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom"</span>;
 <span class="hljs-keyword">import</span> registerServiceWorker <span class="hljs-keyword">from</span> <span class="hljs-string">"./registerServiceWorker"</span>;
 <span class="hljs-keyword">import</span> { QTextView } <span class="hljs-keyword">from</span> <span class="hljs-string">"../src/QtextView"</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">"./index.css"</span>;
+
 <span class="hljs-keyword">import</span> <span class="hljs-string">"./App.css"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"./../assets/index.less"</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">"./view.less"</span>;
 
 <span class="hljs-keyword">const</span> initValue = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./test.json"</span>);
-
-<span class="hljs-keyword">const</span> styles = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./view.less"</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   editor: QTextView | <span class="hljs-literal">null</span>;
@@ -308,7 +308,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">QTextView</span>
-            <span class="hljs-attribute">className</span>=<span class="hljs-value">{styles.showbox}</span>
+            <span class="hljs-attribute">className</span>=<span class="hljs-value">{"qtext-showbox"}</span>
             <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editor = r)}
             value={initValue.data}
           /&gt;

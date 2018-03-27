@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>qtext.js - example - qtext@0.1.37</title>
+  <title>qtext.js - example - qtext@0.1.44</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,13 +257,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="../common.css" /><link rel="stylesheet" href="qtext.css" />
+  <link rel="stylesheet" href="../common.css" />
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>qtext@0.1.37</h1>
+      <h1>qtext@0.1.44</h1>
 
       <p></p>
     </div>
@@ -272,26 +272,29 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom"</span>;
 <span class="hljs-keyword">import</span> registerServiceWorker <span class="hljs-keyword">from</span> <span class="hljs-string">"./registerServiceWorker"</span>;
-<span class="hljs-keyword">import</span> { QText, TEditData } <span class="hljs-keyword">from</span> <span class="hljs-string">"../src/index"</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">"./index.css"</span>;
+<span class="hljs-keyword">import</span> { QText } <span class="hljs-keyword">from</span> <span class="hljs-string">"../src/index"</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"./../assets/index.less"</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">"./App.css"</span>;
 
 <span class="hljs-keyword">const</span> initValue = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./test.json"</span>);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">url</span>(<span class="hljs-params">hash: string</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-string">`http://7xiata.com1.z0.glb.clouddn.com/<span class="hljs-subst">${hash}</span>`</span>;
-}
-
 <span class="hljs-keyword">const</span> d = {
   token:
-    <span class="hljs-string">"LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:YUPh7TfD5N96-5-9jhzfgjf8UPI=:eyJzY29wZSI6ImRhaWdvdXRlc3QiLCJkZWFkbGluZSI6MTUxMzA3NTU3NCwidXBob3N0cyI6WyJodHRwOi8vdXAucWluaXUuY29tIiwiaHR0cDovL3VwbG9hZC5xaW5pdS5jb20iLCItSCB1cC5xaW5pdS5jb20gaHR0cDovLzE4My4xMzEuNy4xOCJdfQ=="</span>,
-  baseUrl: <span class="hljs-string">"http://7xiata.com1.z0.glb.clouddn.com/"</span>
+    <span class="hljs-string">"LljRgfC0Wlx7ScBAhP_g78WXTYOiuGViAiCMw76V:TPEmRFAbZMWakPqUj4C-u9I28GQ=:eyJzY29wZSI6ImRhb2dvdSIsImRlYWRsaW5lIjoxNTE2OTU2NTI5LCJ1cGhvc3RzIjpbImh0dHA6Ly91cC5xaW5pdS5jb20iLCJodHRwOi8vdXBsb2FkLnFpbml1LmNvbSIsIi1IIHVwLnFpbml1LmNvbSBodHRwOi8vMTgzLjEzMS43LjE4Il19"</span>,
+  baseUrl: <span class="hljs-string">"https://i.ezbuy.sg/"</span>
 };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">url</span>(<span class="hljs-params">hash: string</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${d.baseUrl}</span><span class="hljs-subst">${hash}</span>`</span>;
+}
 
 <span class="hljs-keyword">const</span> TOKEN = d.token;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   editor: QText | <span class="hljs-literal">null</span>;
+  editorView: QText | <span class="hljs-literal">null</span>;
+
   state = {
     value: <span class="hljs-literal">undefined</span>
   };
@@ -319,6 +322,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editor = r)}
             disabled={[]}
             value={this.state.value}
+            onChange={s =&gt; {
+              // use setData change view
+              if (s &amp;&amp; s.data &amp;&amp; this.editorView) {
+                this.editorView.setData(s.data);
+              }
+            }}
             rcSuccess={data =&gt; {
               return url(data.hash);
             }}
@@ -333,23 +342,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
             }}
           /&gt;
 
-          <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Test disabled some tools<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Test qtext view<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">QText</span>
-            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editor = r)}
-            disabled={["heading", "preview"]}
+            <span class="hljs-attribute">ref</span>=<span class="hljs-value">{r</span> =&gt;</span> (this.editorView = r)}
             value={this.state.value}
-            rcSuccess={data =&gt; {
-              return url(data.hash);
-            }}
-            rcUploadProps={{
-              data: {
-                token: TOKEN
-              },
-              action:
-                location.protocol === "https:"
-                  ? "https://up.qbox.me"
-                  : "http://upload.qiniu.com/"
-            }}
+            readOnly={true}
           /&gt;
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"App-intro"</span>&gt;</span>Qtext<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
