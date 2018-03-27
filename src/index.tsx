@@ -15,8 +15,6 @@ import {
 } from "draft-js";
 import { onPasted } from "./onPasted";
 
-const styles = require("./less/index.less");
-
 export interface QTextProps {
   readOnly?: boolean;
   placeholder?: string;
@@ -25,6 +23,7 @@ export interface QTextProps {
   disabled?: string[]; // ./tools.ts  disabled tool keys
   rcUploadProps?: any; // 同 rc-upload props image upload
   rcSuccess?: (data: any) => string | Promise<string>;
+  prefixCls?: string;
 }
 
 export interface QTextState {
@@ -135,16 +134,16 @@ export class QText extends React.Component<QTextProps, QTextState> {
   public render(): JSX.Element {
     const { rcUploadProps, rcSuccess, placeholder } = this.props;
     const { readOnly, editMode, toolBarHeight, editorState } = this.state;
-    const className = classnames(styles.editor, {
-      [styles.inEditStatus]: !this.props.readOnly,
-      [styles.desktop]: editMode === "desktop",
-      [styles.mobile]: !isMobile() && editMode === "mobile"
+    const className = classnames("qtext-editor", {
+      ["qtext-inEditStatus"]: !this.props.readOnly,
+      ["qtext-desktop"]: editMode === "desktop",
+      ["qtext-mobile"]: !isMobile() && editMode === "mobile"
     });
 
     return (
       <div className={className}>
         <div
-          className={styles.inner}
+          className={"qtext-inner"}
           style={{
             paddingTop: readOnly ? "auto" : toolBarHeight
           }}
@@ -153,7 +152,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
             <ToolBar
               ref={r => (this.toolbar = r)}
               readOnly={readOnly}
-              className={styles.header}
+              className={"qtext-header"}
               editMode={editMode}
               disabled={this.props.disabled}
               toggleEye={this.toggleEye}
@@ -164,7 +163,7 @@ export class QText extends React.Component<QTextProps, QTextState> {
               rcSuccess={rcSuccess}
             />
           )}
-          <div className={styles.content}>
+          <div className={"qtext-content"}>
             <QTextView
               ref={r => (this.qtextView = r)}
               readOnly={readOnly}
@@ -194,7 +193,10 @@ export class QText extends React.Component<QTextProps, QTextState> {
   setData(rowData: RawDraftContentState, cb?: Function) {
     this.setState(
       {
-        editorState: EditorState.createWithContent(convertFromRaw(rowData))
+        editorState: EditorState.createWithContent(
+          convertFromRaw(rowData),
+          decorator
+        )
       },
       () => {
         if (cb) {

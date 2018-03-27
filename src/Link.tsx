@@ -1,8 +1,6 @@
 import * as React from "react";
 import { ContentState, ContentBlock } from "draft-js";
 
-const styles = require("./less/Link.less");
-
 export function findLinkEntities(
   contentBlock: ContentBlock,
   callback: (start: number, end: number) => void,
@@ -34,7 +32,7 @@ export const Link = (props: LinkProps) => {
     <a
       href={url}
       target={newTarget ? "_blank" : "_self"}
-      className={styles.link}
+      className={"qtext-link"}
     >
       {props.children}
     </a>

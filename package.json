@@ -1,8 +1,7 @@
 {
   "name": "qtext",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "dependencies": {
-    "@types/draft-js": "^0.10.17",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.4",
     "rc-upload": "^2.4.4",
@@ -14,12 +13,13 @@
     "editor",
     "react editor"
   ],
-  "main": "./dist/main.js",
+  "main": "./lib/main.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "start": "./node_modules/.bin/rc-tools run server",
-    "build": "./node_modules/.bin/rc-tools run compile && ./node_modules/.bin/rc-tools run dist",
-    "gh-pages": "./node_modules/.bin/rc-tools run gh-pages"
+    "start": "rc-tools run server",
+    "build": "rc-tools run es",
+    "prebuild": "make lessbuild",
+    "gh-pages": "rc-tools run gh-pages"
   },
   "config": {
     "port": 8000,
@@ -31,9 +31,10 @@
   "files": [
     "lib",
     "es",
-    "dist"
+    "assets"
   ],
   "devDependencies": {
+    "@types/draft-js": "^0.10.17",
     "@types/node": "^8.0.51",
     "@types/react": "^16.0.22",
     "@types/react-dom": "^16.0.3",
@@ -51,7 +52,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
-    "rc-tools": "git+ssh://git@github.com:QuietWind/rc-tools.git",
+    "rc-tools": "^7.0.8",
     "react": "^16.1.1",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^16.1.1",

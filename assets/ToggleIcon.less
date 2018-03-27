@@ -1,8 +1,8 @@
-.iconele {
+.@{qtextPrefixCls}-iconele{
     display: inline-block;
 }
 
-.toolbtn {
+.@{qtextPrefixCls}-toolbtn{
   margin: 0;
   padding: 0;
   border: 0;
@@ -15,20 +15,20 @@
   color: #333;
   font-size: 16px;
 
-  &:hover {
+  &.@{qtextPrefixCls}-hover{
     background-color: #999;
   }
 
-  &:disabled {
+  &.@{qtextPrefixCls}-disabled{
     opacity: 0.5;
     color: #999;
     cursor: not-allowed;
-    &:hover {
+    &.@{qtextPrefixCls}-hover{
       background-color: #fff;
     }
   }
 
-  &.active {
+  &.@{qtextPrefixCls}-active{
     color: #1e88e5;
   }
 }

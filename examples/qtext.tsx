@@ -1,8 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
-import { QText, TEditData } from "../src/index";
-import "./index.css";
+import { QText } from "../src/index";
+
+import "./../assets/index.less";
 import "./App.css";
 
 const initValue = require("./test.json");

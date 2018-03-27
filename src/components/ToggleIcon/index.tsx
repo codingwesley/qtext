@@ -17,8 +17,6 @@ export interface ToggleIconState {
   value: string;
 }
 
-const styles = require("./index.less");
-
 export class ToggleIcon extends React.Component<
   ToggleIconProps,
   ToggleIconState
@@ -67,14 +65,14 @@ export class ToggleIcon extends React.Component<
 
     return (
       <div
-        className={classnames(styles.iconele, {
+        className={classnames("qtext-iconele", {
           [String(className)]: className !== undefined
         })}
       >
         <button
           onClick={this.onToggle}
           title={icons.map(ele => ele.value).join("/")}
-          className={classnames(styles.toolbtn)}
+          className={classnames("qtext-toolbtn")}
         >
           <i className={`fa fa-${icon}`} />
         </button>

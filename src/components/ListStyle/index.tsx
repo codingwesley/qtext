@@ -28,8 +28,6 @@ export interface ListStyleState {
   visible: boolean;
 }
 
-const styles = require("./index.less");
-
 export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
   constructor(props: ListStyleProps) {
     super(props);
@@ -96,15 +94,15 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
 
     return (
       <div
-        className={classnames(styles.listBox, {
+        className={classnames("qtext-listBox", {
           [String(className)]: className !== undefined
         })}
       >
         <div
           onClick={this.modalShow}
-          className={classnames(styles.item, {
-            [styles.head]: true,
-            [styles.active]: this.state.visible
+          className={classnames("qtext-item", {
+            ["qtext-head"]: true,
+            ["qtext-active"]: this.state.visible
           })}
           style={style}
         >
@@ -114,7 +112,7 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
               : (defaultItem && defaultItem.label) || "none"}
           </span>
           {isColor ? null : (
-            <i className={"fa fa-angle-right " + styles.rightIcon} />
+            <i className={"fa fa-angle-right " + "qtext-rightIcon"} />
           )}
         </div>
 
@@ -123,7 +121,7 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
             style={{
               width
             }}
-            className={classnames(styles.listModal, styles.activeList)}
+            className={classnames("qtext-listModal", "qtext-activeList")}
           >
             {data.map(item => {
               const { value } = item;
@@ -136,8 +134,8 @@ export class ListStyle extends React.Component<ListStyleProps, ListStyleState> {
                     this.onToggle(value);
                     this.modalShow();
                   }}
-                  className={classnames(styles.item, {
-                    [styles.color]: isColor
+                  className={classnames("qtext-item", {
+                    ["qtext-color"]: isColor
                   })}
                 >
                   {text}

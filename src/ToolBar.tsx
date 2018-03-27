@@ -19,8 +19,6 @@ import {
 } from "./const";
 import { EditorDefaultTools } from "./tools";
 
-const styles = require("./less/ToolBar.less");
-
 interface ToolBtnProps {
   onToggle?: (isBlock: boolean, style: string) => void;
   item: TStyleItem;
@@ -49,8 +47,8 @@ class ToolBtn extends React.Component<ToolBtnProps, ToolBtnState> {
       <button
         disabled={disabled !== undefined ? disabled : false}
         onMouseDown={this.onToggle}
-        className={classnames(styles.toolbtn, {
-          [styles.active]: this.props.active
+        className={classnames("qtext-toolbtn", {
+          ["qtext-active"]: this.props.active
         })}
       >
         {icon ? <i className={`fa fa-${icon}`} /> : <span>{label}</span>}
@@ -253,7 +251,7 @@ export class ToolBar extends React.PureComponent<ToolBarProps, ToolBarState> {
     });
 
     return (
-      <div className={classnames(styles.barbox, className)}>{toolItemList}</div>
+      <div className={classnames("qtext-barbox", className)}>{toolItemList}</div>
     );
   }
 

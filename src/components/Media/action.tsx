@@ -7,8 +7,6 @@ import { findDOMNode } from "react-dom";
 import { TPluginActionProps } from "./../plugin";
 import { TMedia } from "./type";
 
-const styles = require("./index.less");
-
 export interface MediaActionProps extends TPluginActionProps {
   type: TMedia;
   className?: string;
@@ -117,20 +115,23 @@ export class MediaAction extends React.Component<
   };
 
   confirmMedia = () => {
-    let urlValue = this.input ? this.input.value : "";
-    urlValue = this.props.type === "IMAGE" ? this.inputValue : urlValue;
-    if (!urlValue) {
+    const { editorState, changeEditorState, type } = this.props;
+    let url = this.input ? this.input.value : "";
+    url = type === "IMAGE" ? this.inputValue : url;
+    if (!url) {
       return;
     }
 
-    const isLINK = this.props.type === "LINK";
-    const { editorState, changeEditorState, type } = this.props;
+    const isLINK = type === "LINK";
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
       type,
       "IMMUTABLE",
-      { url: urlValue }
+      { url }
     );
+
+    console.log(type, url);
+
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity
@@ -195,7 +196,7 @@ export class MediaAction extends React.Component<
       }
     };
     return (
-      <div className={styles.media}>
+      <div className={"qtext-media"}>
         <Upload {...UploadProps}>{this.props.children}</Upload>
       </div>
     );
@@ -209,19 +210,19 @@ export class MediaAction extends React.Component<
     }
 
     return (
-      <div className={classnames(styles.media, className)}>
+      <div className={classnames("qtext-media", className)}>
         <span onClick={() => this.modalShow(true)}>{this.props.children}</span>
         {this.state.showURLInput ? (
-          <div className={styles.urlInputContainer}>
+          <div className={"qtext-urlInputContainer"}>
             <input
               ref={r => (this.input = r)}
-              className={styles.urlInput}
+              className={"qtext-urlInput"}
               type="text"
               placeholder={getPlaceholder(type)}
               onKeyDown={this._onURLInputKeyDown}
             />
             <span
-              className={styles.close}
+              className={"qtext-close"}
               onClick={() => this.modalShow(false)}
             >
               x
