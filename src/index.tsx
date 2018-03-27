@@ -194,7 +194,10 @@ export class QText extends React.Component<QTextProps, QTextState> {
   setData(rowData: RawDraftContentState, cb?: Function) {
     this.setState(
       {
-        editorState: EditorState.createWithContent(convertFromRaw(rowData))
+        editorState: EditorState.createWithContent(
+          convertFromRaw(rowData),
+          decorator
+        )
       },
       () => {
         if (cb) {

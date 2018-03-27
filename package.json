@@ -2,23 +2,18 @@
   "name": "qtext",
   "version": "0.1.43",
   "dependencies": {
-    "@types/draft-js": "^0.10.17",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.4",
     "rc-upload": "^2.4.4",
     "rc-util": "^4.3.0"
   },
-  "keywords": [
-    "draft-js",
-    "richtext editor",
-    "editor",
-    "react editor"
-  ],
+  "keywords": ["draft-js", "richtext editor", "editor", "react editor"],
   "main": "./dist/main.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "./node_modules/.bin/rc-tools run server",
-    "build": "./node_modules/.bin/rc-tools run compile && ./node_modules/.bin/rc-tools run dist",
+    "build":
+      "./node_modules/.bin/rc-tools run compile && ./node_modules/.bin/rc-tools run dist",
     "gh-pages": "./node_modules/.bin/rc-tools run gh-pages"
   },
   "config": {
@@ -28,15 +23,12 @@
       "qtextview": "./src/QtextView.tsx"
     }
   },
-  "files": [
-    "lib",
-    "es",
-    "dist"
-  ],
+  "files": ["lib", "es", "dist"],
   "devDependencies": {
     "@types/node": "^8.0.51",
     "@types/react": "^16.0.22",
     "@types/react-dom": "^16.0.3",
+    "@types/draft-js": "^0.10.17",
     "autoprefixer": "7.1.2",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",

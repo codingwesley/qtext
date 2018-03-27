@@ -117,20 +117,23 @@ export class MediaAction extends React.Component<
   };
 
   confirmMedia = () => {
-    let urlValue = this.input ? this.input.value : "";
-    urlValue = this.props.type === "IMAGE" ? this.inputValue : urlValue;
-    if (!urlValue) {
+    const { editorState, changeEditorState, type } = this.props;
+    let url = this.input ? this.input.value : "";
+    url = type === "IMAGE" ? this.inputValue : url;
+    if (!url) {
       return;
     }
 
-    const isLINK = this.props.type === "LINK";
-    const { editorState, changeEditorState, type } = this.props;
+    const isLINK = type === "LINK";
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity(
       type,
       "IMMUTABLE",
-      { url: urlValue }
+      { url }
     );
+
+    console.log(type, url);
+
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity
