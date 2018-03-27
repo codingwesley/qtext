@@ -18,7 +18,7 @@
   "scripts": {
     "start": "rc-tools run server",
     "build": "rc-tools run es",
-    "prebuild": "lessc ./assets/index.less ./assets/index.css",
+    "prebuild": "make lessbuild",
     "gh-pages": "rc-tools run gh-pages"
   },
   "config": {
