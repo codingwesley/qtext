@@ -17,7 +17,8 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "rc-tools run server",
-    "build": "rc-tools run compile",
+    "build": "rc-tools run es",
+    "prebuild": "lessc ./assets/index.less ./assets/index.css",
     "gh-pages": "rc-tools run gh-pages"
   },
   "config": {
@@ -30,7 +31,7 @@
   "files": [
     "lib",
     "es",
-    "dist"
+    "assets"
   ],
   "devDependencies": {
     "@types/draft-js": "^0.10.17",
